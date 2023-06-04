@@ -14,9 +14,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Transformation;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 
-public class InteractEvent implements Listener {
+public class Interact implements Listener {
 
     @EventHandler
     public void interact(PlayerInteractEvent event) {
@@ -36,38 +35,45 @@ public class InteractEvent implements Listener {
                     if (toolValue != null) {
                         if (toolValue.equals("InventorySpawnItem")) {
                             spawnDisplayEntity(player.getLocation(), EntityType.ITEM_DISPLAY);
-                            player.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.AQUA + "Spawned new item display entity!");
+                            player.sendMessage(Utilities.getInfoMessageFormat("Spawned new item display entity!"));
                             return;
                         }
                         if (toolValue.equals("InventorySpawnBlock")) {
                             spawnDisplayEntity(player.getLocation(), EntityType.BLOCK_DISPLAY);
-                            player.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.AQUA + "Spawned new block display entity!");
+                            player.sendMessage(Utilities.getInfoMessageFormat("Spawned new block display entity!"));
                             return;
                         }
                         if (toolValue.equals("InventorySpawnText")) {
                             spawnDisplayEntity(player.getLocation(), EntityType.TEXT_DISPLAY);
-                            player.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.AQUA + "Spawned new text display entity!");
+                            player.sendMessage(Utilities.getInfoMessageFormat("Spawned new text display entity!"));
                             return;
                         }
                         if (toolValue.equals("InventoryUnlock")) {
                             Display display = getNearestDisplayEntity(player.getLocation(), false);
                             if (display == null) {
-                                player.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.AQUA + "There is not locked display entity within 5 blocks!");
+                                player.sendMessage(Utilities.getErrorMessageFormat("There is no locked display entity within 5 blocks!"));
                                 return;
                             }
                             display.getScoreboardTags().remove("dee:locked");
                             highlightEntity(display);
-                            player.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.AQUA + "Display entity unlocked!");
+                            player.sendMessage(Utilities.getInfoMessageFormat("Display entity unlocked!"));
                             return;
                         }
 
                         Display display = getNearestDisplayEntity(player.getLocation(), true);
                         if (display == null) {
-                            player.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.AQUA + "There is not unlocked display entity within 5 blocks!");
+                            player.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked display entity within 5 blocks!"));
                             return;
                         }
                         switch (toolValue) {
                             case "InventoryGUI" -> {
+
+                                if (InventoryClick.currentEditMap.containsValue(display)) {
+                                    player.sendMessage(Utilities.getErrorMessageFormat("Someone else is editing this entity at the moment!"));
+                                    return;
+                                }
+                                InventoryClick.currentEditMap.put(player.getUniqueId(), display);
+
                                 if (display instanceof ItemDisplay) {
                                     player.openInventory(InventoryFactory.createItemDisplayGUI((ItemDisplay) display));
                                 } else if (display instanceof BlockDisplay) {
@@ -114,7 +120,7 @@ public class InteractEvent implements Listener {
                             case "InventoryHighlight" -> highlightEntity(display);
                             case "InventoryCenterPivot" -> {
                                 Transformation t = display.getTransformation();
-                                t.getTranslation().set(t.getScale().x()/2, t.getScale().y()/2, t.getScale().z()/2);
+                                t.getTranslation().set(-1*(t.getScale().x()/2), -1*(t.getScale().y()/2), -1*(t.getScale().z()/2));
                                 display.setTransformation(t);
                                 player.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.AQUA + "Centered pivot!");
                             }
@@ -306,11 +312,8 @@ public class InteractEvent implements Listener {
     }
 
     private static void highlightEntity(Display display) {
-        if (display instanceof TextDisplay) {
-            display.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, display.getLocation(), 50,0.2,0.2,0.2,0);
-        } else {
-            display.setGlowing(true);
-            Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> display.setGlowing(false), 20L);
-        }
+        display.setGlowing(true);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> display.setGlowing(false), 20L);
+        display.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, display.getLocation(), 50,0.2,0.2,0.2,0);
     }
 }

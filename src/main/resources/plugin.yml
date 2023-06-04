@@ -4,3 +4,12 @@ main: goldenshadow.displayentityeditor.DisplayEntityEditor
 api-version: 1.19
 authors: [_GoldenShadow]
 description: A full suite of tools to edit text, item and block display entities
+commands:
+  displayentityeditor:
+    aliases:
+      - dee
+      - deeditor
+      - detools
+      - det
+    permission: DisplayEntityEditor.admin
+    description: This command gives you all the tools needed to edit display entities

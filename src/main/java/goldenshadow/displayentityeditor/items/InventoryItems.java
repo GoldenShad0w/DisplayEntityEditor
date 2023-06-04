@@ -23,7 +23,7 @@ public class InventoryItems {
 
     public static ItemStack rotateYaw() {
         ItemStack itemStack = new ItemStack(Material.MAGMA_CREAM);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Rotate horizontally (yaw)",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Rotate Horizontally (yaw)",
                 List.of(
                         ChatColor.GRAY + "Click to rotate the nearest",
                         ChatColor.GRAY + "unlocked display entity",
@@ -38,7 +38,7 @@ public class InventoryItems {
 
     public static ItemStack rotatePitch() {
         ItemStack itemStack = new ItemStack(Material.SLIME_BALL);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Rotate vertically (pitch)",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Rotate Vertically (pitch)",
                 List.of(
                         ChatColor.GRAY + "Click to rotate the nearest",
                         ChatColor.GRAY + "unlocked display entity",
@@ -134,7 +134,7 @@ public class InventoryItems {
 
     public static ItemStack unlock() {
         ItemStack itemStack = new ItemStack(Material.MUSIC_DISC_11);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Unlock nearest display entity",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Unlock Nearest Display Entity",
                 List.of(
                         ChatColor.GRAY + "Right click to unlock the nearest locked",
                         ChatColor.GRAY + "display entity, making it editable again"
@@ -146,7 +146,7 @@ public class InventoryItems {
 
     public static ItemStack highlightTarget() {
         ItemStack itemStack = new ItemStack(Material.GLOWSTONE_DUST);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Highlight target",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Highlight Target",
                 List.of(
                         ChatColor.GRAY + "Right click to highlight the display entity",
                         ChatColor.GRAY + "that will be targeted by your tools"

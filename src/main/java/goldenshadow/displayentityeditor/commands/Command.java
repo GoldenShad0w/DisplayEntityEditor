@@ -1,5 +1,6 @@
 package goldenshadow.displayentityeditor.commands;
 
+import goldenshadow.displayentityeditor.Utilities;
 import goldenshadow.displayentityeditor.inventories.InventoryFactory;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
@@ -22,7 +23,7 @@ public class Command implements CommandExecutor {
         if (sender instanceof Player p) {
             if (savedInventories.containsKey(p.getUniqueId())) {
                 returnInventory(p);
-                p.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.AQUA + "Your inventory has been returned to you!");
+                p.sendMessage(Utilities.getInfoMessageFormat("Your inventory has been returned to you!"));
                 savedInventories.remove(p.getUniqueId());
                 return true;
             }
@@ -31,7 +32,7 @@ public class Command implements CommandExecutor {
             for (int i = 0; i < array.length; i++) {
                 p.getInventory().setItem(i, array[i]);
             }
-            p.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.AQUA + "Given display entity tools. Left click to cycle through the tools.");
+            p.sendMessage(Utilities.getInfoMessageFormat("Given display entity tools. Left click to cycle through the tools."));
             p.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.BLUE + "Run this command again to have your inventory returned!");
             return true;
         }

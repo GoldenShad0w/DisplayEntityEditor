@@ -56,6 +56,7 @@ public class InventoryFactory {
                 case 8 -> inventory.setItem(i, GUIItems.skyLight(entity.getBrightness() != null ? entity.getBrightness().getSkyLight() : -1));
 
                 case 10 -> inventory.setItem(i, new ItemStack(entity.getBlock().getMaterial()));
+                case 11 -> inventory.setItem(i, GUIItems.blockState(entity.getBlock().getAsString(true)));
 
                 case 13 -> inventory.setItem(i, GUIItems.glowing(entity.isGlowing()));
                 case 14 -> inventory.setItem(i, GUIItems.leftRotNormalize(Utilities.getData(entity, "GUILRNormalize")));

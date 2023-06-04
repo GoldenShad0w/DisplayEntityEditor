@@ -12,6 +12,7 @@ import org.bukkit.entity.TextDisplay;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockDataMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GUIItems {
@@ -46,12 +47,11 @@ public class GUIItems {
 
     public static ItemStack glowColor(Color current) {
         ItemStack itemStack = new ItemStack(Material.RED_DYE);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Glowing",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Glow Color",
                 List.of(
                         ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + Utilities.getColor(current),
                         " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to set from RGB value"
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to set from RGB value"
                 ),
                 "GUIGlowColor"
         );
@@ -81,7 +81,7 @@ public class GUIItems {
                         ChatColor.GRAY + "Will stop the shape of the display entity from",
                         ChatColor.GRAY + "deforming when rotated. Can usually be left on true",
                         " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value"
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to toggle"
                 ),
                 "GUIRRNormalize"
         );
@@ -184,7 +184,7 @@ public class GUIItems {
 
     public static ItemStack lock() {
         ItemStack itemStack = new ItemStack(Material.STRUCTURE_VOID);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Lock entity",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Lock Entity",
                 List.of(
                         ChatColor.GRAY + "Makes the entity uneditable until unlocked",
                         ChatColor.GRAY + "with the unlock item. This is useful when you",
@@ -235,7 +235,7 @@ public class GUIItems {
     public static ItemStack delete() {
         ItemStack itemStack = new ItemStack(Material.BARRIER);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Delete entity",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Delete Entity",
                 List.of(
                         ChatColor.GRAY + "Permanently deletes this entity",
                         " ",
@@ -248,14 +248,14 @@ public class GUIItems {
 
     public static ItemStack filler() {
         ItemStack itemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
-        Utilities.setMeta(itemStack, " ", List.of(" "), "GUIFiller");
+        Utilities.setMeta(itemStack, " ", new ArrayList<>(), "GUIFiller");
         return itemStack;
     }
 
     public static ItemStack itemDisplayTransform(ItemDisplay.ItemDisplayTransform current) {
         ItemStack itemStack = new ItemStack(Material.ARMOR_STAND);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set item display transform",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Item Render Type",
                 List.of(
                         ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current.toString(),
                         ChatColor.GRAY + "Defines how the item should be rendered",
@@ -271,10 +271,10 @@ public class GUIItems {
     public static ItemStack textOpacity(int current) {
         ItemStack itemStack = new ItemStack(Material.DRAGON_BREATH);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set text opacity",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Text Opacity",
                 List.of(
                         ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        ChatColor.GRAY + "Opacity value between 0 and 255 (inclusive).",
+                        ChatColor.GRAY + "Opacity value between 0 and 255 (inclusive) or -1 for default",
                         " ",
                         ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value"
                 ),
@@ -286,7 +286,7 @@ public class GUIItems {
     public static ItemStack textLineWidth(int current) {
         ItemStack itemStack = new ItemStack(Material.REPEATER);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set line width",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Line Width",
                 List.of(
                         ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
                         ChatColor.GRAY + "Defines the maximum line width.",
@@ -302,7 +302,7 @@ public class GUIItems {
     public static ItemStack textDefaultBackground(boolean current) {
         ItemStack itemStack = new ItemStack(Material.WHITE_STAINED_GLASS);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle default background",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Default Background",
                 List.of(
                         ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
                         ChatColor.GRAY + "Defines whether the default background or the",
@@ -318,7 +318,7 @@ public class GUIItems {
     public static ItemStack textSeeThrough(boolean current) {
         ItemStack itemStack = new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle visibility through blocks",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Visibility Through Blocks",
                 List.of(
                         ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
                         ChatColor.GRAY + "Defines whether the text should be visible",
@@ -334,7 +334,7 @@ public class GUIItems {
     public static ItemStack textShadow(boolean current) {
         ItemStack itemStack = new ItemStack(Material.BLACK_STAINED_GLASS);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle text shadow",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Text Shadow",
                 List.of(
                         ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
                         ChatColor.GRAY + "Defines whether the text should should",
@@ -350,12 +350,11 @@ public class GUIItems {
     public static ItemStack textBackgroundColor(Color current) {
         ItemStack itemStack = new ItemStack(Material.RED_BANNER);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set background color",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Background Color",
                 List.of(
                         ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + Utilities.getColor(current),
                         " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to set from RBG value"
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to set from RBG value"
                 ),
                 "GUITextBackgroundColor"
         );
@@ -365,7 +364,7 @@ public class GUIItems {
     public static ItemStack textBackgroundOpacity(Color current) {
         ItemStack itemStack = new ItemStack(Material.END_CRYSTAL);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set background opacity",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Background Opacity",
                 List.of(
                         ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + (current != null ? current.getAlpha() : "Default"),
                         ChatColor.GRAY + "Used to change the opacity of the background color.",
@@ -381,7 +380,7 @@ public class GUIItems {
     public static ItemStack textAlignment(TextDisplay.TextAlignment current) {
         ItemStack itemStack = new ItemStack(Material.FILLED_MAP);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set text alignment",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Text Alignment",
                 List.of(
                         ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current.toString(),
                         " ",
@@ -393,9 +392,9 @@ public class GUIItems {
     }
 
     public static ItemStack text() {
-        ItemStack itemStack = new ItemStack(Material.END_CRYSTAL);
+        ItemStack itemStack = new ItemStack(Material.OAK_SIGN);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set text",
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Text",
                 List.of(
                         " ",
                         ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change"
@@ -412,5 +411,20 @@ public class GUIItems {
         level.setLevel(current);
         meta.setBlockData(level);
         itemStack.setItemMeta(meta);
+    }
+
+    public static ItemStack blockState(String current) {
+        ItemStack itemStack = new ItemStack(Material.CHEST_MINECART);
+
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Block State",
+                List.of(
+                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
+                        " ",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to reset"
+                ),
+                "GUIBlockState"
+        );
+        return itemStack;
     }
 }
