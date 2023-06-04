@@ -1,0 +1,6 @@
+name: DisplayEntityEditor
+version: '${project.version}'
+main: goldenshadow.displayentityeditor.DisplayEntityEditor
+api-version: 1.19
+authors: [_GoldenShadow]
+description: A full suite of tools to edit text, item and block display entities
