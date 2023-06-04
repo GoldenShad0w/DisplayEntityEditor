@@ -1,12 +1,9 @@
 package goldenshadow.displayentityeditor;
 
-import goldenshadow.displayentityeditor.DisplayEntityEditor;
-import goldenshadow.displayentityeditor.enums.PresetColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Display;
-import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

@@ -7,25 +7,19 @@ import goldenshadow.displayentityeditor.items.GUIItems;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 public class InventoryClick implements Listener {
 
     public static HashMap<UUID, Display> currentEditMap = new HashMap<>();
-    public static final List<InventoryAction> placeActions = new ArrayList<>(List.of(InventoryAction.DROP_ALL_CURSOR, InventoryAction.DROP_ALL_SLOT, InventoryAction.DROP_ONE_CURSOR, InventoryAction.DROP_ONE_SLOT, InventoryAction.HOTBAR_SWAP, InventoryAction.PLACE_ONE, InventoryAction.PLACE_SOME, InventoryAction.PLACE_ALL, InventoryAction.SWAP_WITH_CURSOR));
-    public static final List<InventoryAction> removeActions = new ArrayList<>(List.of(InventoryAction.PICKUP_ONE, InventoryAction.PICKUP_SOME, InventoryAction.PICKUP_ALL, InventoryAction.PICKUP_HALF));
 
     @EventHandler
     public void inventoryClick(InventoryClickEvent event) {
@@ -136,13 +130,13 @@ public class InventoryClick implements Listener {
                                         b = new Display.Brightness(0,0);
                                     }
                                     entity.setBrightness(b);
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.skyLight(b.getSkyLight()));
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.blockLight(b.getBlockLight()));
+                                    player.getOpenInventory().setItem(8, GUIItems.skyLight(b.getSkyLight()));
+                                    player.getOpenInventory().setItem(17, GUIItems.blockLight(b.getBlockLight()));
                                 }
                                 if (event.isRightClick()) {
                                     entity.setBrightness(null);
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.skyLight(-1));
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.blockLight(-1));
+                                    player.getOpenInventory().setItem(8, GUIItems.skyLight(-1));
+                                    player.getOpenInventory().setItem(17, GUIItems.blockLight(-1));
                                 }
                             }
                             case "GUIBlockLight" -> {
@@ -154,13 +148,13 @@ public class InventoryClick implements Listener {
                                         b = new Display.Brightness(0,0);
                                     }
                                     entity.setBrightness(b);
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.skyLight(b.getSkyLight()));
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.blockLight(b.getBlockLight()));
+                                    player.getOpenInventory().setItem(8, GUIItems.skyLight(b.getSkyLight()));
+                                    player.getOpenInventory().setItem(17, GUIItems.blockLight(b.getBlockLight()));
                                 }
                                 if (event.isRightClick()) {
                                     entity.setBrightness(null);
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.skyLight(-1));
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.blockLight(-1));
+                                    player.getOpenInventory().setItem(8, GUIItems.skyLight(-1));
+                                    player.getOpenInventory().setItem(17, GUIItems.blockLight(-1));
                                 }
                             }
                             case "GUIDelete" -> {
@@ -181,7 +175,7 @@ public class InventoryClick implements Listener {
                             }
                             case "GUIBlockState" -> {
                                 if (event.isLeftClick()) {
-                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.BLOCK_STATE, null, getDecayTime()));
+                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.BLOCK_STATE, ((BlockDisplay) entity).getBlock().getMaterial(), getDecayTime()));
                                     player.sendMessage(Utilities.getInfoMessageFormat("Please enter the new block state! You can either use f3 or an online tool to help generate it."));
                                     player.closeInventory();
                                 }
@@ -281,22 +275,6 @@ public class InventoryClick implements Listener {
                     } else {
                         blockDisplay.setBlock(Bukkit.createBlockData(Material.AIR));
                     }
-                    /*
-                    if (itemStack != null) {
-                        if (itemStack.getType().isBlock()) {
-                            BlockData data = Bukkit.createBlockData(itemStack.getType());
-                            blockDisplay.setBlock(data);
-                            player.getOpenInventory().setItem(11, GUIItems.blockState(data.getAsString(true)));
-                            return;
-                        }
-                        event.setCancelled(true);
-                        BlockData data = Bukkit.createBlockData(Material.GRASS_BLOCK);
-                        blockDisplay.setBlock(data);
-                        player.getOpenInventory().setItem(11, GUIItems.blockState(data.getAsString(true)));
-                        player.sendMessage(Utilities.getErrorMessageFormat("Invalid block! The item you put into this needs to be a block item!"));
-                    }
-
-                     */
                 });
 
 

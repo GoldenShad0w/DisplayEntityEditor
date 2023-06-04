@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -37,7 +38,9 @@ public class PlayerChat implements Listener {
                     player.sendMessage(Utilities.getInfoMessageFormat("Set name!"));
                 }
                 case TEXT -> {
-                    ((TextDisplay) inputData.entity()).setText(ChatColor.translateAlternateColorCodes('&', event.getMessage()));
+                    String message = event.getMessage();
+                    message = message.replace("\\n", "\n");
+                   ((TextDisplay) inputData.entity()).setText(ChatColor.translateAlternateColorCodes('&', message));
                     player.sendMessage(Utilities.getInfoMessageFormat("Set text!"));
                 }
                 case LINE_WIDTH -> {
@@ -60,7 +63,7 @@ public class PlayerChat implements Listener {
                     if (isByte(event.getMessage())) {
                         byte b = (byte) Integer.parseInt(event.getMessage());
                         ((TextDisplay) inputData.entity()).setTextOpacity(b);
-                        player.sendMessage(Utilities.getInfoMessageFormat("Text opacity!"));
+                        player.sendMessage(Utilities.getInfoMessageFormat("Text opacity set!"));
                     } else {
                         player.sendMessage(Utilities.getErrorMessageFormat("The value needs to be an integer between 0 and 255!"));
                     }
@@ -103,10 +106,11 @@ public class PlayerChat implements Listener {
                     }
                 }
                 case BACKGROUND_OPACITY -> {
-                    if (isByte(event.getMessage())) {
+
+                    if (isByte(event.getMessage())) {Bukkit.broadcastMessage("eee");
                         TextDisplay t = (TextDisplay) inputData.entity();
                         if (t.getBackgroundColor() != null) {
-                            t.getBackgroundColor().setAlpha(Integer.parseInt(event.getMessage()));
+                            t.setBackgroundColor(Color.fromARGB(Integer.parseInt(event.getMessage()), t.getBackgroundColor().getRed(), t.getBackgroundColor().getGreen(), t.getBackgroundColor().getBlue()));
                         } else {
                             t.setBackgroundColor(Color.fromARGB(Integer.parseInt(event.getMessage()),0,0,0));
                         }
@@ -120,11 +124,10 @@ public class PlayerChat implements Listener {
                     if (array != null) {
                         TextDisplay t = (TextDisplay) inputData.entity();
                         if (t.getBackgroundColor() != null) {
-                            t.getBackgroundColor().setRed(array[0]);
-                            t.getBackgroundColor().setGreen(array[1]);
-                            t.getBackgroundColor().setBlue(array[2]);
+                            player.sendMessage(Arrays.toString(array));
+                            t.setBackgroundColor(Color.fromARGB(t.getBackgroundColor().getAlpha(), array[0], array[1], array[2]));
                         } else {
-                            t.setBackgroundColor(Color.fromARGB(0,array[0],array[1],array[2]));
+                            t.setBackgroundColor(Color.fromARGB(255,array[0],array[1],array[2]));
                         }
                         player.sendMessage(Utilities.getInfoMessageFormat("Background color set!"));
                     } else {

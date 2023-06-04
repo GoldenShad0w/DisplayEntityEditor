@@ -270,11 +270,12 @@ public class GUIItems {
 
     public static ItemStack textOpacity(int current) {
         ItemStack itemStack = new ItemStack(Material.DRAGON_BREATH);
+        if (current < 0) current = 0;
 
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Text Opacity",
                 List.of(
                         ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        ChatColor.GRAY + "Opacity value between 0 and 255 (inclusive) or -1 for default",
+                        ChatColor.GRAY + "Opacity value between 1 and 255 (inclusive) or 0 for default",
                         " ",
                         ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value"
                 ),
