@@ -17,6 +17,10 @@ import javax.annotation.Nullable;
 
 public class Interact implements Listener {
 
+    /**
+     * Used to listener for when a player uses a tool
+     * @param event The event
+     */
     @EventHandler
     public void interact(PlayerInteractEvent event) {
         if (event.getHand() == EquipmentSlot.HAND) {
@@ -252,6 +256,10 @@ public class Interact implements Listener {
     }
 
 
+    /**
+     * Used to cycle the players inventory to make it easy to switch tools
+     * @param p The player whose inventory should get cycled through
+     */
     public static void cycleInventory(Player p) {
         ItemStack[] array = new ItemStack[36];
         for (int i = 0; i < 36; i++) {
@@ -267,6 +275,12 @@ public class Interact implements Listener {
         }
     }
 
+    /**
+     * Used to get the nearest display entity
+     * @param location The location from where the nearest display entity should be gotten
+     * @param lockSearchToggle If this method should look for locked or unlocked entities. If true, it will only look for unlocked entities, and if false it will only look for locked ones
+     * @return The nearest display entity or null if none were found
+     */
     @Nullable
     public static Display getNearestDisplayEntity(Location location, boolean lockSearchToggle) {
         Display entity = null;
@@ -296,6 +310,11 @@ public class Interact implements Listener {
         return entity;
     }
 
+    /**
+     * Used to spawn a new display entity
+     * @param location The location of where it should be spawned
+     * @param type The specific type of display entity
+     */
     private static void spawnDisplayEntity(Location location, EntityType type) {
         assert location.getWorld() != null;
         Display d = (Display) location.getWorld().spawnEntity(location, type, false);
@@ -311,6 +330,10 @@ public class Interact implements Listener {
         }
     }
 
+    /**
+     * Used to highlight a specific display entity by making it glow and showing particles at its pivot point
+     * @param display The entity that should be highlighted
+     */
     private static void highlightEntity(Display display) {
         display.setGlowing(true);
         Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> display.setGlowing(false), 20L);

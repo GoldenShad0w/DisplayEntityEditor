@@ -15,6 +15,9 @@ import org.bukkit.inventory.meta.BlockDataMeta;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A utility class where all the gui items are created
+ */
 public class GUIItems {
 
     public static ItemStack name(String name) {

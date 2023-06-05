@@ -1,5 +1,8 @@
 package goldenshadow.displayentityeditor.enums;
 
+/**
+ * An enum used to define what kind of text input is being expected
+ */
 public enum InputType {
     NAME,
     VIEW_RANGE,

@@ -13,6 +13,11 @@ import org.bukkit.inventory.ItemStack;
 
 public class InventoryFactory {
 
+    /**
+     * Used to create the gui for item displays
+     * @param entity The item display entity being edited
+     * @return The gui
+     */
     public static Inventory createItemDisplayGUI(ItemDisplay entity) {
         Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.BOLD + "Item Display GUI");
         for (int i = 0; i < inventory.getSize(); i++) {
@@ -42,6 +47,11 @@ public class InventoryFactory {
         return inventory;
     }
 
+    /**
+     * Used to create the gui for block displays
+     * @param entity The block display entity being edited
+     * @return The gui
+     */
     public static Inventory createBlockDisplayGUI(BlockDisplay entity) {
         Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.BOLD + "Block Display GUI");
         for (int i = 0; i < inventory.getSize(); i++) {
@@ -72,6 +82,11 @@ public class InventoryFactory {
         return inventory;
     }
 
+    /**
+     * Used to create the gui for text displays
+     * @param entity The text display entity being edited
+     * @return The gui
+     */
     @SuppressWarnings("deprecation")
     public static Inventory createTextDisplayGUI(TextDisplay entity) {
         Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.BOLD + "Text Display GUI");
@@ -107,6 +122,10 @@ public class InventoryFactory {
         return inventory;
     }
 
+    /**
+     * Used to generate an array of tools to be easily added to a players inventory
+     * @return An array of tools
+     */
     public static ItemStack[] getInventoryItems() {
         ItemStack[] array = new ItemStack[36];
 

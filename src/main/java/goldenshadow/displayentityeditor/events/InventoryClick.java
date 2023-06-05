@@ -21,6 +21,10 @@ public class InventoryClick implements Listener {
 
     public static HashMap<UUID, Display> currentEditMap = new HashMap<>();
 
+    /**
+     * Used to listen for when a player clicks on a gui item
+     * @param event The event
+     */
     @EventHandler
     public void inventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
@@ -286,6 +290,10 @@ public class InventoryClick implements Listener {
     }
 
 
+    /**
+     * A utility method used to quickly get the time a chat input times out
+     * @return The time
+     */
     private static long getDecayTime() {
         return System.currentTimeMillis() + 20000;
     }

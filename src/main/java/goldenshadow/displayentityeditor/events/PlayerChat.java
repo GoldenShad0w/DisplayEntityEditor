@@ -24,6 +24,10 @@ public class PlayerChat implements Listener {
 
     public static HashMap<UUID, InputData> inputDataMap = new HashMap<>();
 
+    /**
+     * Used to listen for when a player enters a value via chat
+     * @param event The event
+     */
     @SuppressWarnings("deprecation")
     @EventHandler
     public void chat(AsyncPlayerChatEvent event) {
@@ -159,10 +163,20 @@ public class PlayerChat implements Listener {
         }
     }
 
-
-
+    /**
+     * A record used to store information about what kind of input is being expected
+     * @param entity The entity that is being edited
+     * @param inputType The thing that is being changed
+     * @param blockMaterial The block material for if the block state if being edited. Otherwise null
+     * @param decayTime The time until the input decays
+     */
     public record InputData(Display entity, InputType inputType, @Nullable Material blockMaterial, long decayTime) {}
 
+    /**
+     * Used to check if a given string can safely be parsed into an int
+     * @param s The string
+     * @return True if it can, otherwise false
+     */
     private static boolean isInt(String s) {
         try {
             Integer.parseInt(s);
@@ -172,6 +186,11 @@ public class PlayerChat implements Listener {
         }
     }
 
+    /**
+     * Used to check if a given string can safely be parsed into an float
+     * @param s The string
+     * @return True if it can, otherwise false
+     */
     private static boolean isFloat(String s) {
         try {
             Float.parseFloat(s);
@@ -181,6 +200,11 @@ public class PlayerChat implements Listener {
         }
     }
 
+    /**
+     * Used to check if a given string can safely be parsed into an byte
+     * @param s The string
+     * @return True if it can, otherwise false
+     */
     private static boolean isByte(String s) {
         if (isInt(s)) {
             int i = Integer.parseInt(s);
@@ -189,6 +213,11 @@ public class PlayerChat implements Listener {
         return false;
     }
 
+    /**
+     * Used to parse a text input for an RBG value into an array of those values
+     * @param input The text input
+     * @return An array where index 0 is red, 1 is green and 2 is blue
+     */
     public static int[] parseStringToRGB(String input) {
         String[] parts = input.split(",");
         if (parts.length != 3) {

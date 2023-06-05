@@ -7,6 +7,9 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
+/**
+ * A utility class where all inventory items are created
+ */
 public class InventoryItems {
 
     public static ItemStack gui() {
@@ -91,7 +94,7 @@ public class InventoryItems {
                         ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to move +0.1",
                         ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to move -0.1"
                 ),
-                "InventoryMoveY"
+                "InventoryMoveZ"
         );
         return itemStack;
     }
