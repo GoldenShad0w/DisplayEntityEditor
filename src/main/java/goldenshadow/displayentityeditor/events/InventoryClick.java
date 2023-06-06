@@ -2,8 +2,9 @@ package goldenshadow.displayentityeditor.events;
 
 import goldenshadow.displayentityeditor.DisplayEntityEditor;
 import goldenshadow.displayentityeditor.Utilities;
+import goldenshadow.displayentityeditor.conversation.InputData;
+import goldenshadow.displayentityeditor.conversation.InputManager;
 import goldenshadow.displayentityeditor.enums.InputType;
-import goldenshadow.displayentityeditor.items.GUIItems;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -14,12 +15,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
-import java.util.UUID;
 
 public class InventoryClick implements Listener {
 
-    public static HashMap<UUID, Display> currentEditMap = new HashMap<>();
 
     /**
      * Used to listen for when a player clicks on a gui item
@@ -29,7 +27,7 @@ public class InventoryClick implements Listener {
     public void inventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         if (player.getOpenInventory().getTitle().equals(ChatColor.BOLD + "Block Display GUI") || player.getOpenInventory().getTitle().equals(ChatColor.BOLD + "Item Display GUI") || player.getOpenInventory().getTitle().equals(ChatColor.BOLD + "Text Display GUI")) {
-            Display entity = currentEditMap.get(player.getUniqueId());
+            Display entity = DisplayEntityEditor.currentEditMap.get(player.getUniqueId());
             if (event.getClickedInventory() != null && !event.getClickedInventory().equals(player.getInventory())) {
                 if (event.getCurrentItem() != null && Utilities.hasDataKey(event.getCurrentItem())) {
                     event.setCancelled(true);
@@ -38,62 +36,57 @@ public class InventoryClick implements Listener {
                         switch (value) {
                             case "GUIName" -> {
                                 if (event.isLeftClick()) {
-                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.NAME, null, getDecayTime()));
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Please enter the new name it chat! You can use '&' for color codes."));
                                     player.closeInventory();
+                                    InputManager.createTextInput(player, "Please enter the new name it chat! You can use '&' for color codes.", new InputData(entity, InputType.NAME, null));
                                 } else {
                                     entity.setCustomNameVisible(false);
                                     entity.setCustomName(null);
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.name(null));
+                                    player.getOpenInventory().setItem(event.getSlot(), DisplayEntityEditor.inventoryFactory.getGuiItems().name(null));
                                 }
                             }
                             case "GUIGlow" -> {
                                 if (event.isLeftClick()) {
                                     boolean b = !entity.isGlowing();
                                     entity.setGlowing(b);
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.glowing(b));
+                                    player.getOpenInventory().setItem(event.getSlot(), DisplayEntityEditor.inventoryFactory.getGuiItems().glowing(b));
                                 }
                             }
                             case "GUIGlowColor" -> {
                                 if (event.isLeftClick()) {
-                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.GLOW_COLOR, null, getDecayTime()));
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Please enter the new rgb values it chat! Use the format: R, G, B"));
                                     player.closeInventory();
+                                    InputManager.createTextInput(player, "Please enter the new rgb values it chat! Use the format: R, G, B", new InputData(entity, InputType.GLOW_COLOR, null));
                                 }
                             }
                             case "GUILRNormalize" -> {
                                 if (event.isLeftClick()) {
                                     boolean b = !Utilities.getData(entity, "GUILRNormalize");
                                     Utilities.setData(entity, "GUILRNormalize", b);
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.leftRotNormalize(b));
+                                    player.getOpenInventory().setItem(event.getSlot(), DisplayEntityEditor.inventoryFactory.getGuiItems().leftRotNormalize(b));
                                 }
                             }
                             case "GUIRRNormalize" -> {
                                 if (event.isLeftClick()) {
                                     boolean b = !Utilities.getData(entity, "GUIRRNormalize");
                                     Utilities.setData(entity, "GUIRRNormalize", b);
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.rightRotNormalize(b));
+                                    player.getOpenInventory().setItem(event.getSlot(), DisplayEntityEditor.inventoryFactory.getGuiItems().rightRotNormalize(b));
                                 }
                             }
                             case "GUIViewRange" -> {
                                 if (event.isLeftClick()) {
-                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.VIEW_RANGE, null, getDecayTime()));
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Please enter the value in chat!"));
                                     player.closeInventory();
+                                    InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.VIEW_RANGE, null));
                                 }
                             }
                             case "GUIWidth" -> {
                                 if (event.isLeftClick()) {
-                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.DISPLAY_WIDTH, null, getDecayTime()));
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Please enter the value in chat!"));
                                     player.closeInventory();
+                                    InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.DISPLAY_WIDTH, null));
                                 }
                             }
                             case "GUIHeight" -> {
                                 if (event.isLeftClick()) {
-                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.DISPLAY_HEIGHT, null, getDecayTime()));
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Please enter the value in chat!"));
                                     player.closeInventory();
+                                    InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.DISPLAY_HEIGHT, null));
                                 }
                             }
                             case "GUIBillboard" -> {
@@ -101,21 +94,20 @@ public class InventoryClick implements Listener {
                                     Display.Billboard billboard = entity.getBillboard();
                                     billboard = Display.Billboard.values()[(billboard.ordinal()+1) % Display.Billboard.values().length];
                                     entity.setBillboard(billboard);
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.billboard(billboard));
+                                    player.getOpenInventory().setItem(event.getSlot(), DisplayEntityEditor.inventoryFactory.getGuiItems().billboard(billboard));
                                 }
                             }
                             case "GUIShadowRadius" -> {
                                 if (event.isLeftClick()) {
-                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.SHADOW_RADIUS, null, getDecayTime()));
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Please enter the value in chat!"));
                                     player.closeInventory();
+                                    InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.SHADOW_RADIUS, null));
+
                                 }
                             }
                             case "GUIShadowStrength" -> {
                                 if (event.isLeftClick()) {
-                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.SHADOW_STRENGTH, null, getDecayTime()));
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Please enter the value in chat!"));
                                     player.closeInventory();
+                                    InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.SHADOW_STRENGTH, null));
                                 }
                             }
                             case "GUILock" -> {
@@ -134,13 +126,13 @@ public class InventoryClick implements Listener {
                                         b = new Display.Brightness(0,0);
                                     }
                                     entity.setBrightness(b);
-                                    player.getOpenInventory().setItem(8, GUIItems.skyLight(b.getSkyLight()));
-                                    player.getOpenInventory().setItem(17, GUIItems.blockLight(b.getBlockLight()));
+                                    player.getOpenInventory().setItem(8, DisplayEntityEditor.inventoryFactory.getGuiItems().skyLight(b.getSkyLight()));
+                                    player.getOpenInventory().setItem(17, DisplayEntityEditor.inventoryFactory.getGuiItems().blockLight(b.getBlockLight()));
                                 }
                                 if (event.isRightClick()) {
                                     entity.setBrightness(null);
-                                    player.getOpenInventory().setItem(8, GUIItems.skyLight(-1));
-                                    player.getOpenInventory().setItem(17, GUIItems.blockLight(-1));
+                                    player.getOpenInventory().setItem(8, DisplayEntityEditor.inventoryFactory.getGuiItems().skyLight(-1));
+                                    player.getOpenInventory().setItem(17, DisplayEntityEditor.inventoryFactory.getGuiItems().blockLight(-1));
                                 }
                             }
                             case "GUIBlockLight" -> {
@@ -152,13 +144,13 @@ public class InventoryClick implements Listener {
                                         b = new Display.Brightness(0,0);
                                     }
                                     entity.setBrightness(b);
-                                    player.getOpenInventory().setItem(8, GUIItems.skyLight(b.getSkyLight()));
-                                    player.getOpenInventory().setItem(17, GUIItems.blockLight(b.getBlockLight()));
+                                    player.getOpenInventory().setItem(8, DisplayEntityEditor.inventoryFactory.getGuiItems().skyLight(b.getSkyLight()));
+                                    player.getOpenInventory().setItem(17, DisplayEntityEditor.inventoryFactory.getGuiItems().blockLight(b.getBlockLight()));
                                 }
                                 if (event.isRightClick()) {
                                     entity.setBrightness(null);
-                                    player.getOpenInventory().setItem(8, GUIItems.skyLight(-1));
-                                    player.getOpenInventory().setItem(17, GUIItems.blockLight(-1));
+                                    player.getOpenInventory().setItem(8, DisplayEntityEditor.inventoryFactory.getGuiItems().skyLight(-1));
+                                    player.getOpenInventory().setItem(17, DisplayEntityEditor.inventoryFactory.getGuiItems().blockLight(-1));
                                 }
                             }
                             case "GUIDelete" -> {
@@ -174,33 +166,33 @@ public class InventoryClick implements Listener {
                                     ItemDisplay.ItemDisplayTransform transform = itemDisplay.getItemDisplayTransform();
                                     transform = ItemDisplay.ItemDisplayTransform.values()[(transform.ordinal()+1) % ItemDisplay.ItemDisplayTransform.values().length];
                                     itemDisplay.setItemDisplayTransform(transform);
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.itemDisplayTransform(transform));
+                                    player.getOpenInventory().setItem(event.getSlot(), DisplayEntityEditor.inventoryFactory.getGuiItems().itemDisplayTransform(transform));
                                 }
                             }
                             case "GUIBlockState" -> {
                                 if (event.isLeftClick()) {
-                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.BLOCK_STATE, ((BlockDisplay) entity).getBlock().getMaterial(), getDecayTime()));
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Please enter the new block state! You can either use f3 or an online tool to help generate it."));
+
+                                    player.closeInventory();
+                                    InputManager.createTextInput(player, "Please enter the new block state! You can either use f3 or an online tool to help generate it.", new InputData(entity, InputType.BLOCK_STATE, ((BlockDisplay) entity).getBlock().getMaterial()));
+
                                     player.closeInventory();
                                 }
                                 if (event.isRightClick()) {
                                     BlockDisplay b = (BlockDisplay) entity;
                                     b.setBlock(Bukkit.createBlockData(b.getBlock().getMaterial()));
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.blockState(b.getBlock().getAsString(true)));
+                                    player.getOpenInventory().setItem(event.getSlot(), DisplayEntityEditor.inventoryFactory.getGuiItems().blockState(b.getBlock().getAsString(true)));
                                 }
                             }
                             case "GUITextOpacity" -> {
                                 if (event.isLeftClick()) {
-                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.TEXT_OPACITY, null, getDecayTime()));
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Please enter the value in chat!"));
                                     player.closeInventory();
+                                    InputManager.createByteInput(player, "Please enter the value in chat!", new InputData(entity, InputType.TEXT_OPACITY, null));
                                 }
                             }
                             case "GUITextLineWidth" -> {
                                 if (event.isLeftClick()) {
-                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.LINE_WIDTH, null, getDecayTime()));
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Please enter the value in chat!"));
                                     player.closeInventory();
+                                    InputManager.createIntegerInput(player, "Please enter the value in chat!", new InputData(entity, InputType.LINE_WIDTH, null));
                                 }
                             }
                             case "GUITextDefaultBackground" -> {
@@ -208,7 +200,7 @@ public class InventoryClick implements Listener {
                                     TextDisplay t = (TextDisplay) entity;
                                     boolean b = !t.isDefaultBackground();
                                     t.setDefaultBackground(b);
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.textDefaultBackground(b));
+                                    player.getOpenInventory().setItem(event.getSlot(), DisplayEntityEditor.inventoryFactory.getGuiItems().textDefaultBackground(b));
                                 }
                             }
                             case "GUITextSeeThrough" -> {
@@ -216,7 +208,7 @@ public class InventoryClick implements Listener {
                                     TextDisplay t = (TextDisplay) entity;
                                     boolean b = !t.isSeeThrough();
                                     t.setSeeThrough(b);
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.textSeeThrough(b));
+                                    player.getOpenInventory().setItem(event.getSlot(), DisplayEntityEditor.inventoryFactory.getGuiItems().textSeeThrough(b));
                                 }
                             }
                             case "GUITextShadow" -> {
@@ -224,21 +216,19 @@ public class InventoryClick implements Listener {
                                     TextDisplay t = (TextDisplay) entity;
                                     boolean b = !t.isShadowed();
                                     t.setShadowed(b);
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.textShadow(b));
+                                    player.getOpenInventory().setItem(event.getSlot(), DisplayEntityEditor.inventoryFactory.getGuiItems().textShadow(b));
                                 }
                             }
                             case "GUITextBackgroundColor" -> {
                                 if (event.isLeftClick()) {
-                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.BACKGROUND_COLOR, null, getDecayTime()));
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Please enter the new rgb values it chat! Use the format: R, G, B"));
                                     player.closeInventory();
+                                    InputManager.createTextInput(player, "Please enter the new rgb values it chat! Use the format: R, G, B", new InputData(entity, InputType.BACKGROUND_COLOR, null));
                                 }
                             }
                             case "GUITextBackgroundOpacity" -> {
                                 if (event.isLeftClick()) {
-                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.BACKGROUND_OPACITY, null, getDecayTime()));
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Please enter the new value in chat!"));
                                     player.closeInventory();
+                                    InputManager.createByteInput(player, "Please enter the value in chat!", new InputData(entity, InputType.BACKGROUND_OPACITY, null));
                                 }
                             }
                             case "GUITextAlignment" -> {
@@ -247,14 +237,13 @@ public class InventoryClick implements Listener {
                                     TextDisplay.TextAlignment alignment = textDisplay.getAlignment();
                                     alignment = TextDisplay.TextAlignment.values()[(alignment.ordinal()+1) % TextDisplay.TextAlignment.values().length];
                                     textDisplay.setAlignment(alignment);
-                                    player.getOpenInventory().setItem(event.getSlot(), GUIItems.textAlignment(alignment));
+                                    player.getOpenInventory().setItem(event.getSlot(), DisplayEntityEditor.inventoryFactory.getGuiItems().textAlignment(alignment));
                                 }
                             }
                             case "GUIText" -> {
                                 if (event.isLeftClick()) {
-                                    PlayerChat.inputDataMap.put(player.getUniqueId(), new PlayerChat.InputData(entity, InputType.TEXT, null, getDecayTime()));
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Please enter the new text in chat! You can use '&' for color codes and \\n to create line breaks."));
                                     player.closeInventory();
+                                    InputManager.createTextInput(player, "Please enter the new text in chat! You can use '&' for color codes and \\n to create line breaks.", new InputData(entity, InputType.TEXT, null));
                                 }
                             }
                         }
@@ -287,14 +276,5 @@ public class InventoryClick implements Listener {
                 Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> itemDisplay.setItemStack(player.getOpenInventory().getItem(10)),1L);
             }
         }
-    }
-
-
-    /**
-     * A utility method used to quickly get the time a chat input times out
-     * @return The time
-     */
-    private static long getDecayTime() {
-        return System.currentTimeMillis() + 20000;
     }
 }
