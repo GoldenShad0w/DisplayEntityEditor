@@ -4,36 +4,39 @@ import goldenshadow.displayentityeditor.commands.Command;
 import goldenshadow.displayentityeditor.events.Interact;
 import goldenshadow.displayentityeditor.events.InventoryClick;
 import goldenshadow.displayentityeditor.events.InventoryClose;
-import goldenshadow.displayentityeditor.events.PlayerChat;
+import goldenshadow.displayentityeditor.inventories.InventoryFactory;
+import goldenshadow.displayentityeditor.items.GUIItems;
+import goldenshadow.displayentityeditor.items.InventoryItems;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import org.bukkit.conversations.ConversationFactory;
+import org.bukkit.entity.Display;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 
 public final class DisplayEntityEditor extends JavaPlugin {
 
     private static DisplayEntityEditor plugin;
+    public static ConversationFactory conversationFactory;
+    public static InventoryFactory inventoryFactory;
+    public static HashMap<UUID, Display> currentEditMap = new HashMap<>();
 
     @Override
     public void onEnable() {
         plugin = this;
+        conversationFactory = new ConversationFactory(plugin);
+        inventoryFactory = new InventoryFactory(new GUIItems(), new InventoryItems());
         Objects.requireNonNull(getCommand("displayentityeditor")).setExecutor(new Command());
         Bukkit.getPluginManager().registerEvents(new Interact(), plugin);
         Bukkit.getPluginManager().registerEvents(new InventoryClick(), plugin);
-        Bukkit.getPluginManager().registerEvents(new PlayerChat(), plugin);
         Bukkit.getPluginManager().registerEvents(new InventoryClose(), plugin);
 
-        Metrics metrics = new Metrics(plugin, 18672);
+        new Metrics(plugin, 18672);
 
         getVersion(v -> {
             if (this.getDescription().getVersion().equals(v)) {
@@ -42,24 +45,6 @@ public final class DisplayEntityEditor extends JavaPlugin {
                 getLogger().warning("You are not running the latest version! Update your plugin here: https://www.spigotmc.org/resources/display-entity-editor.110267/");
             }
         });
-
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                Iterator<UUID> it = PlayerChat.inputDataMap.keySet().iterator();
-                while (it.hasNext()) {
-                    UUID uuid = it.next();
-                    if (PlayerChat.inputDataMap.get(uuid).decayTime() < System.currentTimeMillis()) {
-                        it.remove();
-                        Player p = Bukkit.getPlayer(uuid);
-                        if (p != null) {
-                            p.sendMessage(Utilities.getErrorMessageFormat("Too much time has passed, please try again!"));
-                        }
-                    }
-                }
-            }
-        }.runTaskTimer(plugin, 0, 20L);
     }
 
     @Override

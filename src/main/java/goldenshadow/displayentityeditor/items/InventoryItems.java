@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class InventoryItems {
 
-    public static ItemStack gui() {
+    public ItemStack gui() {
         ItemStack itemStack = new ItemStack(Material.NETHER_STAR);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Open GUI",
                 List.of(
@@ -24,7 +24,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack rotateYaw() {
+    public ItemStack rotateYaw() {
         ItemStack itemStack = new ItemStack(Material.MAGMA_CREAM);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Rotate Horizontally (yaw)",
                 List.of(
@@ -39,7 +39,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack rotatePitch() {
+    public ItemStack rotatePitch() {
         ItemStack itemStack = new ItemStack(Material.SLIME_BALL);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Rotate Vertically (pitch)",
                 List.of(
@@ -54,7 +54,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack moveX() {
+    public ItemStack moveX() {
         ItemStack itemStack = new ItemStack(Material.SHEARS);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Move X (Teleport)",
                 List.of(
@@ -69,7 +69,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack moveY() {
+    public ItemStack moveY() {
         ItemStack itemStack = new ItemStack(Material.SHEARS);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Move Y (Teleport)",
                 List.of(
@@ -84,7 +84,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack moveZ() {
+    public ItemStack moveZ() {
         ItemStack itemStack = new ItemStack(Material.SHEARS);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Move Z (Teleport)",
                 List.of(
@@ -99,7 +99,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack spawnItemDisplay() {
+    public ItemStack spawnItemDisplay() {
         ItemStack itemStack = new ItemStack(Material.DIAMOND);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Spawn item_display",
                 List.of(
@@ -111,7 +111,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack spawnBlockDisplay() {
+    public ItemStack spawnBlockDisplay() {
         ItemStack itemStack = new ItemStack(Material.GRASS_BLOCK);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Spawn block_display",
                 List.of(
@@ -123,7 +123,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack spawnTextDisplay() {
+    public ItemStack spawnTextDisplay() {
         ItemStack itemStack = new ItemStack(Material.OAK_SIGN);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Spawn text_display",
                 List.of(
@@ -135,7 +135,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack unlock() {
+    public ItemStack unlock() {
         ItemStack itemStack = new ItemStack(Material.MUSIC_DISC_11);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Unlock Nearest Display Entity",
                 List.of(
@@ -147,7 +147,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack highlightTarget() {
+    public ItemStack highlightTarget() {
         ItemStack itemStack = new ItemStack(Material.GLOWSTONE_DUST);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Highlight Target",
                 List.of(
@@ -159,7 +159,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack leftRotationX() {
+    public ItemStack leftRotationX() {
         ItemStack itemStack = new ItemStack(Material.STICK);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Left Rotation X",
                 List.of(
@@ -174,7 +174,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack leftRotationY() {
+    public ItemStack leftRotationY() {
         ItemStack itemStack = new ItemStack(Material.STICK);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Left Rotation Y",
                 List.of(
@@ -189,7 +189,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack leftRotationZ() {
+    public ItemStack leftRotationZ() {
         ItemStack itemStack = new ItemStack(Material.STICK);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Left Rotation Z",
                 List.of(
@@ -204,7 +204,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack rightRotationX() {
+    public ItemStack rightRotationX() {
         ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Right Rotation X",
                 List.of(
@@ -219,7 +219,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack rightRotationY() {
+    public ItemStack rightRotationY() {
         ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Right Rotation Y",
                 List.of(
@@ -234,7 +234,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack rightRotationZ() {
+    public ItemStack rightRotationZ() {
         ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Right Rotation Z",
                 List.of(
@@ -249,7 +249,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack centerPivot() {
+    public ItemStack centerPivot() {
         ItemStack itemStack = new ItemStack(Material.CHAIN);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Center Pivot Point",
                 List.of(
@@ -263,7 +263,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack translationX() {
+    public ItemStack translationX() {
         ItemStack itemStack = new ItemStack(Material.NETHERITE_SCRAP);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Translation X",
                 List.of(
@@ -281,7 +281,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack translationY() {
+    public ItemStack translationY() {
         ItemStack itemStack = new ItemStack(Material.NETHERITE_SCRAP);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Translation Y",
                 List.of(
@@ -299,7 +299,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack translationZ() {
+    public ItemStack translationZ() {
         ItemStack itemStack = new ItemStack(Material.NETHERITE_SCRAP);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Translation Z",
                 List.of(
@@ -317,7 +317,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack scaleX() {
+    public ItemStack scaleX() {
         ItemStack itemStack = new ItemStack(Material.SHULKER_SHELL);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Scale X",
                 List.of(
@@ -332,7 +332,7 @@ public class InventoryItems {
         return itemStack;
     }
 
-    public static ItemStack scaleY() {
+    public ItemStack scaleY() {
         ItemStack itemStack = new ItemStack(Material.SHULKER_SHELL);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Scale Y",
                 List.of(
@@ -348,7 +348,7 @@ public class InventoryItems {
     }
 
 
-    public static ItemStack scaleZ() {
+    public ItemStack scaleZ() {
         ItemStack itemStack = new ItemStack(Material.SHULKER_SHELL);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Scale Z",
                 List.of(

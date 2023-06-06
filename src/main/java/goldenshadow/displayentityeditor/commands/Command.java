@@ -1,7 +1,7 @@
 package goldenshadow.displayentityeditor.commands;
 
+import goldenshadow.displayentityeditor.DisplayEntityEditor;
 import goldenshadow.displayentityeditor.Utilities;
-import goldenshadow.displayentityeditor.inventories.InventoryFactory;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +28,7 @@ public class Command implements CommandExecutor {
                 return true;
             }
             saveInventory(p);
-            ItemStack[] array = InventoryFactory.getInventoryItems();
+            ItemStack[] array = DisplayEntityEditor.inventoryFactory.getInventoryArray();
             for (int i = 0; i < array.length; i++) {
                 p.getInventory().setItem(i, array[i]);
             }

@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class GUIItems {
 
-    public static ItemStack name(String name) {
+    public ItemStack name(String name) {
         if (name == null) name = "None";
         ItemStack itemStack = new ItemStack(Material.NAME_TAG);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Name",
@@ -35,7 +35,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack glowing(boolean current) {
+    public ItemStack glowing(boolean current) {
         ItemStack itemStack = new ItemStack(Material.SEA_LANTERN);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Glowing",
                 List.of(
@@ -48,7 +48,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack glowColor(Color current) {
+    public ItemStack glowColor(Color current) {
         ItemStack itemStack = new ItemStack(Material.RED_DYE);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Glow Color",
                 List.of(
@@ -61,7 +61,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack leftRotNormalize(boolean current) {
+    public ItemStack leftRotNormalize(boolean current) {
         ItemStack itemStack = new ItemStack(Material.COMPASS);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Left Rotation Normalization",
                 List.of(
@@ -76,7 +76,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack rightRotNormalize(boolean current) {
+    public ItemStack rightRotNormalize(boolean current) {
         ItemStack itemStack = new ItemStack(Material.COMPASS);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Right Rotation Normalization",
                 List.of(
@@ -91,7 +91,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack viewRange(float current) {
+    public ItemStack viewRange(float current) {
         ItemStack itemStack = new ItemStack(Material.SPYGLASS);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set View Range",
                 List.of(
@@ -107,7 +107,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack width(float current) {
+    public ItemStack width(float current) {
         ItemStack itemStack = new ItemStack(Material.ARROW);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Display Width",
                 List.of(
@@ -123,7 +123,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack height(float current) {
+    public ItemStack height(float current) {
         ItemStack itemStack = new ItemStack(Material.ARROW);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Display Height",
                 List.of(
@@ -139,7 +139,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack billboard(Display.Billboard current) {
+    public ItemStack billboard(Display.Billboard current) {
         ItemStack itemStack = new ItemStack(Material.PAINTING);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Billboard Type",
                 List.of(
@@ -154,7 +154,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack shadowRadius(float current) {
+    public ItemStack shadowRadius(float current) {
         ItemStack itemStack = new ItemStack(Material.COAL);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Shadow Radius",
                 List.of(
@@ -170,7 +170,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack shadowStrength(float current) {
+    public ItemStack shadowStrength(float current) {
         ItemStack itemStack = new ItemStack(Material.FLINT);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Shadow Strength",
                 List.of(
@@ -185,7 +185,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack lock() {
+    public ItemStack lock() {
         ItemStack itemStack = new ItemStack(Material.STRUCTURE_VOID);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Lock Entity",
                 List.of(
@@ -201,7 +201,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack skyLight(int current) {
+    public ItemStack skyLight(int current) {
         ItemStack itemStack = new ItemStack(Material.LIGHT);
         setBrightnessLevel(itemStack, current == -1 ? 0 : current);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Sky Brightness",
@@ -218,7 +218,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack blockLight(int current) {
+    public ItemStack blockLight(int current) {
         ItemStack itemStack = new ItemStack(Material.LIGHT);
         setBrightnessLevel(itemStack, current == -1 ? 0 : current);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Block Brightness",
@@ -235,7 +235,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack delete() {
+    public ItemStack delete() {
         ItemStack itemStack = new ItemStack(Material.BARRIER);
 
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Delete Entity",
@@ -249,13 +249,13 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack filler() {
+    public ItemStack filler() {
         ItemStack itemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
         Utilities.setMeta(itemStack, " ", new ArrayList<>(), "GUIFiller");
         return itemStack;
     }
 
-    public static ItemStack itemDisplayTransform(ItemDisplay.ItemDisplayTransform current) {
+    public ItemStack itemDisplayTransform(ItemDisplay.ItemDisplayTransform current) {
         ItemStack itemStack = new ItemStack(Material.ARMOR_STAND);
 
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Item Render Type",
@@ -271,7 +271,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack textOpacity(int current) {
+    public ItemStack textOpacity(int current) {
         ItemStack itemStack = new ItemStack(Material.DRAGON_BREATH);
         if (current < 0) current = 0;
 
@@ -287,7 +287,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack textLineWidth(int current) {
+    public ItemStack textLineWidth(int current) {
         ItemStack itemStack = new ItemStack(Material.REPEATER);
 
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Line Width",
@@ -303,7 +303,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack textDefaultBackground(boolean current) {
+    public ItemStack textDefaultBackground(boolean current) {
         ItemStack itemStack = new ItemStack(Material.WHITE_STAINED_GLASS);
 
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Default Background",
@@ -319,7 +319,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack textSeeThrough(boolean current) {
+    public ItemStack textSeeThrough(boolean current) {
         ItemStack itemStack = new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS);
 
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Visibility Through Blocks",
@@ -335,7 +335,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack textShadow(boolean current) {
+    public ItemStack textShadow(boolean current) {
         ItemStack itemStack = new ItemStack(Material.BLACK_STAINED_GLASS);
 
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Text Shadow",
@@ -351,7 +351,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack textBackgroundColor(Color current) {
+    public ItemStack textBackgroundColor(Color current) {
         ItemStack itemStack = new ItemStack(Material.RED_BANNER);
 
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Background Color",
@@ -365,7 +365,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack textBackgroundOpacity(Color current) {
+    public ItemStack textBackgroundOpacity(Color current) {
         ItemStack itemStack = new ItemStack(Material.END_CRYSTAL);
 
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Background Opacity",
@@ -381,7 +381,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack textAlignment(TextDisplay.TextAlignment current) {
+    public ItemStack textAlignment(TextDisplay.TextAlignment current) {
         ItemStack itemStack = new ItemStack(Material.FILLED_MAP);
 
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Text Alignment",
@@ -395,7 +395,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    public static ItemStack text() {
+    public ItemStack text() {
         ItemStack itemStack = new ItemStack(Material.OAK_SIGN);
 
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Text",
@@ -408,7 +408,7 @@ public class GUIItems {
         return itemStack;
     }
 
-    private static void setBrightnessLevel(ItemStack itemStack, int current) {
+    private void setBrightnessLevel(ItemStack itemStack, int current) {
         BlockDataMeta meta = (BlockDataMeta) itemStack.getItemMeta();
         assert meta != null;
         Levelled level = (Levelled) Bukkit.createBlockData(Material.LIGHT);
@@ -417,7 +417,7 @@ public class GUIItems {
         itemStack.setItemMeta(meta);
     }
 
-    public static ItemStack blockState(String current) {
+    public ItemStack blockState(String current) {
         ItemStack itemStack = new ItemStack(Material.CHEST_MINECART);
 
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Block State",
