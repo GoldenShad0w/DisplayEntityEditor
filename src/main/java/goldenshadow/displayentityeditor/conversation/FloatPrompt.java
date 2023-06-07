@@ -34,7 +34,7 @@ public class FloatPrompt extends NumericPrompt {
         switch (inputData.inputType()) {
             case VIEW_RANGE -> {
                 inputData.entity().setViewRange(f);
-                player.sendRawMessage(Utilities.getInfoMessageFormat("Line width set!"));
+                player.sendRawMessage(Utilities.getInfoMessageFormat("View range set!"));
             }
             case DISPLAY_WIDTH -> {
                 inputData.entity().setDisplayWidth(f);

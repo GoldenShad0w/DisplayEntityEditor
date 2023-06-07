@@ -1,5 +1,6 @@
 package goldenshadow.displayentityeditor.conversation;
 
+import goldenshadow.displayentityeditor.DisplayEntityEditor;
 import goldenshadow.displayentityeditor.Utilities;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -67,7 +68,19 @@ public class TextPrompt extends StringPrompt {
                 case GLOW_COLOR -> {
                     int[] array = parseStringToRGB(s);
                     if (array != null) {
+
+                        BlockData blockData;
+                        if (inputData.entity() instanceof BlockDisplay) blockData = ((BlockDisplay) inputData.entity()).getBlock();
+                        else {
+                            blockData = null;
+                        }
+
                         inputData.entity().setGlowColorOverride(Color.fromRGB(array[0], array[1], array[2]));
+
+                        if (inputData.entity() instanceof BlockDisplay) {
+                            Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> ((BlockDisplay) inputData.entity()).setBlock(blockData), 1L);
+                        }
+
                         player.sendRawMessage(Utilities.getInfoMessageFormat("Glow color set!"));
                     } else {
                         player.sendRawMessage(Utilities.getErrorMessageFormat("The value needs follow the format: R, G, B"));

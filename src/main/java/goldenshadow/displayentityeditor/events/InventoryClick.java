@@ -47,7 +47,21 @@ public class InventoryClick implements Listener {
                             case "GUIGlow" -> {
                                 if (event.isLeftClick()) {
                                     boolean b = !entity.isGlowing();
+
+                                    BlockData blockData;
+                                    if (entity instanceof BlockDisplay) blockData = ((BlockDisplay) entity).getBlock();
+                                    else {
+                                        blockData = null;
+                                    }
+
                                     entity.setGlowing(b);
+
+                                    if (entity instanceof BlockDisplay) {
+                                        Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> ((BlockDisplay) entity).setBlock(blockData), 1L);
+                                    }
+
+
+
                                     player.getOpenInventory().setItem(event.getSlot(), DisplayEntityEditor.inventoryFactory.getGuiItems().glowing(b));
                                 }
                             }
@@ -91,9 +105,21 @@ public class InventoryClick implements Listener {
                             }
                             case "GUIBillboard" -> {
                                 if (event.isLeftClick()) {
+
+                                    BlockData blockData;
+                                    if (entity instanceof BlockDisplay) blockData = ((BlockDisplay) entity).getBlock();
+                                    else {
+                                        blockData = null;
+                                    }
+
                                     Display.Billboard billboard = entity.getBillboard();
                                     billboard = Display.Billboard.values()[(billboard.ordinal()+1) % Display.Billboard.values().length];
                                     entity.setBillboard(billboard);
+
+                                    if (entity instanceof BlockDisplay) {
+                                        Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> ((BlockDisplay) entity).setBlock(blockData), 1L);
+                                    }
+
                                     player.getOpenInventory().setItem(event.getSlot(), DisplayEntityEditor.inventoryFactory.getGuiItems().billboard(billboard));
                                 }
                             }
@@ -119,6 +145,13 @@ public class InventoryClick implements Listener {
                             }
                             case "GUISkyLight" -> {
                                 if (event.isLeftClick()) {
+
+                                    BlockData blockData;
+                                    if (entity instanceof BlockDisplay) blockData = ((BlockDisplay) entity).getBlock();
+                                    else {
+                                        blockData = null;
+                                    }
+
                                     Display.Brightness b;
                                     if (entity.getBrightness() != null) {
                                         b = new Display.Brightness(entity.getBrightness().getBlockLight(), (entity.getBrightness().getSkyLight()+1) % 16);
@@ -126,17 +159,41 @@ public class InventoryClick implements Listener {
                                         b = new Display.Brightness(0,0);
                                     }
                                     entity.setBrightness(b);
+
+                                    if (entity instanceof BlockDisplay) {
+                                        Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> ((BlockDisplay) entity).setBlock(blockData), 1L);
+                                    }
+
                                     player.getOpenInventory().setItem(8, DisplayEntityEditor.inventoryFactory.getGuiItems().skyLight(b.getSkyLight()));
                                     player.getOpenInventory().setItem(17, DisplayEntityEditor.inventoryFactory.getGuiItems().blockLight(b.getBlockLight()));
                                 }
                                 if (event.isRightClick()) {
+
+                                    BlockData blockData;
+                                    if (entity instanceof BlockDisplay) blockData = ((BlockDisplay) entity).getBlock();
+                                    else {
+                                        blockData = null;
+                                    }
+
                                     entity.setBrightness(null);
+
+                                    if (entity instanceof BlockDisplay) {
+                                        Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> ((BlockDisplay) entity).setBlock(blockData), 1L);
+                                    }
+
                                     player.getOpenInventory().setItem(8, DisplayEntityEditor.inventoryFactory.getGuiItems().skyLight(-1));
                                     player.getOpenInventory().setItem(17, DisplayEntityEditor.inventoryFactory.getGuiItems().blockLight(-1));
                                 }
                             }
                             case "GUIBlockLight" -> {
                                 if (event.isLeftClick()) {
+
+                                    BlockData blockData;
+                                    if (entity instanceof BlockDisplay) blockData = ((BlockDisplay) entity).getBlock();
+                                    else {
+                                        blockData = null;
+                                    }
+
                                     Display.Brightness b;
                                     if (entity.getBrightness() != null) {
                                         b = new Display.Brightness((entity.getBrightness().getBlockLight() + 1) % 16, entity.getBrightness().getSkyLight());
@@ -144,11 +201,28 @@ public class InventoryClick implements Listener {
                                         b = new Display.Brightness(0,0);
                                     }
                                     entity.setBrightness(b);
+
+                                    if (entity instanceof BlockDisplay) {
+                                        Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> ((BlockDisplay) entity).setBlock(blockData), 1L);
+                                    }
+
                                     player.getOpenInventory().setItem(8, DisplayEntityEditor.inventoryFactory.getGuiItems().skyLight(b.getSkyLight()));
                                     player.getOpenInventory().setItem(17, DisplayEntityEditor.inventoryFactory.getGuiItems().blockLight(b.getBlockLight()));
                                 }
                                 if (event.isRightClick()) {
+
+                                    BlockData blockData;
+                                    if (entity instanceof BlockDisplay) blockData = ((BlockDisplay) entity).getBlock();
+                                    else {
+                                        blockData = null;
+                                    }
+
                                     entity.setBrightness(null);
+
+                                    if (entity instanceof BlockDisplay) {
+                                        Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> ((BlockDisplay) entity).setBlock(blockData), 1L);
+                                    }
+
                                     player.getOpenInventory().setItem(8, DisplayEntityEditor.inventoryFactory.getGuiItems().skyLight(-1));
                                     player.getOpenInventory().setItem(17, DisplayEntityEditor.inventoryFactory.getGuiItems().blockLight(-1));
                                 }
@@ -252,6 +326,7 @@ public class InventoryClick implements Listener {
             }
             if (player.getOpenInventory().getTitle().equals(ChatColor.BOLD + "Block Display GUI")) {
 
+                assert entity instanceof BlockDisplay;
                 BlockDisplay blockDisplay = (BlockDisplay) entity;
                 Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> {
                     ItemStack itemStack = player.getOpenInventory().getItem(10);
