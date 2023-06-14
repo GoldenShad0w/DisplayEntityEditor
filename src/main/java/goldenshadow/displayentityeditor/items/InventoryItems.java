@@ -362,4 +362,34 @@ public class InventoryItems {
         );
         return itemStack;
     }
+
+    public ItemStack centerOnBlock() {
+        ItemStack itemStack = new ItemStack(Material.LIGHTNING_ROD);
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Center On Block",
+                List.of(
+                        ChatColor.GRAY + "Click to position the nearest display entity",
+                        ChatColor.GRAY + "so that it is centered on the block.",
+                        " ",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to center xyz",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to center xz"
+                ),
+                "InventoryCenterBlock"
+        );
+        return itemStack;
+    }
+
+    public ItemStack toolPrecision() {
+        ItemStack itemStack = new ItemStack(Material.COMPARATOR);
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Change Tool Precision",
+                List.of(
+                        ChatColor.GRAY + "Click to change the multiplier for",
+                        ChatColor.GRAY + "your tools precision.",
+                        " ",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to increase by 1",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to decrease by 1"
+                ),
+                "InventoryToolPrecision"
+        );
+        return itemStack;
+    }
 }
