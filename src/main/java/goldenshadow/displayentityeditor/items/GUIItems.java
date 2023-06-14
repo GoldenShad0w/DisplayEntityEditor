@@ -420,9 +420,15 @@ public class GUIItems {
     public ItemStack blockState(String current) {
         ItemStack itemStack = new ItemStack(Material.CHEST_MINECART);
 
+        // Current is passed in as the block string, which looks like "minecraft:block[state1=true,state2=false]"
+        // To change the block state, you must only pass in the brackets, so "[state1=true,state2=false]"
+        // Therefore, we want to display only the state so that it reflects the input that would've been entered to achieve said block state.
+        // If the block has no state values, we can just return the brackets by themselves.
+        String currentState = current.contains("[") ? current.substring(current.indexOf('['), current.indexOf(']') + 1) : "[]";
+
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Block State",
                 List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
+                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + currentState,
                         " ",
                         ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value",
                         ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to reset"
