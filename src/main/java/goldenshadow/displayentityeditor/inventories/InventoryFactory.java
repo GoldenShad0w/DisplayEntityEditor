@@ -152,6 +152,7 @@ public class InventoryFactory {
         array[3] = inventoryItems.moveX();
         array[4] = inventoryItems.moveY();
         array[5] = inventoryItems.moveZ();
+        array[6] = inventoryItems.toolPrecision();
 
         array[27] = inventoryItems.spawnItemDisplay();
         array[28] = inventoryItems.spawnBlockDisplay();
@@ -159,6 +160,7 @@ public class InventoryFactory {
         array[30] = inventoryItems.centerPivot();
         array[31] = inventoryItems.highlightTarget();
         array[32] = inventoryItems.unlock();
+        array[33] = inventoryItems.centerOnBlock();
 
         array[18] = inventoryItems.translationX();
         array[19] = inventoryItems.translationY();

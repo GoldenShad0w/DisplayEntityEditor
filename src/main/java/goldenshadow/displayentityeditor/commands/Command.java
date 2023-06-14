@@ -7,6 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -31,6 +32,9 @@ public class Command implements CommandExecutor {
             ItemStack[] array = DisplayEntityEditor.inventoryFactory.getInventoryArray();
             for (int i = 0; i < array.length; i++) {
                 p.getInventory().setItem(i, array[i]);
+            }
+            if (!p.getPersistentDataContainer().has(DisplayEntityEditor.toolPrecisionKey, PersistentDataType.DOUBLE)) {
+                p.getPersistentDataContainer().set(DisplayEntityEditor.toolPrecisionKey, PersistentDataType.DOUBLE, 1d);
             }
             p.sendMessage(Utilities.getInfoMessageFormat("Given display entity tools. Left click to cycle through the tools."));
             p.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.BLUE + "Run this command again to have your inventory returned!");

@@ -9,6 +9,7 @@ import goldenshadow.displayentityeditor.items.GUIItems;
 import goldenshadow.displayentityeditor.items.InventoryItems;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Display;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,6 +26,7 @@ public final class DisplayEntityEditor extends JavaPlugin {
     public static ConversationFactory conversationFactory;
     public static InventoryFactory inventoryFactory;
     public static HashMap<UUID, Display> currentEditMap = new HashMap<>();
+    public static NamespacedKey toolPrecisionKey;
 
     @Override
     public void onEnable() {
@@ -35,6 +37,7 @@ public final class DisplayEntityEditor extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new Interact(), plugin);
         Bukkit.getPluginManager().registerEvents(new InventoryClick(), plugin);
         Bukkit.getPluginManager().registerEvents(new InventoryClose(), plugin);
+        toolPrecisionKey = new NamespacedKey(plugin, "toolPrecision");
 
         new Metrics(plugin, 18672);
 
