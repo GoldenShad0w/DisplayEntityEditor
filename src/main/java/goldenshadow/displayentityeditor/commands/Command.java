@@ -19,6 +19,14 @@ public class Command implements CommandExecutor {
 
     private static final HashMap<UUID, ItemStack[]> savedInventories = new HashMap<>();
 
+    /**
+     * Used for when the deeditor command is issued
+     * @param sender The sender
+     * @param command The command
+     * @param label The commands label
+     * @param args The commands arguments
+     * @return True if the command was correctly handled, false otherwise
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender,@NotNull org.bukkit.command.Command command,@NotNull String label, String[] args) {
         if (sender instanceof Player p) {
@@ -44,11 +52,19 @@ public class Command implements CommandExecutor {
         return true;
     }
 
+    /**
+     * A utility method used to save a players inventory in order to be able to return it later
+     * @param player The player whose inventory should be saved
+     */
     private static void saveInventory( Player player) {
         savedInventories.put(player.getUniqueId(), player.getInventory().getContents().clone());
         player.getInventory().clear();
     }
 
+    /**
+     * A utility method used to return a players inventory
+     * @param player The player whose inventory should be returned
+     */
     private static void returnInventory(Player player) {
         if (!savedInventories.containsKey(player.getUniqueId())) throw new RuntimeException("Return inventory didn't exist!");
         player.getInventory().clear();

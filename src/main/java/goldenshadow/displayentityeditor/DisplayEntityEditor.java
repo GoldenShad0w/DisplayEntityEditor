@@ -4,6 +4,7 @@ import goldenshadow.displayentityeditor.commands.Command;
 import goldenshadow.displayentityeditor.events.Interact;
 import goldenshadow.displayentityeditor.events.InventoryClick;
 import goldenshadow.displayentityeditor.events.InventoryClose;
+import goldenshadow.displayentityeditor.events.PlayerJoin;
 import goldenshadow.displayentityeditor.inventories.InventoryFactory;
 import goldenshadow.displayentityeditor.items.GUIItems;
 import goldenshadow.displayentityeditor.items.InventoryItems;
@@ -28,15 +29,23 @@ public final class DisplayEntityEditor extends JavaPlugin {
     public static HashMap<UUID, Display> currentEditMap = new HashMap<>();
     public static NamespacedKey toolPrecisionKey;
 
+    /**
+     * Used for when the plugin starts up
+     */
     @Override
     public void onEnable() {
         plugin = this;
+
+        getConfig().options().copyDefaults(true);
+        saveConfig();
+
         conversationFactory = new ConversationFactory(plugin);
         inventoryFactory = new InventoryFactory(new GUIItems(), new InventoryItems());
         Objects.requireNonNull(getCommand("displayentityeditor")).setExecutor(new Command());
         Bukkit.getPluginManager().registerEvents(new Interact(), plugin);
         Bukkit.getPluginManager().registerEvents(new InventoryClick(), plugin);
         Bukkit.getPluginManager().registerEvents(new InventoryClose(), plugin);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoin(), plugin);
         toolPrecisionKey = new NamespacedKey(plugin, "toolPrecision");
 
         new Metrics(plugin, 18672);
@@ -50,16 +59,19 @@ public final class DisplayEntityEditor extends JavaPlugin {
         });
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
-
+    /**
+     * Getter for the plugin instance
+     * @return The plugin
+     */
     public static DisplayEntityEditor getPlugin() {
         return plugin;
     }
 
-    private void getVersion(final Consumer<String> consumer) {
+    /**
+     * Used to get the newest version of the plugin available on spigot
+     * @param consumer The consumer
+     */
+    public static void getVersion(final Consumer<String> consumer) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try (InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource=110267").openStream(); Scanner scanner = new Scanner(inputStream)) {
                 if (scanner.hasNext()) {

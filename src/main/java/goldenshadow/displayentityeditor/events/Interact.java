@@ -164,7 +164,11 @@ public class Interact implements Listener {
                             case "InventoryHighlight" -> highlightEntity(display);
                             case "InventoryCenterPivot" -> {
                                 Transformation t = display.getTransformation();
-                                t.getTranslation().set(-1*(t.getScale().x()/2), -1*(t.getScale().y()/2), -1*(t.getScale().z()/2));
+                                if (display instanceof BlockDisplay) {
+                                    t.getTranslation().set(-1 * (t.getScale().x() / 2), -1 * (t.getScale().y() / 2), -1 * (t.getScale().z() / 2));
+                                } else {
+                                    t.getTranslation().set(0,0,0);
+                                }
                                 display.setTransformation(t);
                                 player.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.AQUA + "Centered pivot!");
                             }

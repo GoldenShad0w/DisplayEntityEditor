@@ -16,6 +16,11 @@ public class InventoryFactory {
     private final GUIItems guiItems;
     private final InventoryItems inventoryItems;
 
+    /**
+     * Used to create a new inventory factory
+     * @param guiItems The gui items object it should use
+     * @param inventoryItems The inventory items object it should use
+     */
     public InventoryFactory(GUIItems guiItems, InventoryItems inventoryItems) {
         this.guiItems = guiItems;
         this.inventoryItems = inventoryItems;

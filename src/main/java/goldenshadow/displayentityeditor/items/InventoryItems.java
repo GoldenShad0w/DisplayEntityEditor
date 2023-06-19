@@ -12,6 +12,10 @@ import java.util.List;
  */
 public class InventoryItems {
 
+    /**
+     * Creates the open gui item
+     * @return The item
+     */
     public ItemStack gui() {
         ItemStack itemStack = new ItemStack(Material.NETHER_STAR);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Open GUI",
@@ -24,6 +28,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the rotate yaw item
+     * @return The item
+     */
     public ItemStack rotateYaw() {
         ItemStack itemStack = new ItemStack(Material.MAGMA_CREAM);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Rotate Horizontally (yaw)",
@@ -39,6 +47,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the rotate pitch item
+     * @return The item
+     */
     public ItemStack rotatePitch() {
         ItemStack itemStack = new ItemStack(Material.SLIME_BALL);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Rotate Vertically (pitch)",
@@ -54,6 +66,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the move x item
+     * @return The item
+     */
     public ItemStack moveX() {
         ItemStack itemStack = new ItemStack(Material.SHEARS);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Move X (Teleport)",
@@ -69,6 +85,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the move y item
+     * @return The item
+     */
     public ItemStack moveY() {
         ItemStack itemStack = new ItemStack(Material.SHEARS);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Move Y (Teleport)",
@@ -84,6 +104,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the move z item
+     * @return The item
+     */
     public ItemStack moveZ() {
         ItemStack itemStack = new ItemStack(Material.SHEARS);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Move Z (Teleport)",
@@ -99,6 +123,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the spawn item display item
+     * @return The item
+     */
     public ItemStack spawnItemDisplay() {
         ItemStack itemStack = new ItemStack(Material.DIAMOND);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Spawn item_display",
@@ -111,6 +139,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the spawn block display item
+     * @return The item
+     */
     public ItemStack spawnBlockDisplay() {
         ItemStack itemStack = new ItemStack(Material.GRASS_BLOCK);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Spawn block_display",
@@ -123,6 +155,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the spawn text display item
+     * @return The item
+     */
     public ItemStack spawnTextDisplay() {
         ItemStack itemStack = new ItemStack(Material.OAK_SIGN);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Spawn text_display",
@@ -135,6 +171,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the unlock item
+     * @return The item
+     */
     public ItemStack unlock() {
         ItemStack itemStack = new ItemStack(Material.MUSIC_DISC_11);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Unlock Nearest Display Entity",
@@ -147,6 +187,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the highlight target item
+     * @return The item
+     */
     public ItemStack highlightTarget() {
         ItemStack itemStack = new ItemStack(Material.GLOWSTONE_DUST);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Highlight Target",
@@ -159,6 +203,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the left rotation x item
+     * @return The item
+     */
     public ItemStack leftRotationX() {
         ItemStack itemStack = new ItemStack(Material.STICK);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Left Rotation X",
@@ -174,6 +222,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the left rotation y item
+     * @return The item
+     */
     public ItemStack leftRotationY() {
         ItemStack itemStack = new ItemStack(Material.STICK);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Left Rotation Y",
@@ -189,6 +241,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the left rotation z item
+     * @return The item
+     */
     public ItemStack leftRotationZ() {
         ItemStack itemStack = new ItemStack(Material.STICK);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Left Rotation Z",
@@ -204,6 +260,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the right rotation x item
+     * @return The item
+     */
     public ItemStack rightRotationX() {
         ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Right Rotation X",
@@ -219,6 +279,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the right rotation y item
+     * @return The item
+     */
     public ItemStack rightRotationY() {
         ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Right Rotation Y",
@@ -234,6 +298,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the right rotation z item
+     * @return The item
+     */
     public ItemStack rightRotationZ() {
         ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Right Rotation Z",
@@ -249,6 +317,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the center pivot item
+     * @return The item
+     */
     public ItemStack centerPivot() {
         ItemStack itemStack = new ItemStack(Material.CHAIN);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Center Pivot Point",
@@ -263,6 +335,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the translation x item
+     * @return The item
+     */
     public ItemStack translationX() {
         ItemStack itemStack = new ItemStack(Material.NETHERITE_SCRAP);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Translation X",
@@ -281,6 +357,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the translation y item
+     * @return The item
+     */
     public ItemStack translationY() {
         ItemStack itemStack = new ItemStack(Material.NETHERITE_SCRAP);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Translation Y",
@@ -299,6 +379,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the translation z item
+     * @return The item
+     */
     public ItemStack translationZ() {
         ItemStack itemStack = new ItemStack(Material.NETHERITE_SCRAP);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Translation Z",
@@ -317,6 +401,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the scale x item
+     * @return The item
+     */
     public ItemStack scaleX() {
         ItemStack itemStack = new ItemStack(Material.SHULKER_SHELL);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Scale X",
@@ -332,6 +420,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the scale y item
+     * @return The item
+     */
     public ItemStack scaleY() {
         ItemStack itemStack = new ItemStack(Material.SHULKER_SHELL);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Scale Y",
@@ -347,7 +439,10 @@ public class InventoryItems {
         return itemStack;
     }
 
-
+    /**
+     * Creates the scale z item
+     * @return The item
+     */
     public ItemStack scaleZ() {
         ItemStack itemStack = new ItemStack(Material.SHULKER_SHELL);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Scale Z",
@@ -363,6 +458,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the center on block item
+     * @return The item
+     */
     public ItemStack centerOnBlock() {
         ItemStack itemStack = new ItemStack(Material.LIGHTNING_ROD);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Center On Block",
@@ -378,6 +477,10 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the tool precision item
+     * @return The item
+     */
     public ItemStack toolPrecision() {
         ItemStack itemStack = new ItemStack(Material.COMPARATOR);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Change Tool Precision",
