@@ -173,6 +173,7 @@ public class InventoryFactory {
         array[21] = inventoryItems.scaleX();
         array[22] = inventoryItems.scaleY();
         array[23] = inventoryItems.scaleZ();
+        array[24] = inventoryItems.cloneTool();
 
         array[9] = inventoryItems.leftRotationX();
         array[10] = inventoryItems.leftRotationY();

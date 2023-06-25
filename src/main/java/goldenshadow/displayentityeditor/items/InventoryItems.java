@@ -20,8 +20,10 @@ public class InventoryItems {
         ItemStack itemStack = new ItemStack(Material.NETHER_STAR);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Open GUI",
                 List.of(
-                        ChatColor.GRAY + "Right click to open the GUI of",
-                        ChatColor.GRAY + "the nearest unlocked display entity"
+                        ChatColor.GRAY + "Click to open the GUI of the",
+                        ChatColor.GRAY + "nearest unlocked display entity",
+                        " ",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to open"
                 ),
                 "InventoryGUI"
                 );
@@ -131,8 +133,10 @@ public class InventoryItems {
         ItemStack itemStack = new ItemStack(Material.DIAMOND);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Spawn item_display",
                 List.of(
-                        ChatColor.GRAY + "Right click to spawn a new",
-                        ChatColor.GRAY + "item display entity at your position"
+                        ChatColor.GRAY + "Click to spawn a new item display",
+                        ChatColor.GRAY + "entity at your position",
+                        " ",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to spawn"
                 ),
                 "InventorySpawnItem"
         );
@@ -147,8 +151,10 @@ public class InventoryItems {
         ItemStack itemStack = new ItemStack(Material.GRASS_BLOCK);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Spawn block_display",
                 List.of(
-                        ChatColor.GRAY + "Right click to spawn a new",
-                        ChatColor.GRAY + "block display entity at your position"
+                        ChatColor.GRAY + "Click to spawn a new block display",
+                        ChatColor.GRAY + "entity at your position",
+                        " ",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to spawn"
                 ),
                 "InventorySpawnBlock"
         );
@@ -163,8 +169,10 @@ public class InventoryItems {
         ItemStack itemStack = new ItemStack(Material.OAK_SIGN);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Spawn text_display",
                 List.of(
-                        ChatColor.GRAY + "Right click to spawn a new",
-                        ChatColor.GRAY + "text display entity at your position"
+                        ChatColor.GRAY + "Click to spawn a new text display",
+                        ChatColor.GRAY + "entity at your position",
+                        " ",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to spawn"
                 ),
                 "InventorySpawnText"
         );
@@ -179,8 +187,10 @@ public class InventoryItems {
         ItemStack itemStack = new ItemStack(Material.MUSIC_DISC_11);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Unlock Nearest Display Entity",
                 List.of(
-                        ChatColor.GRAY + "Right click to unlock the nearest locked",
-                        ChatColor.GRAY + "display entity, making it editable again"
+                        ChatColor.GRAY + "Click to unlock the nearest locked",
+                        ChatColor.GRAY + "display entity, making it editable again",
+                        " ",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to unlock"
                 ),
                 "InventoryUnlock"
         );
@@ -195,8 +205,10 @@ public class InventoryItems {
         ItemStack itemStack = new ItemStack(Material.GLOWSTONE_DUST);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Highlight Target",
                 List.of(
-                        ChatColor.GRAY + "Right click to highlight the display entity",
-                        ChatColor.GRAY + "that will be targeted by your tools"
+                        ChatColor.GRAY + "Click to highlight the display entity",
+                        ChatColor.GRAY + "that will be targeted by your tools",
+                        " ",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to highlight"
                 ),
                 "InventoryHighlight"
         );
@@ -325,10 +337,12 @@ public class InventoryItems {
         ItemStack itemStack = new ItemStack(Material.CHAIN);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Center Pivot Point",
                 List.of(
-                        ChatColor.GRAY + "Right click to auto adjust the translation",
-                        ChatColor.GRAY + "so that the pivot is centered relative to the",
-                        ChatColor.GRAY + "Scale. This will make it easier to rotate the",
-                        ChatColor.GRAY + "entity around itself"
+                        ChatColor.GRAY + "Click to auto adjust the translation so that",
+                        ChatColor.GRAY + "the pivot is centered relative to the scale.",
+                        ChatColor.GRAY + "This will make it easier to rotate the entity",
+                        ChatColor.GRAY + "around itself",
+                        " ",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to center"
                 ),
                 "InventoryCenterPivot"
         );
@@ -492,6 +506,20 @@ public class InventoryItems {
                         ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to decrease by 1"
                 ),
                 "InventoryToolPrecision"
+        );
+        return itemStack;
+    }
+
+    public ItemStack cloneTool() {
+        ItemStack itemStack = new ItemStack(Material.FLOWER_BANNER_PATTERN);
+        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Clone Display Entity",
+                List.of(
+                        ChatColor.GRAY + "Click to duplicate the nearest",
+                        ChatColor.GRAY + "display entity",
+                        " ",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to clone"
+                ),
+                "InventoryClone"
         );
         return itemStack;
     }

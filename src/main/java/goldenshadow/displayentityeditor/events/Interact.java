@@ -5,6 +5,7 @@ import goldenshadow.displayentityeditor.Utilities;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -321,6 +322,11 @@ public class Interact implements Listener {
                                 display.teleport(loc);
                                 sendActionbarMessage(player, "Centered at: " + loc.getX() + " " + loc.getY() + " " + loc.getZ());
                             }
+                            case "InventoryClone" -> {
+                                Display clone = (Display) display.getWorld().spawnEntity(display.getLocation(), display.getType(), false);
+                                cloneEntity(clone, display);
+                                sendActionbarMessage(player, "Display entity cloned!");
+                            }
                         }
                     }
                 }
@@ -391,6 +397,7 @@ public class Interact implements Listener {
     private static void spawnDisplayEntity(Location location, EntityType type) {
         assert location.getWorld() != null;
         Display d = (Display) location.getWorld().spawnEntity(location, type, false);
+        d.setVisualFire(true);
         if (d instanceof ItemDisplay) {
             ((ItemDisplay) d).setItemStack(new ItemStack(Material.DIAMOND));
         }
@@ -420,5 +427,44 @@ public class Interact implements Listener {
     private static double getToolPrecision(Player p) {
         Double i = p.getPersistentDataContainer().get(DisplayEntityEditor.toolPrecisionKey,  PersistentDataType.DOUBLE);
         return i != null ? i : 1;
+    }
+
+    /**
+     * Used to clone a display entity
+     * @param clone The clone
+     * @param template The template
+     */
+    @SuppressWarnings("deprecation")
+    private static void cloneEntity(Display clone, Display template) {
+        clone.setBrightness(template.getBrightness());
+        clone.setBillboard(template.getBillboard());
+        clone.setCustomName(template.getCustomName());
+        clone.setGlowColorOverride(template.getGlowColorOverride());
+        clone.setGlowing(template.isGlowing());
+        clone.setCustomNameVisible(template.isCustomNameVisible());
+        clone.setShadowStrength(template.getShadowStrength());
+        clone.setShadowRadius(template.getShadowRadius());
+        clone.setDisplayHeight(template.getDisplayHeight());
+        clone.setDisplayWidth(template.getDisplayWidth());
+        clone.setViewRange(template.getViewRange());
+        clone.setTransformation(template.getTransformation());
+        if (clone instanceof ItemDisplay itemDisplay) {
+            itemDisplay.setItemStack(((ItemDisplay) template).getItemStack());
+            itemDisplay.setItemDisplayTransform(((ItemDisplay) template).getItemDisplayTransform());
+        }
+        if (clone instanceof BlockDisplay blockDisplay) {
+            blockDisplay.setBlock(((BlockDisplay) template).getBlock());
+        }
+        if (clone instanceof TextDisplay textDisplay) {
+            TextDisplay templateText = (TextDisplay) template;
+            textDisplay.setText(templateText.getText());
+            textDisplay.setBackgroundColor(templateText.getBackgroundColor());
+            textDisplay.setShadowed(templateText.isShadowed());
+            textDisplay.setAlignment(templateText.getAlignment());
+            textDisplay.setTextOpacity(templateText.getTextOpacity());
+            textDisplay.setSeeThrough(templateText.isSeeThrough());
+            textDisplay.setDefaultBackground(templateText.isDefaultBackground());
+            textDisplay.setLineWidth(templateText.getLineWidth());
+        }
     }
 }
