@@ -16,6 +16,11 @@ public class InventoryFactory {
     private final GUIItems guiItems;
     private final InventoryItems inventoryItems;
 
+    /**
+     * Used to create a new inventory factory
+     * @param guiItems The gui items object it should use
+     * @param inventoryItems The inventory items object it should use
+     */
     public InventoryFactory(GUIItems guiItems, InventoryItems inventoryItems) {
         this.guiItems = guiItems;
         this.inventoryItems = inventoryItems;
@@ -168,6 +173,7 @@ public class InventoryFactory {
         array[21] = inventoryItems.scaleX();
         array[22] = inventoryItems.scaleY();
         array[23] = inventoryItems.scaleZ();
+        array[24] = inventoryItems.cloneTool();
 
         array[9] = inventoryItems.leftRotationX();
         array[10] = inventoryItems.leftRotationY();

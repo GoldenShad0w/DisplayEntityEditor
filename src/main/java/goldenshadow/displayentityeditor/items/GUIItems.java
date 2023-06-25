@@ -20,6 +20,11 @@ import java.util.List;
  */
 public class GUIItems {
 
+    /**
+     * Creates the rename gui item
+     * @param name The current name
+     * @return The item
+     */
     public ItemStack name(String name) {
         if (name == null) name = "None";
         ItemStack itemStack = new ItemStack(Material.NAME_TAG);
@@ -35,6 +40,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the glowing gui item
+     * @param current If the entity is currently glowing
+     * @return The item
+     */
     public ItemStack glowing(boolean current) {
         ItemStack itemStack = new ItemStack(Material.SEA_LANTERN);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Glowing",
@@ -48,6 +58,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the glow color gui item
+     * @param current The current glow color
+     * @return The item
+     */
     public ItemStack glowColor(Color current) {
         ItemStack itemStack = new ItemStack(Material.RED_DYE);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Glow Color",
@@ -61,6 +76,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the left rotation normalised gui item
+     * @param current If left rotation is currently normalised
+     * @return The item
+     */
     public ItemStack leftRotNormalize(boolean current) {
         ItemStack itemStack = new ItemStack(Material.COMPASS);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Left Rotation Normalization",
@@ -76,6 +96,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the right rotation normalised gui item
+     * @param current If right rotation is currently normalised
+     * @return The item
+     */
     public ItemStack rightRotNormalize(boolean current) {
         ItemStack itemStack = new ItemStack(Material.COMPASS);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Right Rotation Normalization",
@@ -91,6 +116,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the view range gui item
+     * @param current The current view range
+     * @return The item
+     */
     public ItemStack viewRange(float current) {
         ItemStack itemStack = new ItemStack(Material.SPYGLASS);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set View Range",
@@ -107,6 +137,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the display width gui item
+     * @param current The current display width
+     * @return The item
+     */
     public ItemStack width(float current) {
         ItemStack itemStack = new ItemStack(Material.ARROW);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Display Width",
@@ -123,6 +158,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the display height gui item
+     * @param current The current display height
+     * @return The item
+     */
     public ItemStack height(float current) {
         ItemStack itemStack = new ItemStack(Material.ARROW);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Display Height",
@@ -139,6 +179,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the billboard type gui item
+     * @param current The current billboard type
+     * @return The item
+     */
     public ItemStack billboard(Display.Billboard current) {
         ItemStack itemStack = new ItemStack(Material.PAINTING);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Billboard Type",
@@ -154,6 +199,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the shadow radius gui item
+     * @param current The current shadow radius
+     * @return The item
+     */
     public ItemStack shadowRadius(float current) {
         ItemStack itemStack = new ItemStack(Material.COAL);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Shadow Radius",
@@ -170,6 +220,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the shadow strength gui item
+     * @param current The current shadow strength
+     * @return The item
+     */
     public ItemStack shadowStrength(float current) {
         ItemStack itemStack = new ItemStack(Material.FLINT);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Shadow Strength",
@@ -185,6 +240,10 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the lock gui item
+     * @return The item
+     */
     public ItemStack lock() {
         ItemStack itemStack = new ItemStack(Material.STRUCTURE_VOID);
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Lock Entity",
@@ -201,6 +260,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the skylight gui item
+     * @param current The current skylight
+     * @return The item
+     */
     public ItemStack skyLight(int current) {
         ItemStack itemStack = new ItemStack(Material.LIGHT);
         setBrightnessLevel(itemStack, current == -1 ? 0 : current);
@@ -218,6 +282,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the block light gui item
+     * @param current The current block light
+     * @return The item
+     */
     public ItemStack blockLight(int current) {
         ItemStack itemStack = new ItemStack(Material.LIGHT);
         setBrightnessLevel(itemStack, current == -1 ? 0 : current);
@@ -235,6 +304,10 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the delete gui item
+     * @return The item
+     */
     public ItemStack delete() {
         ItemStack itemStack = new ItemStack(Material.BARRIER);
 
@@ -249,12 +322,21 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the filler gui item
+     * @return The item
+     */
     public ItemStack filler() {
         ItemStack itemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
         Utilities.setMeta(itemStack, " ", new ArrayList<>(), "GUIFiller");
         return itemStack;
     }
 
+    /**
+     * Creates the item transform gui item
+     * @param current The current transform type
+     * @return The item
+     */
     public ItemStack itemDisplayTransform(ItemDisplay.ItemDisplayTransform current) {
         ItemStack itemStack = new ItemStack(Material.ARMOR_STAND);
 
@@ -271,6 +353,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the text opacity gui item
+     * @param current The current text opacity
+     * @return The item
+     */
     public ItemStack textOpacity(int current) {
         ItemStack itemStack = new ItemStack(Material.DRAGON_BREATH);
         if (current < 0) current = 0;
@@ -287,6 +374,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the line width gui item
+     * @param current The current line width
+     * @return The item
+     */
     public ItemStack textLineWidth(int current) {
         ItemStack itemStack = new ItemStack(Material.REPEATER);
 
@@ -303,6 +395,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the default background gui item
+     * @param current If the background is currently set to default
+     * @return The item
+     */
     public ItemStack textDefaultBackground(boolean current) {
         ItemStack itemStack = new ItemStack(Material.WHITE_STAINED_GLASS);
 
@@ -319,6 +416,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the text see through gui item
+     * @param current If the text is currently visible through blocks
+     * @return The item
+     */
     public ItemStack textSeeThrough(boolean current) {
         ItemStack itemStack = new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS);
 
@@ -335,6 +437,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the text shadow gui item
+     * @param current If the text currently has shadows
+     * @return The item
+     */
     public ItemStack textShadow(boolean current) {
         ItemStack itemStack = new ItemStack(Material.BLACK_STAINED_GLASS);
 
@@ -351,6 +458,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the text background color gui item
+     * @param current The current background color
+     * @return The item
+     */
     public ItemStack textBackgroundColor(Color current) {
         ItemStack itemStack = new ItemStack(Material.RED_BANNER);
 
@@ -365,6 +477,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the text background opacity gui item
+     * @param current The current background color
+     * @return The item
+     */
     public ItemStack textBackgroundOpacity(Color current) {
         ItemStack itemStack = new ItemStack(Material.END_CRYSTAL);
 
@@ -381,6 +498,11 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the text alignment gui item
+     * @param current The current text alignment
+     * @return The item
+     */
     public ItemStack textAlignment(TextDisplay.TextAlignment current) {
         ItemStack itemStack = new ItemStack(Material.FILLED_MAP);
 
@@ -395,35 +517,33 @@ public class GUIItems {
         return itemStack;
     }
 
+    /**
+     * Creates the text gui item
+     * @return The item
+     * @implNote This item will not show the current text, as it could be very long and therefore be unreadable when displayed as item lore. If the user wants to see what text is currently being displayed, they should just close the gui for a second and read what's in front of them
+     */
     public ItemStack text() {
         ItemStack itemStack = new ItemStack(Material.OAK_SIGN);
 
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Text",
                 List.of(
                         " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change"
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change",
+                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to append"
                 ),
                 "GUIText"
         );
         return itemStack;
     }
 
-    private void setBrightnessLevel(ItemStack itemStack, int current) {
-        BlockDataMeta meta = (BlockDataMeta) itemStack.getItemMeta();
-        assert meta != null;
-        Levelled level = (Levelled) Bukkit.createBlockData(Material.LIGHT);
-        level.setLevel(current);
-        meta.setBlockData(level);
-        itemStack.setItemMeta(meta);
-    }
-
+    /**
+     * Creates the block state gui item
+     * @param current The current block state. If there is no data, it will be displayed as '[]'
+     * @return The item
+     */
     public ItemStack blockState(String current) {
         ItemStack itemStack = new ItemStack(Material.CHEST_MINECART);
 
-        // Current is passed in as the block string, which looks like "minecraft:block[state1=true,state2=false]"
-        // To change the block state, you must only pass in the brackets, so "[state1=true,state2=false]"
-        // Therefore, we want to display only the state so that it reflects the input that would've been entered to achieve said block state.
-        // If the block has no state values, we can just return the brackets by themselves.
         String currentState = current.contains("[") ? current.substring(current.indexOf('['), current.indexOf(']') + 1) : "[]";
 
         Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Block State",
@@ -437,4 +557,19 @@ public class GUIItems {
         );
         return itemStack;
     }
+
+    /**
+     * A utility method used to set the brightness level of a light item
+     * @param current The brightness level it should be set to
+     */
+    private void setBrightnessLevel(ItemStack itemStack, int current) {
+        BlockDataMeta meta = (BlockDataMeta) itemStack.getItemMeta();
+        assert meta != null;
+        Levelled level = (Levelled) Bukkit.createBlockData(Material.LIGHT);
+        level.setLevel(current);
+        meta.setBlockData(level);
+        itemStack.setItemMeta(meta);
+    }
+
+
 }

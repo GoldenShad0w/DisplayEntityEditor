@@ -15,6 +15,7 @@ public enum InputType {
     BACKGROUND_OPACITY,
     BACKGROUND_COLOR,
     TEXT,
+    TEXT_APPEND,
     GLOW_COLOR,
     BLOCK_STATE
 }

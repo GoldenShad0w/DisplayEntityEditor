@@ -20,17 +20,31 @@ public class TextPrompt extends StringPrompt {
 
     private final String message;
 
+    /**
+     * Used to create a new string prompt
+     * @param message The message that should be displayed
+     */
     public TextPrompt(String message) {
         this.message = message;
     }
 
-
+    /**
+     * Used to get the prompt text
+     * @param conversationContext The conversation context
+     * @return The message specified when this object was created
+     */
     @NotNull
     @Override
     public String getPromptText(@NotNull ConversationContext conversationContext) {
         return message;
     }
 
+    /**
+     * Used for when a valid input was given
+     * @param conversationContext The conversation context
+     * @param s The value that was given
+     * @return End of the conversation
+     */
     @SuppressWarnings("deprecation")
     @Nullable
     @Override
@@ -50,6 +64,12 @@ public class TextPrompt extends StringPrompt {
                     message = message.replace("\\n", "\n");
                     ((TextDisplay) inputData.entity()).setText(ChatColor.translateAlternateColorCodes('&', message));
                     player.sendRawMessage(Utilities.getInfoMessageFormat("Set text!"));
+                }
+                case TEXT_APPEND -> {
+                    String message = s;
+                    message = message.replace("\\n", "\n");
+                    ((TextDisplay) inputData.entity()).setText(ChatColor.translateAlternateColorCodes('&', ((TextDisplay) inputData.entity()).getText() + message));
+                    player.sendRawMessage(Utilities.getInfoMessageFormat("Appended text!"));
                 }
                 case BACKGROUND_COLOR -> {
                     int[] array = parseStringToRGB(s);

@@ -319,6 +319,10 @@ public class InventoryClick implements Listener {
                                     player.closeInventory();
                                     InputManager.createTextInput(player, "Please enter the new text in chat! You can use '&' for color codes and \\n to create line breaks.", new InputData(entity, InputType.TEXT, null));
                                 }
+                                if (event.isRightClick()) {
+                                    player.closeInventory();
+                                    InputManager.createTextInput(player, "Please enter the text in chat that should be appended! You can use '&' for color codes and \\n to create line breaks.", new InputData(entity, InputType.TEXT_APPEND, null));
+                                }
                             }
                         }
                     }
