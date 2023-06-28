@@ -46,32 +46,7 @@ public class FloatPrompt extends NumericPrompt {
         Player player = (Player) conversationContext.getForWhom();
         InputData inputData = (InputData) conversationContext.getSessionData("data");
         assert inputData != null;
-        switch (inputData.inputType()) {
-            case VIEW_RANGE -> {
-                inputData.entity().setViewRange(f);
-                player.sendRawMessage(Utilities.getInfoMessageFormat("View range set!"));
-            }
-            case DISPLAY_WIDTH -> {
-                inputData.entity().setDisplayWidth(f);
-                player.sendRawMessage(Utilities.getInfoMessageFormat("Display width set!"));
-            }
-            case DISPLAY_HEIGHT -> {
-                inputData.entity().setDisplayHeight(f);
-                player.sendRawMessage(Utilities.getInfoMessageFormat("Display height set!"));
-            }
-            case SHADOW_RADIUS -> {
-                inputData.entity().setShadowRadius(f);
-                player.sendRawMessage(Utilities.getInfoMessageFormat("Shadow radius set!"));
-            }
-            case SHADOW_STRENGTH -> {
-                if (0 <= f && f <= 1) {
-                    inputData.entity().setShadowStrength(f);
-                    player.sendRawMessage(Utilities.getInfoMessageFormat("Shadow strength set!"));
-                } else {
-                    player.sendRawMessage(Utilities.getErrorMessageFormat("The value needs to be between 0 and 1!"));
-                }
-            }
-        }
+        InputManager.successfulFloatInput(inputData, f, player);
         return END_OF_CONVERSATION;
     }
 

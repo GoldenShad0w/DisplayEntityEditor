@@ -5,7 +5,6 @@ import goldenshadow.displayentityeditor.Utilities;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Transformation;
 
-import javax.annotation.Nullable;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
@@ -64,7 +62,7 @@ public class Interact implements Listener {
                             return;
                         }
                         if (toolValue.equals("InventoryUnlock")) {
-                            Display display = getNearestDisplayEntity(player.getLocation(), false);
+                            Display display = Utilities.getNearestDisplayEntity(player.getLocation(), false);
                             if (display == null) {
                                 player.sendMessage(Utilities.getErrorMessageFormat("There is no locked display entity within 5 blocks!"));
                                 return;
@@ -95,7 +93,7 @@ public class Interact implements Listener {
                             return;
                         }
 
-                        Display display = getNearestDisplayEntity(player.getLocation(), true);
+                        Display display = Utilities.getNearestDisplayEntity(player.getLocation(), true);
                         if (display == null) {
                             player.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked display entity within 5 blocks!"));
                             return;
@@ -354,40 +352,7 @@ public class Interact implements Listener {
         }
     }
 
-    /**
-     * Used to get the nearest display entity
-     * @param location The location from where the nearest display entity should be gotten
-     * @param lockSearchToggle If this method should look for locked or unlocked entities. If true, it will only look for unlocked entities, and if false it will only look for locked ones
-     * @return The nearest display entity or null if none were found
-     */
-    @Nullable
-    public static Display getNearestDisplayEntity(Location location, boolean lockSearchToggle) {
-        Display entity = null;
-        double distance = 5;
-        assert location.getWorld() != null;
-        for (Entity e : location.getWorld().getNearbyEntities(location, 5,5,5)) {
-            if (e instanceof Display d) {
-                if (lockSearchToggle) {
-                    if (!d.getScoreboardTags().contains("dee:locked")) {
-                        double dis = d.getLocation().distance(location);
-                        if (dis < distance) {
-                            entity = d;
-                            distance = dis;
-                        }
-                    }
-                } else {
-                    if (d.getScoreboardTags().contains("dee:locked")) {
-                        double dis = d.getLocation().distance(location);
-                        if (dis < distance) {
-                            entity = d;
-                            distance = dis;
-                        }
-                    }
-                }
-            }
-        }
-        return entity;
-    }
+
 
     /**
      * Used to spawn a new display entity

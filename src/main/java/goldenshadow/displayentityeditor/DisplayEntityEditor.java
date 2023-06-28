@@ -1,6 +1,7 @@
 package goldenshadow.displayentityeditor;
 
 import goldenshadow.displayentityeditor.commands.Command;
+import goldenshadow.displayentityeditor.commands.TabComplete;
 import goldenshadow.displayentityeditor.events.Interact;
 import goldenshadow.displayentityeditor.events.InventoryClick;
 import goldenshadow.displayentityeditor.events.InventoryClose;
@@ -28,6 +29,7 @@ public final class DisplayEntityEditor extends JavaPlugin {
     public static InventoryFactory inventoryFactory;
     public static HashMap<UUID, Display> currentEditMap = new HashMap<>();
     public static NamespacedKey toolPrecisionKey;
+    public static boolean alternateTextInput = false;
 
     /**
      * Used for when the plugin starts up
@@ -38,10 +40,12 @@ public final class DisplayEntityEditor extends JavaPlugin {
 
         getConfig().options().copyDefaults(true);
         saveConfig();
+        alternateTextInput = getConfig().getBoolean("alternate-text-input");
 
         conversationFactory = new ConversationFactory(plugin);
         inventoryFactory = new InventoryFactory(new GUIItems(), new InventoryItems());
         Objects.requireNonNull(getCommand("displayentityeditor")).setExecutor(new Command());
+        Objects.requireNonNull(getCommand("displayentityeditor")).setTabCompleter(new TabComplete());
         Bukkit.getPluginManager().registerEvents(new Interact(), plugin);
         Bukkit.getPluginManager().registerEvents(new InventoryClick(), plugin);
         Bukkit.getPluginManager().registerEvents(new InventoryClose(), plugin);

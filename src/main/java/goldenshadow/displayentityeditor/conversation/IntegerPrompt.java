@@ -1,11 +1,10 @@
 package goldenshadow.displayentityeditor.conversation;
 
 import goldenshadow.displayentityeditor.Utilities;
-import goldenshadow.displayentityeditor.enums.InputType;
 import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.NumericPrompt;
 import org.bukkit.conversations.Prompt;
-import org.bukkit.entity.TextDisplay;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,10 +44,7 @@ public class IntegerPrompt extends NumericPrompt {
         int i = number.intValue();
         InputData inputData = (InputData) conversationContext.getSessionData("data");
         assert inputData != null;
-        if (inputData.inputType() == InputType.LINE_WIDTH) {
-            ((TextDisplay) inputData.entity()).setLineWidth(i);
-            conversationContext.getForWhom().sendRawMessage(Utilities.getInfoMessageFormat("Line width set!"));
-        }
+        InputManager.successfulIntegerInput(inputData, i, (Player) conversationContext.getForWhom());
         return END_OF_CONVERSATION;
     }
 

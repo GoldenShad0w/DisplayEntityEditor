@@ -37,7 +37,11 @@ public class InventoryClick implements Listener {
                             case "GUIName" -> {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
-                                    InputManager.createTextInput(player, "Please enter the new name it chat! You can use '&' for color codes.", new InputData(entity, InputType.NAME, null));
+                                    if (DisplayEntityEditor.alternateTextInput) {
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("name <new_name>", "You can use '&' for color codes."));
+                                    } else {
+                                        InputManager.createTextInput(player, "Please enter the new name it chat! You can use '&' for color codes.", new InputData(entity, InputType.NAME, null));
+                                    }
                                 } else {
                                     entity.setCustomNameVisible(false);
                                     entity.setCustomName(null);
@@ -60,15 +64,17 @@ public class InventoryClick implements Listener {
                                         Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> ((BlockDisplay) entity).setBlock(blockData), 1L);
                                     }
 
-
-
                                     player.getOpenInventory().setItem(event.getSlot(), DisplayEntityEditor.inventoryFactory.getGuiItems().glowing(b));
                                 }
                             }
                             case "GUIGlowColor" -> {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
-                                    InputManager.createTextInput(player, "Please enter the new rgb values it chat! Use the format: R, G, B", new InputData(entity, InputType.GLOW_COLOR, null));
+                                    if (DisplayEntityEditor.alternateTextInput) {
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("glow_color <R, G, B>", "Use the format R, G, B"));
+                                    } else {
+                                        InputManager.createTextInput(player, "Please enter the new rgb values it chat! Use the format: R, G, B", new InputData(entity, InputType.GLOW_COLOR, null));
+                                    }
                                 }
                             }
                             case "GUILRNormalize" -> {
@@ -88,19 +94,34 @@ public class InventoryClick implements Listener {
                             case "GUIViewRange" -> {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
-                                    InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.VIEW_RANGE, null));
+
+                                    if (DisplayEntityEditor.alternateTextInput) {
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("view_range <value>", ""));
+                                    } else {
+                                        InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.VIEW_RANGE, null));
+                                    }
                                 }
                             }
                             case "GUIWidth" -> {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
-                                    InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.DISPLAY_WIDTH, null));
+
+                                    if (DisplayEntityEditor.alternateTextInput) {
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("display_width <value>",""));
+                                    } else {
+                                        InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.DISPLAY_WIDTH, null));
+                                    }
                                 }
                             }
                             case "GUIHeight" -> {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
-                                    InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.DISPLAY_HEIGHT, null));
+
+                                    if (DisplayEntityEditor.alternateTextInput) {
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("display_height <value>", ""));
+                                    } else {
+                                        InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.DISPLAY_HEIGHT, null));
+                                    }
                                 }
                             }
                             case "GUIBillboard" -> {
@@ -126,14 +147,23 @@ public class InventoryClick implements Listener {
                             case "GUIShadowRadius" -> {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
-                                    InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.SHADOW_RADIUS, null));
 
+                                    if (DisplayEntityEditor.alternateTextInput) {
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("shadow_radius <value>", ""));
+                                    } else {
+                                        InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.SHADOW_RADIUS, null));
+                                    }
                                 }
                             }
                             case "GUIShadowStrength" -> {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
-                                    InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.SHADOW_STRENGTH, null));
+
+                                    if (DisplayEntityEditor.alternateTextInput) {
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("shadow_strength <value>", "The value should be between 0 and 1 (inclusive)."));
+                                    } else {
+                                        InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.SHADOW_STRENGTH, null));
+                                    }
                                 }
                             }
                             case "GUILock" -> {
@@ -247,7 +277,12 @@ public class InventoryClick implements Listener {
                                 if (event.isLeftClick()) {
 
                                     player.closeInventory();
-                                    InputManager.createTextInput(player, "Please enter the new block state! You can either use f3 or an online tool to help generate it.", new InputData(entity, InputType.BLOCK_STATE, ((BlockDisplay) entity).getBlock().getMaterial()));
+
+                                    if (DisplayEntityEditor.alternateTextInput) {
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("block_state <new_blockstate>", "You can either use f3 or an online tool to help generate it."));
+                                    } else {
+                                        InputManager.createTextInput(player, "Please enter the new block state! You can either use f3 or an online tool to help generate it.", new InputData(entity, InputType.BLOCK_STATE, ((BlockDisplay) entity).getBlock().getMaterial()));
+                                    }
 
                                     player.closeInventory();
                                 }
@@ -260,13 +295,23 @@ public class InventoryClick implements Listener {
                             case "GUITextOpacity" -> {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
-                                    InputManager.createByteInput(player, "Please enter the value in chat!", new InputData(entity, InputType.TEXT_OPACITY, null));
+
+                                    if (DisplayEntityEditor.alternateTextInput) {
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("text_opacity <value>", "Value should be between 0 and 255."));
+                                    } else {
+                                        InputManager.createByteInput(player, "Please enter the value in chat!", new InputData(entity, InputType.TEXT_OPACITY, null));
+                                    }
                                 }
                             }
                             case "GUITextLineWidth" -> {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
-                                    InputManager.createIntegerInput(player, "Please enter the value in chat!", new InputData(entity, InputType.LINE_WIDTH, null));
+
+                                    if (DisplayEntityEditor.alternateTextInput) {
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("line_width <value>", ""));
+                                    } else {
+                                        InputManager.createIntegerInput(player, "Please enter the value in chat!", new InputData(entity, InputType.LINE_WIDTH, null));
+                                    }
                                 }
                             }
                             case "GUITextDefaultBackground" -> {
@@ -296,13 +341,23 @@ public class InventoryClick implements Listener {
                             case "GUITextBackgroundColor" -> {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
-                                    InputManager.createTextInput(player, "Please enter the new rgb values it chat! Use the format: R, G, B", new InputData(entity, InputType.BACKGROUND_COLOR, null));
+
+                                    if (DisplayEntityEditor.alternateTextInput) {
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("background_color <R, B, G>", "Use the format: R, G, B"));
+                                    } else {
+                                        InputManager.createTextInput(player, "Please enter the new rgb values it chat! Use the format: R, G, B", new InputData(entity, InputType.BACKGROUND_COLOR, null));
+                                    }
                                 }
                             }
                             case "GUITextBackgroundOpacity" -> {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
-                                    InputManager.createByteInput(player, "Please enter the value in chat!", new InputData(entity, InputType.BACKGROUND_OPACITY, null));
+
+                                    if (DisplayEntityEditor.alternateTextInput) {
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("background_opacity <value>", "Value should be between 0 and 255."));
+                                    } else {
+                                        InputManager.createByteInput(player, "Please enter the value in chat!", new InputData(entity, InputType.BACKGROUND_OPACITY, null));
+                                    }
                                 }
                             }
                             case "GUITextAlignment" -> {
@@ -317,11 +372,21 @@ public class InventoryClick implements Listener {
                             case "GUIText" -> {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
-                                    InputManager.createTextInput(player, "Please enter the new text in chat! You can use '&' for color codes and \\n to create line breaks.", new InputData(entity, InputType.TEXT, null));
+
+                                    if (DisplayEntityEditor.alternateTextInput) {
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("text <new_text>", "You can use '&' for color codes and \\n to create line breaks."));
+                                    }  else {
+                                        InputManager.createTextInput(player, "Please enter the new text in chat! You can use '&' for color codes and \\n to create line breaks.", new InputData(entity, InputType.TEXT, null));
+                                    }
                                 }
                                 if (event.isRightClick()) {
                                     player.closeInventory();
-                                    InputManager.createTextInput(player, "Please enter the text in chat that should be appended! You can use '&' for color codes and \\n to create line breaks.", new InputData(entity, InputType.TEXT_APPEND, null));
+
+                                    if (DisplayEntityEditor.alternateTextInput) {
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("text_append <text_to_append>", "You can use '&' for color codes and \\n to create line breaks."));
+                                    } else {
+                                        InputManager.createTextInput(player, "Please enter the text in chat that should be appended! You can use '&' for color codes and \\n to create line breaks.", new InputData(entity, InputType.TEXT_APPEND, null));
+                                    }
                                 }
                             }
                         }
