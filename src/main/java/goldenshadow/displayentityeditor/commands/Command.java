@@ -2,10 +2,16 @@ package goldenshadow.displayentityeditor.commands;
 
 import goldenshadow.displayentityeditor.DisplayEntityEditor;
 import goldenshadow.displayentityeditor.Utilities;
+import goldenshadow.displayentityeditor.conversation.InputData;
+import goldenshadow.displayentityeditor.conversation.InputManager;
+import goldenshadow.displayentityeditor.enums.InputType;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.BlockDisplay;
+import org.bukkit.entity.Display;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.TextDisplay;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
@@ -30,22 +36,157 @@ public class Command implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender,@NotNull org.bukkit.command.Command command,@NotNull String label, String[] args) {
         if (sender instanceof Player p) {
-            if (savedInventories.containsKey(p.getUniqueId())) {
-                returnInventory(p);
-                p.sendMessage(Utilities.getInfoMessageFormat("Your inventory has been returned to you!"));
-                savedInventories.remove(p.getUniqueId());
+            if (args.length == 0) {
+                if (savedInventories.containsKey(p.getUniqueId())) {
+                    returnInventory(p);
+                    p.sendMessage(Utilities.getInfoMessageFormat("Your inventory has been returned to you!"));
+                    savedInventories.remove(p.getUniqueId());
+                    return true;
+                }
+                saveInventory(p);
+                ItemStack[] array = DisplayEntityEditor.inventoryFactory.getInventoryArray();
+                for (int i = 0; i < array.length; i++) {
+                    p.getInventory().setItem(i, array[i]);
+                }
+                if (!p.getPersistentDataContainer().has(DisplayEntityEditor.toolPrecisionKey, PersistentDataType.DOUBLE)) {
+                    p.getPersistentDataContainer().set(DisplayEntityEditor.toolPrecisionKey, PersistentDataType.DOUBLE, 1d);
+                }
+                p.sendMessage(Utilities.getInfoMessageFormat("Given display entity tools. Left click to cycle through the tools."));
+                p.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.BLUE + "Run this command again to have your inventory returned!");
                 return true;
             }
-            saveInventory(p);
-            ItemStack[] array = DisplayEntityEditor.inventoryFactory.getInventoryArray();
-            for (int i = 0; i < array.length; i++) {
-                p.getInventory().setItem(i, array[i]);
+            if (args.length == 1) {
+                if (args[0].equalsIgnoreCase("reload")) {
+                    DisplayEntityEditor.getPlugin().reloadConfig();
+                    DisplayEntityEditor.alternateTextInput = DisplayEntityEditor.getPlugin().getConfig().getBoolean("alternate-text-input");
+                    p.sendMessage(Utilities.getInfoMessageFormat("Config reloaded!"));
+                    return true;
+                }
             }
-            if (!p.getPersistentDataContainer().has(DisplayEntityEditor.toolPrecisionKey, PersistentDataType.DOUBLE)) {
-                p.getPersistentDataContainer().set(DisplayEntityEditor.toolPrecisionKey, PersistentDataType.DOUBLE, 1d);
+
+            if (args.length > 2) {
+                if (DisplayEntityEditor.alternateTextInput) {
+                    if (args[0].equalsIgnoreCase("edit")) {
+                        String input = collectArgsToString(args);
+                        Display display = Utilities.getNearestDisplayEntity(p.getLocation(), true);
+                        if (display == null) {
+                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked display entity within 5 blocks!"));
+                            return true;
+                        }
+                        if (args[1].equalsIgnoreCase("name")) {
+                            InputManager.successfulTextInput(new InputData(display, InputType.NAME, null), input, p);
+                            return true;
+                        }
+                        if (args[1].equalsIgnoreCase("background_color")) {
+                            if (display instanceof TextDisplay) {
+                                InputManager.successfulTextInput(new InputData(display, InputType.BACKGROUND_COLOR, null), input, p);
+                                return true;
+                            }
+                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked text display entity within 5 blocks!"));
+                            return true;
+                        }
+                        if (args[1].equalsIgnoreCase("text")) {
+                            if (display instanceof TextDisplay) {
+                                InputManager.successfulTextInput(new InputData(display, InputType.TEXT, null), input, p);
+                                return true;
+                            }
+                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked text display entity within 5 blocks!"));
+                            return true;
+                        }
+                        if (args[1].equalsIgnoreCase("text_append")) {
+                            if (display instanceof TextDisplay) {
+                                InputManager.successfulTextInput(new InputData(display, InputType.TEXT_APPEND, null), input, p);
+                                return true;
+                            }
+                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked text display entity within 5 blocks!"));
+                            return true;
+                        }
+                        if (args[1].equalsIgnoreCase("glow_color")) {
+                            if (!(display instanceof TextDisplay)) {
+                                InputManager.successfulTextInput(new InputData(display, InputType.GLOW_COLOR, null), input, p);
+                                return true;
+                            }
+                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked block/item display entity within 5 blocks!"));
+                            return true;
+                        }
+                        if (args[1].equalsIgnoreCase("block_state")) {
+                            if (display instanceof BlockDisplay) {
+                                InputManager.successfulTextInput(new InputData(display, InputType.BLOCK_STATE, ((BlockDisplay) display).getBlock().getMaterial()), input, p);
+                                return true;
+                            }
+                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked block display entity within 5 blocks!"));
+                            return true;
+                        }
+                        if (args[1].equalsIgnoreCase("view_range")) {
+                            if (InputManager.isFloat(input)) {
+                                InputManager.successfulFloatInput(new InputData(display, InputType.VIEW_RANGE, null), Float.parseFloat(input), p);
+                                return true;
+                            }
+                        }
+                        if (args[1].equalsIgnoreCase("display_height")) {
+                            if (InputManager.isFloat(input)) {
+                                InputManager.successfulFloatInput(new InputData(display, InputType.DISPLAY_HEIGHT, null), Float.parseFloat(input), p);
+                                return true;
+                            }
+                        }
+                        if (args[1].equalsIgnoreCase("display_width")) {
+                            if (InputManager.isFloat(input)) {
+                                InputManager.successfulFloatInput(new InputData(display, InputType.DISPLAY_WIDTH, null), Float.parseFloat(input), p);
+                                return true;
+                            }
+                        }
+                        if (args[1].equalsIgnoreCase("shadow_radius")) {
+                            if (InputManager.isFloat(input)) {
+                                InputManager.successfulFloatInput(new InputData(display, InputType.SHADOW_RADIUS, null), Float.parseFloat(input), p);
+                                return true;
+                            }
+                        }
+                        if (args[1].equalsIgnoreCase("shadow_strength")) {
+                            if (InputManager.isFloat(input)) {
+                                float f = Float.parseFloat(input);
+                                if (0 <= f && f <= 1) {
+                                    InputManager.successfulFloatInput(new InputData(display, InputType.SHADOW_STRENGTH, null), Float.parseFloat(input), p);
+                                    return true;
+                                }
+                                p.sendMessage(Utilities.getErrorMessageFormat("Value should be between 0 and 1!"));
+                                return true;
+                            }
+                        }
+                        if (args[1].equalsIgnoreCase("text_opacity")) {
+                            if (display instanceof TextDisplay) {
+                                if (InputManager.isByte(input)) {
+                                    InputManager.successfulByteInput(new InputData(display, InputType.TEXT_OPACITY, null), Integer.parseInt(input), p);
+                                    return true;
+                                }
+                            }
+                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked text display entity within 5 blocks!"));
+                            return true;
+                        }
+                        if (args[1].equalsIgnoreCase("background_opacity")) {
+                            if (display instanceof TextDisplay) {
+                                if (InputManager.isByte(input)) {
+                                    InputManager.successfulByteInput(new InputData(display, InputType.BACKGROUND_OPACITY, null), Integer.parseInt(input), p);
+                                    return true;
+                                }
+                            }
+                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked text display entity within 5 blocks!"));
+                            return true;
+                        }
+                        if (args[1].equalsIgnoreCase("line_width")) {
+                            if (display instanceof TextDisplay) {
+                                if (InputManager.isInteger(input)) {
+                                    InputManager.successfulIntegerInput(new InputData(display, InputType.LINE_WIDTH, null), Integer.parseInt(input), p);
+                                    return true;
+                                }
+                            }
+                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked text display entity within 5 blocks!"));
+                            return true;
+                        }
+                    }
+                }
+                return true;
             }
-            p.sendMessage(Utilities.getInfoMessageFormat("Given display entity tools. Left click to cycle through the tools."));
-            p.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.BLUE + "Run this command again to have your inventory returned!");
+            p.sendMessage(Utilities.getErrorMessageFormat("Invalid arguments!"));
             return true;
         }
         sender.sendMessage("This command must be run by a player!");
@@ -73,4 +214,14 @@ public class Command implements CommandExecutor {
             player.getInventory().setItem(i, saved[i]);
         }
     }
+
+    private static String collectArgsToString(String[] args) {
+        StringBuilder s = new StringBuilder();
+        for (int i = 2; i < args.length; i++) {
+            if (i != 2) s.append(" ");
+            s.append(args[i]);
+        }
+        return s.toString();
+    }
+
 }

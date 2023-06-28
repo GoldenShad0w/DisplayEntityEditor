@@ -1,14 +1,21 @@
 package goldenshadow.displayentityeditor;
 
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
+import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Display;
+import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class Utilities {
@@ -106,5 +113,47 @@ public class Utilities {
         return ChatColor.DARK_RED + "[DEE] " + ChatColor.RED + message;
     }
 
+    /**
+     * Used to get the nearest display entity
+     * @param location The location from where the nearest display entity should be gotten
+     * @param lockSearchToggle If this method should look for locked or unlocked entities. If true, it will only look for unlocked entities, and if false it will only look for locked ones
+     * @return The nearest display entity or null if none were found
+     */
+    @Nullable
+    public static Display getNearestDisplayEntity(Location location, boolean lockSearchToggle) {
+        Display entity = null;
+        double distance = 5;
+        assert location.getWorld() != null;
+        for (Entity e : location.getWorld().getNearbyEntities(location, 5,5,5)) {
+            if (e instanceof Display d) {
+                if (lockSearchToggle) {
+                    if (!d.getScoreboardTags().contains("dee:locked")) {
+                        double dis = d.getLocation().distance(location);
+                        if (dis < distance) {
+                            entity = d;
+                            distance = dis;
+                        }
+                    }
+                } else {
+                    if (d.getScoreboardTags().contains("dee:locked")) {
+                        double dis = d.getLocation().distance(location);
+                        if (dis < distance) {
+                            entity = d;
+                            distance = dis;
+                        }
+                    }
+                }
+            }
+        }
+        return entity;
+    }
+
+    public static BaseComponent[] getCommandMessage(String commandMessage, String hint) {
+
+        TextComponent click = new TextComponent(net.md_5.bungee.api.ChatColor.DARK_AQUA + "[DEE] " + net.md_5.bungee.api.ChatColor.AQUA + "Run command " + net.md_5.bungee.api.ChatColor.GRAY + "/deeditor " + commandMessage + net.md_5.bungee.api.ChatColor.AQUA + " to edit the entity or click this message. " + hint);
+        click.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/deeditor edit " + commandMessage));
+
+        return new ComponentBuilder(click).create();
+    }
 
 }
