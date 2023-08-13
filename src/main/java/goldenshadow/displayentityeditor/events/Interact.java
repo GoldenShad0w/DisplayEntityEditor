@@ -361,6 +361,7 @@ public class Interact implements Listener {
      */
     private static void spawnDisplayEntity(Location location, EntityType type) {
         assert location.getWorld() != null;
+        if (location.getY() < 0) location.setY(location.getY() + 0.0001);
         Display d = (Display) location.getWorld().spawnEntity(location, type, false);
         d.setVisualFire(true);
         if (d instanceof ItemDisplay) {
@@ -413,6 +414,8 @@ public class Interact implements Listener {
         clone.setDisplayWidth(template.getDisplayWidth());
         clone.setViewRange(template.getViewRange());
         clone.setTransformation(template.getTransformation());
+        clone.getLocation().setPitch(template.getLocation().getPitch());
+        clone.getLocation().setYaw(template.getLocation().getYaw());
         if (clone instanceof ItemDisplay itemDisplay) {
             itemDisplay.setItemStack(((ItemDisplay) template).getItemStack());
             itemDisplay.setItemDisplayTransform(((ItemDisplay) template).getItemDisplayTransform());
