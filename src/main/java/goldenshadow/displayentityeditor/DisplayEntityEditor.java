@@ -9,6 +9,9 @@ import goldenshadow.displayentityeditor.events.PlayerJoin;
 import goldenshadow.displayentityeditor.inventories.InventoryFactory;
 import goldenshadow.displayentityeditor.items.GUIItems;
 import goldenshadow.displayentityeditor.items.InventoryItems;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -30,6 +33,22 @@ public final class DisplayEntityEditor extends JavaPlugin {
     public static HashMap<UUID, Display> currentEditMap = new HashMap<>();
     public static NamespacedKey toolPrecisionKey;
     public static boolean alternateTextInput = false;
+    public static boolean useMiniMessageFormat = false;
+    public static MiniMessage miniMessage = MiniMessage.builder()
+            .tags(TagResolver.builder()
+                    .resolver(StandardTags.color())
+                    .resolver(StandardTags.decorations())
+                    .resolver(StandardTags.gradient())
+                    .resolver(StandardTags.rainbow())
+                    .resolver(StandardTags.font())
+                    .resolver(StandardTags.newline())
+                    .resolver(StandardTags.keybind())
+                    .resolver(StandardTags.nbt())
+                    .resolver(StandardTags.score())
+                    .resolver(StandardTags.transition())
+                    .build()
+            )
+            .build();
 
     /**
      * Used for when the plugin starts up
@@ -41,6 +60,7 @@ public final class DisplayEntityEditor extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveConfig();
         alternateTextInput = getConfig().getBoolean("alternate-text-input");
+        useMiniMessageFormat = getConfig().getBoolean("use-minimessage-format");
 
         conversationFactory = new ConversationFactory(plugin);
         inventoryFactory = new InventoryFactory(new GUIItems(), new InventoryItems());

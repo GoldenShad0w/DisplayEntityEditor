@@ -38,9 +38,17 @@ public class InventoryClick implements Listener {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
                                     if (DisplayEntityEditor.alternateTextInput) {
-                                        player.spigot().sendMessage(Utilities.getCommandMessage("name <new_name>", "You can use '&' for color codes."));
+                                        if (DisplayEntityEditor.useMiniMessageFormat) {
+                                            player.spigot().sendMessage(Utilities.getCommandMessage("name <new_name>", "Use MiniMessage formatting to stylize your input."));
+                                        } else {
+                                            player.spigot().sendMessage(Utilities.getCommandMessage("name <new_name>", "You can use '&' for color codes."));
+                                        }
                                     } else {
-                                        InputManager.createTextInput(player, "Please enter the new name it chat! You can use '&' for color codes.", new InputData(entity, InputType.NAME, null));
+                                        if (DisplayEntityEditor.useMiniMessageFormat) {
+                                            InputManager.createTextInput(player, "Please enter the new name it chat! Use MiniMessage formatting to stylize your input.", new InputData(entity, InputType.NAME, null));
+                                        } else {
+                                            InputManager.createTextInput(player, "Please enter the new name it chat! You can use '&' for color codes.", new InputData(entity, InputType.NAME, null));
+                                        }
                                     }
                                 } else {
                                     entity.setCustomNameVisible(false);
@@ -374,18 +382,34 @@ public class InventoryClick implements Listener {
                                     player.closeInventory();
 
                                     if (DisplayEntityEditor.alternateTextInput) {
-                                        player.spigot().sendMessage(Utilities.getCommandMessage("text <new_text>", "You can use '&' for color codes and \\n to create line breaks."));
-                                    }  else {
-                                        InputManager.createTextInput(player, "Please enter the new text in chat! You can use '&' for color codes and \\n to create line breaks.", new InputData(entity, InputType.TEXT, null));
+                                        if (DisplayEntityEditor.useMiniMessageFormat) {
+                                            player.spigot().sendMessage(Utilities.getCommandMessage("text <new_text>", "Use MiniMessage formatting to stylize your input."));
+                                        } else {
+                                            player.spigot().sendMessage(Utilities.getCommandMessage("text <new_text>", "You can use '&' for color codes and \\n to create line breaks."));
+                                        }
+                                    } else {
+                                        if (DisplayEntityEditor.useMiniMessageFormat) {
+                                            InputManager.createTextInput(player, "Please enter the new text in chat! Use MiniMessage formatting to stylize your input.", new InputData(entity, InputType.TEXT, null));
+                                        } else {
+                                            InputManager.createTextInput(player, "Please enter the new text in chat! You can use '&' for color codes and \\n to create line breaks.", new InputData(entity, InputType.TEXT, null));
+                                        }
                                     }
                                 }
                                 if (event.isRightClick()) {
                                     player.closeInventory();
 
                                     if (DisplayEntityEditor.alternateTextInput) {
-                                        player.spigot().sendMessage(Utilities.getCommandMessage("text_append <text_to_append>", "You can use '&' for color codes and \\n to create line breaks."));
+                                        if (DisplayEntityEditor.useMiniMessageFormat) {
+                                            player.spigot().sendMessage(Utilities.getCommandMessage("text_append <text_to_append>", "Use MiniMessage formatting to stylize your input."));
+                                        } else {
+                                            player.spigot().sendMessage(Utilities.getCommandMessage("text_append <text_to_append>", "You can use '&' for color codes and \\n to create line breaks."));
+                                        }
                                     } else {
-                                        InputManager.createTextInput(player, "Please enter the text in chat that should be appended! You can use '&' for color codes and \\n to create line breaks.", new InputData(entity, InputType.TEXT_APPEND, null));
+                                        if (DisplayEntityEditor.useMiniMessageFormat) {
+                                            InputManager.createTextInput(player, "Please enter the text in chat that should be appended! Use MiniMessage formatting to stylize your input.", new InputData(entity, InputType.TEXT_APPEND, null));
+                                        } else {
+                                            InputManager.createTextInput(player, "Please enter the text in chat that should be appended! You can use '&' for color codes and \\n to create line breaks.", new InputData(entity, InputType.TEXT_APPEND, null));
+                                        }
                                     }
                                 }
                             }

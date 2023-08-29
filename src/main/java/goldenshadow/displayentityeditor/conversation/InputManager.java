@@ -3,6 +3,10 @@ package goldenshadow.displayentityeditor.conversation;
 import goldenshadow.displayentityeditor.DisplayEntityEditor;
 import goldenshadow.displayentityeditor.Utilities;
 import goldenshadow.displayentityeditor.enums.InputType;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.bungeecord.BungeeComponentSerializer;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -16,6 +20,7 @@ import org.bukkit.entity.TextDisplay;
  * A manager class for handling text inputs
  */
 public class InputManager {
+
 
     /**
      * Used to create a text input that awaits a string
@@ -157,20 +162,42 @@ public class InputManager {
     public static void successfulTextInput(InputData inputData, String s ,Player player) {
         switch (inputData.inputType()) {
             case NAME -> {
+
                 inputData.entity().setCustomNameVisible(true);
-                inputData.entity().setCustomName(ChatColor.translateAlternateColorCodes('&', s));
+
+                if (DisplayEntityEditor.useMiniMessageFormat) {
+                    Component c = DisplayEntityEditor.miniMessage.deserialize(s);
+                    BaseComponent[] b = BungeeComponentSerializer.get().serialize(c);
+                    inputData.entity().setCustomName(TextComponent.toLegacyText(b));
+                } else {
+                    inputData.entity().setCustomName(ChatColor.translateAlternateColorCodes('&', s));
+                }
                 player.sendRawMessage(Utilities.getInfoMessageFormat("Name set!"));
             }
             case TEXT -> {
                 String message = s;
-                message = message.replace("\\n", "\n");
-                ((TextDisplay) inputData.entity()).setText(ChatColor.translateAlternateColorCodes('&', message));
+
+                if (DisplayEntityEditor.useMiniMessageFormat) {
+                    Component c = DisplayEntityEditor.miniMessage.deserialize(s);
+                    BaseComponent[] b = BungeeComponentSerializer.get().serialize(c);
+                    ((TextDisplay) inputData.entity()).setText(TextComponent.toLegacyText(b));
+                } else {
+                    message = message.replace("\\n", "\n");
+                    ((TextDisplay) inputData.entity()).setText(ChatColor.translateAlternateColorCodes('&', message));
+                }
+
                 player.sendRawMessage(Utilities.getInfoMessageFormat("Set text!"));
             }
             case TEXT_APPEND -> {
                 String message = s;
-                message = message.replace("\\n", "\n");
-                ((TextDisplay) inputData.entity()).setText(ChatColor.translateAlternateColorCodes('&', ((TextDisplay) inputData.entity()).getText() + message));
+                if (DisplayEntityEditor.useMiniMessageFormat) {
+                    Component c = DisplayEntityEditor.miniMessage.deserialize(s);
+                    BaseComponent[] b = BungeeComponentSerializer.get().serialize(c);
+                    ((TextDisplay) inputData.entity()).setText(((TextDisplay) inputData.entity()).getText() + TextComponent.toLegacyText(b));
+                } else {
+                    message = message.replace("\\n", "\n");
+                    ((TextDisplay) inputData.entity()).setText(ChatColor.translateAlternateColorCodes('&', ((TextDisplay) inputData.entity()).getText() + message));
+                }
                 player.sendRawMessage(Utilities.getInfoMessageFormat("Appended text!"));
             }
             case BACKGROUND_COLOR -> {
