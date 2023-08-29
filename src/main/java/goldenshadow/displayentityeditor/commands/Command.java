@@ -59,6 +59,7 @@ public class Command implements CommandExecutor {
                 if (args[0].equalsIgnoreCase("reload")) {
                     DisplayEntityEditor.getPlugin().reloadConfig();
                     DisplayEntityEditor.alternateTextInput = DisplayEntityEditor.getPlugin().getConfig().getBoolean("alternate-text-input");
+                    DisplayEntityEditor.useMiniMessageFormat = DisplayEntityEditor.getPlugin().getConfig().getBoolean("use-minimessage-format");
                     p.sendMessage(Utilities.getInfoMessageFormat("Config reloaded!"));
                     return true;
                 }
