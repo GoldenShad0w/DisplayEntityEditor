@@ -361,9 +361,16 @@ public class Interact implements Listener {
      */
     private static void spawnDisplayEntity(Location location, EntityType type) {
         assert location.getWorld() != null;
+        location.setYaw(0);
+        location.setPitch(0);
+        if (type != EntityType.BLOCK_DISPLAY) {
+            location.setX((int) location.getX() + (((location.getX()) < 0 ? -1 : 1) * 0.5));
+            location.setZ((int) location.getZ() + (((location.getZ()) < 0 ? -1 : 1) * 0.5));
+        }
         if (location.getY() < 0) location.setY(location.getY() + 0.0001);
         Display d = (Display) location.getWorld().spawnEntity(location, type, false);
         d.setVisualFire(true);
+
         if (d instanceof ItemDisplay) {
             ((ItemDisplay) d).setItemStack(new ItemStack(Material.DIAMOND));
         }
