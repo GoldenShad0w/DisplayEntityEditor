@@ -30,7 +30,29 @@ public class Utilities {
     public static void setMeta(ItemStack item, String name, List<String> lore, String data) {
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
-        meta.setDisplayName(name);
+        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&' ,name));
+        lore.replaceAll(textToTranslate -> ChatColor.translateAlternateColorCodes('&', textToTranslate));
+        meta.setLore(lore);
+        meta.getPersistentDataContainer().set(new NamespacedKey(DisplayEntityEditor.getPlugin(), "tool"), PersistentDataType.STRING, data);
+
+        meta.addItemFlags(ItemFlag.values());
+        meta.setUnbreakable(true);
+        item.setItemMeta(meta);
+    }
+
+    /**
+     * Used to easily set an items meta
+     * @param item The item
+     * @param name The name it should get
+     * @param lore The lore it should get
+     * @param data The data it should get
+     * @param formatData Data that should be used to format a string
+     */
+    public static void setMeta(ItemStack item, String name, List<String> lore, String data, Object... formatData) {
+        ItemMeta meta = item.getItemMeta();
+        assert meta != null;
+        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&' ,name));
+        lore.replaceAll(textToTranslate -> ChatColor.translateAlternateColorCodes('&', textToTranslate).formatted(formatData));
         meta.setLore(lore);
         meta.getPersistentDataContainer().set(new NamespacedKey(DisplayEntityEditor.getPlugin(), "tool"), PersistentDataType.STRING, data);
 
@@ -101,7 +123,7 @@ public class Utilities {
      * @return The formatted message
      */
     public static String getInfoMessageFormat(String message) {
-        return ChatColor.DARK_AQUA + "[DEE] " + ChatColor.AQUA + message;
+        return ChatColor.translateAlternateColorCodes('&', DisplayEntityEditor.messageManager.getString("info_message_format").formatted(message));
     }
 
     /**
@@ -110,7 +132,7 @@ public class Utilities {
      * @return The formatted message
      */
     public static String getErrorMessageFormat(String message) {
-        return ChatColor.DARK_RED + "[DEE] " + ChatColor.RED + message;
+        return ChatColor.translateAlternateColorCodes('&', DisplayEntityEditor.messageManager.getString("error_message_format").formatted(message));
     }
 
     /**
@@ -149,8 +171,8 @@ public class Utilities {
     }
 
     public static BaseComponent[] getCommandMessage(String commandMessage, String hint) {
+        TextComponent click = new TextComponent(net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', DisplayEntityEditor.messageManager.getString("command_message").formatted(commandMessage, hint)));
 
-        TextComponent click = new TextComponent(net.md_5.bungee.api.ChatColor.DARK_AQUA + "[DEE] " + net.md_5.bungee.api.ChatColor.AQUA + "Run command " + net.md_5.bungee.api.ChatColor.GRAY + "/deeditor " + commandMessage + net.md_5.bungee.api.ChatColor.AQUA + " to edit the entity or click this message. " + hint);
         click.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/deeditor edit " + commandMessage));
 
         return new ComponentBuilder(click).create();

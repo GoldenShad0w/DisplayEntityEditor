@@ -1,5 +1,6 @@
 package goldenshadow.displayentityeditor.conversation;
 
+import goldenshadow.displayentityeditor.DisplayEntityEditor;
 import goldenshadow.displayentityeditor.Utilities;
 import goldenshadow.displayentityeditor.enums.InputType;
 import org.bukkit.conversations.ConversationContext;
@@ -76,7 +77,7 @@ public class FloatPrompt extends NumericPrompt {
     @Nullable
     @Override
     protected String getFailedValidationText(@NotNull ConversationContext context, @NotNull String invalidInput) {
-        return Utilities.getErrorMessageFormat("The value needs to be an decimal number!");
+        return Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("float_fail"));
     }
 
     /**
@@ -91,8 +92,8 @@ public class FloatPrompt extends NumericPrompt {
         InputData data = (InputData) context.getSessionData("data");
         assert data != null;
         if (data.inputType() == InputType.SHADOW_STRENGTH) {
-            return Utilities.getErrorMessageFormat("The value needs to be an decimal number between 0 and 1 (inclusive)!");
+            return Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("float_shadow_strength_fail"));
         }
-        return Utilities.getErrorMessageFormat("The value needs to be an decimal number!");
+        return Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("float_fail"));
     }
 }

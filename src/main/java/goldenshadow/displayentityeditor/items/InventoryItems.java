@@ -1,11 +1,9 @@
 package goldenshadow.displayentityeditor.items;
 
+import goldenshadow.displayentityeditor.DisplayEntityEditor;
 import goldenshadow.displayentityeditor.Utilities;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.List;
 
 /**
  * A utility class where all inventory items are created
@@ -18,13 +16,8 @@ public class InventoryItems {
      */
     public ItemStack gui() {
         ItemStack itemStack = new ItemStack(Material.NETHER_STAR);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Open GUI",
-                List.of(
-                        ChatColor.GRAY + "Click to open the GUI of the",
-                        ChatColor.GRAY + "nearest unlocked display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to open"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("open_gui_name"),
+                DisplayEntityEditor.messageManager.getList("open_gui_lore"),
                 "InventoryGUI"
                 );
         return itemStack;
@@ -36,14 +29,8 @@ public class InventoryItems {
      */
     public ItemStack rotateYaw() {
         ItemStack itemStack = new ItemStack(Material.MAGMA_CREAM);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Rotate Horizontally (yaw)",
-                List.of(
-                        ChatColor.GRAY + "Click to rotate the nearest",
-                        ChatColor.GRAY + "unlocked display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to rotate by +1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to rotate by -1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("rotate_yaw_name"),
+                DisplayEntityEditor.messageManager.getList("rotate_lore"),
                 "InventoryRotateYaw"
         );
         return itemStack;
@@ -55,14 +42,8 @@ public class InventoryItems {
      */
     public ItemStack rotatePitch() {
         ItemStack itemStack = new ItemStack(Material.SLIME_BALL);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Rotate Vertically (pitch)",
-                List.of(
-                        ChatColor.GRAY + "Click to rotate the nearest",
-                        ChatColor.GRAY + "unlocked display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to rotate by +1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to rotate by -1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("rotate_pitch_name"),
+                DisplayEntityEditor.messageManager.getList("rotate_lore"),
                 "InventoryRotatePitch"
         );
         return itemStack;
@@ -74,14 +55,8 @@ public class InventoryItems {
      */
     public ItemStack moveX() {
         ItemStack itemStack = new ItemStack(Material.SHEARS);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Move X (Teleport)",
-                List.of(
-                        ChatColor.GRAY + "Click to move the nearest",
-                        ChatColor.GRAY + "unlocked display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to move +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to move -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("move_x_name"),
+                DisplayEntityEditor.messageManager.getList("move_lore"),
                 "InventoryMoveX"
         );
         return itemStack;
@@ -93,14 +68,8 @@ public class InventoryItems {
      */
     public ItemStack moveY() {
         ItemStack itemStack = new ItemStack(Material.SHEARS);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Move Y (Teleport)",
-                List.of(
-                        ChatColor.GRAY + "Click to move the nearest",
-                        ChatColor.GRAY + "unlocked display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to move +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to move -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("move_y_name"),
+                DisplayEntityEditor.messageManager.getList("move_lore"),
                 "InventoryMoveY"
         );
         return itemStack;
@@ -112,14 +81,8 @@ public class InventoryItems {
      */
     public ItemStack moveZ() {
         ItemStack itemStack = new ItemStack(Material.SHEARS);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Move Z (Teleport)",
-                List.of(
-                        ChatColor.GRAY + "Click to move the nearest",
-                        ChatColor.GRAY + "unlocked display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to move +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to move -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("move_z_name"),
+                DisplayEntityEditor.messageManager.getList("move_lore"),
                 "InventoryMoveZ"
         );
         return itemStack;
@@ -131,13 +94,8 @@ public class InventoryItems {
      */
     public ItemStack spawnItemDisplay() {
         ItemStack itemStack = new ItemStack(Material.DIAMOND);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Spawn item_display",
-                List.of(
-                        ChatColor.GRAY + "Click to spawn a new item display",
-                        ChatColor.GRAY + "entity at your position",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to spawn"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("spawn_item_display_name"),
+                DisplayEntityEditor.messageManager.getList("spawn_item_display_lore"),
                 "InventorySpawnItem"
         );
         return itemStack;
@@ -149,13 +107,8 @@ public class InventoryItems {
      */
     public ItemStack spawnBlockDisplay() {
         ItemStack itemStack = new ItemStack(Material.GRASS_BLOCK);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Spawn block_display",
-                List.of(
-                        ChatColor.GRAY + "Click to spawn a new block display",
-                        ChatColor.GRAY + "entity at your position",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to spawn"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("spawn_block_display_name"),
+                DisplayEntityEditor.messageManager.getList("spawn_block_display_lore"),
                 "InventorySpawnBlock"
         );
         return itemStack;
@@ -167,13 +120,8 @@ public class InventoryItems {
      */
     public ItemStack spawnTextDisplay() {
         ItemStack itemStack = new ItemStack(Material.OAK_SIGN);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Spawn text_display",
-                List.of(
-                        ChatColor.GRAY + "Click to spawn a new text display",
-                        ChatColor.GRAY + "entity at your position",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to spawn"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("spawn_text_display_name"),
+                DisplayEntityEditor.messageManager.getList("spawn_text_display_lore"),
                 "InventorySpawnText"
         );
         return itemStack;
@@ -185,13 +133,8 @@ public class InventoryItems {
      */
     public ItemStack unlock() {
         ItemStack itemStack = new ItemStack(Material.MUSIC_DISC_11);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Unlock Nearest Display Entity",
-                List.of(
-                        ChatColor.GRAY + "Click to unlock the nearest locked",
-                        ChatColor.GRAY + "display entity, making it editable again",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to unlock"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("unlock_name"),
+                DisplayEntityEditor.messageManager.getList("unlock_lore"),
                 "InventoryUnlock"
         );
         return itemStack;
@@ -203,13 +146,8 @@ public class InventoryItems {
      */
     public ItemStack highlightTarget() {
         ItemStack itemStack = new ItemStack(Material.GLOWSTONE_DUST);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Highlight Target",
-                List.of(
-                        ChatColor.GRAY + "Click to highlight the display entity",
-                        ChatColor.GRAY + "that will be targeted by your tools",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to highlight"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("highlight_target_name"),
+                DisplayEntityEditor.messageManager.getList("highlight_target_lore"),
                 "InventoryHighlight"
         );
         return itemStack;
@@ -221,14 +159,8 @@ public class InventoryItems {
      */
     public ItemStack leftRotationX() {
         ItemStack itemStack = new ItemStack(Material.STICK);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Left Rotation X",
-                List.of(
-                        ChatColor.GRAY + "Click to change the left rotation",
-                        ChatColor.GRAY + "of the nearest unlocked display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("left_rotation_x_name"),
+                DisplayEntityEditor.messageManager.getList("left_rotation_lore"),
                 "InventoryLRX"
         );
         return itemStack;
@@ -240,14 +172,8 @@ public class InventoryItems {
      */
     public ItemStack leftRotationY() {
         ItemStack itemStack = new ItemStack(Material.STICK);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Left Rotation Y",
-                List.of(
-                        ChatColor.GRAY + "Click to change the left rotation",
-                        ChatColor.GRAY + "of the nearest unlocked display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("left_rotation_y_name"),
+                DisplayEntityEditor.messageManager.getList("left_rotation_lore"),
                 "InventoryLRY"
         );
         return itemStack;
@@ -259,14 +185,8 @@ public class InventoryItems {
      */
     public ItemStack leftRotationZ() {
         ItemStack itemStack = new ItemStack(Material.STICK);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Left Rotation Z",
-                List.of(
-                        ChatColor.GRAY + "Click to change the left rotation",
-                        ChatColor.GRAY + "of the nearest unlocked display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("left_rotation_z_name"),
+                DisplayEntityEditor.messageManager.getList("left_rotation_lore"),
                 "InventoryLRZ"
         );
         return itemStack;
@@ -278,14 +198,8 @@ public class InventoryItems {
      */
     public ItemStack rightRotationX() {
         ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Right Rotation X",
-                List.of(
-                        ChatColor.GRAY + "Click to change the left rotation",
-                        ChatColor.GRAY + "of the nearest unlocked display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("right_rotation_x_name"),
+                DisplayEntityEditor.messageManager.getList("right_rotation_lore"),
                 "InventoryRRX"
         );
         return itemStack;
@@ -297,14 +211,8 @@ public class InventoryItems {
      */
     public ItemStack rightRotationY() {
         ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Right Rotation Y",
-                List.of(
-                        ChatColor.GRAY + "Click to change the left rotation",
-                        ChatColor.GRAY + "of the nearest unlocked display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("right_rotation_y_name"),
+                DisplayEntityEditor.messageManager.getList("right_rotation_lore"),
                 "InventoryRRY"
         );
         return itemStack;
@@ -316,14 +224,8 @@ public class InventoryItems {
      */
     public ItemStack rightRotationZ() {
         ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Right Rotation Z",
-                List.of(
-                        ChatColor.GRAY + "Click to change the left rotation",
-                        ChatColor.GRAY + "of the nearest unlocked display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("right_rotation_z_name"),
+                DisplayEntityEditor.messageManager.getList("right_rotation_lore"),
                 "InventoryRRZ"
         );
         return itemStack;
@@ -335,15 +237,8 @@ public class InventoryItems {
      */
     public ItemStack centerPivot() {
         ItemStack itemStack = new ItemStack(Material.CHAIN);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Center Pivot Point",
-                List.of(
-                        ChatColor.GRAY + "Click to auto adjust the translation so that",
-                        ChatColor.GRAY + "the pivot is centered relative to the scale.",
-                        ChatColor.GRAY + "This will make it easier to rotate the entity",
-                        ChatColor.GRAY + "around itself",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to center"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("center_pivot_name"),
+                DisplayEntityEditor.messageManager.getList("center_pivot_lore"),
                 "InventoryCenterPivot"
         );
         return itemStack;
@@ -355,17 +250,8 @@ public class InventoryItems {
      */
     public ItemStack translationX() {
         ItemStack itemStack = new ItemStack(Material.NETHERITE_SCRAP);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Translation X",
-                List.of(
-                        ChatColor.GRAY + "Click to change the translation of",
-                        ChatColor.GRAY + "the nearest unlocked display entity.",
-                        ChatColor.GRAY + "Changing the translation will move the",
-                        ChatColor.GRAY + "visual part of the entity but not its",
-                        ChatColor.GRAY + "hitbox or pivot point",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("translation_x_name"),
+                DisplayEntityEditor.messageManager.getList("translation_lore"),
                 "InventoryTX"
         );
         return itemStack;
@@ -377,17 +263,8 @@ public class InventoryItems {
      */
     public ItemStack translationY() {
         ItemStack itemStack = new ItemStack(Material.NETHERITE_SCRAP);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Translation Y",
-                List.of(
-                        ChatColor.GRAY + "Click to change the translation of",
-                        ChatColor.GRAY + "the nearest unlocked display entity.",
-                        ChatColor.GRAY + "Changing the translation will move the",
-                        ChatColor.GRAY + "visual part of the entity but not its",
-                        ChatColor.GRAY + "hitbox or pivot point",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("translation_y_name"),
+                DisplayEntityEditor.messageManager.getList("translation_lore"),
                 "InventoryTY"
         );
         return itemStack;
@@ -399,17 +276,8 @@ public class InventoryItems {
      */
     public ItemStack translationZ() {
         ItemStack itemStack = new ItemStack(Material.NETHERITE_SCRAP);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Translation Z",
-                List.of(
-                        ChatColor.GRAY + "Click to change the translation of",
-                        ChatColor.GRAY + "the nearest unlocked display entity.",
-                        ChatColor.GRAY + "Changing the translation will move the",
-                        ChatColor.GRAY + "visual part of the entity but not its",
-                        ChatColor.GRAY + "hitbox or pivot point",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("translation_z_name"),
+                DisplayEntityEditor.messageManager.getList("translation_lore"),
                 "InventoryTZ"
         );
         return itemStack;
@@ -421,14 +289,8 @@ public class InventoryItems {
      */
     public ItemStack scaleX() {
         ItemStack itemStack = new ItemStack(Material.SHULKER_SHELL);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Scale X",
-                List.of(
-                        ChatColor.GRAY + "Click to change the scale of the",
-                        ChatColor.GRAY + "nearest unlocked display entity.",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("scale_x_name"),
+                DisplayEntityEditor.messageManager.getList("scale_lore"),
                 "InventorySX"
         );
         return itemStack;
@@ -440,14 +302,8 @@ public class InventoryItems {
      */
     public ItemStack scaleY() {
         ItemStack itemStack = new ItemStack(Material.SHULKER_SHELL);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Scale Y",
-                List.of(
-                        ChatColor.GRAY + "Click to change the scale of the",
-                        ChatColor.GRAY + "nearest unlocked display entity.",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("scale_y_name"),
+                DisplayEntityEditor.messageManager.getList("scale_lore"),
                 "InventorySY"
         );
         return itemStack;
@@ -459,14 +315,8 @@ public class InventoryItems {
      */
     public ItemStack scaleZ() {
         ItemStack itemStack = new ItemStack(Material.SHULKER_SHELL);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Scale Z",
-                List.of(
-                        ChatColor.GRAY + "Click to change the scale of the",
-                        ChatColor.GRAY + "nearest unlocked display entity.",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by +0.1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change by -0.1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("scale_z_name"),
+                DisplayEntityEditor.messageManager.getList("scale_lore"),
                 "InventorySZ"
         );
         return itemStack;
@@ -478,14 +328,8 @@ public class InventoryItems {
      */
     public ItemStack centerOnBlock() {
         ItemStack itemStack = new ItemStack(Material.LIGHTNING_ROD);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Center On Block",
-                List.of(
-                        ChatColor.GRAY + "Click to position the nearest display entity",
-                        ChatColor.GRAY + "so that it is centered on the block.",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to center xyz",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to center xz"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("center_on_block_name"),
+                DisplayEntityEditor.messageManager.getList("center_on_block_lore"),
                 "InventoryCenterBlock"
         );
         return itemStack;
@@ -497,14 +341,8 @@ public class InventoryItems {
      */
     public ItemStack toolPrecision() {
         ItemStack itemStack = new ItemStack(Material.COMPARATOR);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Change Tool Precision",
-                List.of(
-                        ChatColor.GRAY + "Click to change the multiplier for",
-                        ChatColor.GRAY + "your tools precision.",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to increase by 1",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "SHIFT RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to decrease by 1"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("tool_precision_name"),
+                DisplayEntityEditor.messageManager.getList("tool_precision_lore"),
                 "InventoryToolPrecision"
         );
         return itemStack;
@@ -512,13 +350,8 @@ public class InventoryItems {
 
     public ItemStack cloneTool() {
         ItemStack itemStack = new ItemStack(Material.FLOWER_BANNER_PATTERN);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Clone Display Entity",
-                List.of(
-                        ChatColor.GRAY + "Click to duplicate the nearest",
-                        ChatColor.GRAY + "display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to clone"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("clone_tool_name"),
+                DisplayEntityEditor.messageManager.getList("clone_tool_lore"),
                 "InventoryClone"
         );
         return itemStack;

@@ -19,9 +19,10 @@ import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Display;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -49,6 +50,7 @@ public final class DisplayEntityEditor extends JavaPlugin {
                     .build()
             )
             .build();
+    public static MessageManager messageManager;
 
     /**
      * Used for when the plugin starts up
@@ -61,6 +63,12 @@ public final class DisplayEntityEditor extends JavaPlugin {
         saveConfig();
         alternateTextInput = getConfig().getBoolean("alternate-text-input");
         useMiniMessageFormat = getConfig().getBoolean("use-minimessage-format");
+
+        try {
+            checkForMessageFile();
+        } catch (IOException e) {
+            plugin.getLogger().severe("Failed to load messages.yml!");
+        }
 
         conversationFactory = new ConversationFactory(plugin);
         inventoryFactory = new InventoryFactory(new GUIItems(), new InventoryItems());
@@ -76,9 +84,9 @@ public final class DisplayEntityEditor extends JavaPlugin {
 
         getVersion(v -> {
             if (this.getDescription().getVersion().equals(v)) {
-                getLogger().info("You are on the latest version!");
+                getLogger().info(messageManager.getString("version_check_success"));
             } else {
-                getLogger().warning("You are not running the latest version! Update your plugin here: https://www.spigotmc.org/resources/display-entity-editor.110267/");
+                getLogger().warning(messageManager.getString("version_check_fail"));
             }
         });
     }
@@ -102,8 +110,19 @@ public final class DisplayEntityEditor extends JavaPlugin {
                     consumer.accept(scanner.next());
                 }
             } catch (IOException exception) {
-                plugin.getLogger().warning("Unable to check for updates: " + exception.getMessage());
+                plugin.getLogger().warning(messageManager.getString("version_check_error").formatted(exception.getMessage()));
             }
         });
+    }
+
+    public static void checkForMessageFile() throws IOException {
+        File file = new File(getPlugin().getDataFolder().getAbsolutePath() + "/messages.yml");
+        if (!file.exists()) {
+            plugin.getLogger().info("Unable to find messages.yml - generating new file!");
+            InputStream ip = DisplayEntityEditor.class.getClassLoader().getResourceAsStream("messages.yml");
+            assert ip != null;
+            Files.copy(ip, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        }
+        messageManager = new MessageManager();
     }
 }

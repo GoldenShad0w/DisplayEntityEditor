@@ -1,8 +1,8 @@
 package goldenshadow.displayentityeditor.items;
 
+import goldenshadow.displayentityeditor.DisplayEntityEditor;
 import goldenshadow.displayentityeditor.Utilities;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.block.data.Levelled;
@@ -13,7 +13,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockDataMeta;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A utility class where all the gui items are created
@@ -28,14 +27,10 @@ public class GUIItems {
     public ItemStack name(String name) {
         if (name == null) name = "None";
         ItemStack itemStack = new ItemStack(Material.NAME_TAG);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Name",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + name,
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to reset"
-                ),
-                "GUIName"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("name_name"),
+                DisplayEntityEditor.messageManager.getList("name_lore"),
+                "GUIName",
+                name
         );
         return itemStack;
     }
@@ -47,13 +42,10 @@ public class GUIItems {
      */
     public ItemStack glowing(boolean current) {
         ItemStack itemStack = new ItemStack(Material.SEA_LANTERN);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Glowing",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to toggle"
-                ),
-                "GUIGlow"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("glowing_name"),
+                DisplayEntityEditor.messageManager.getList("glowing_lore"),
+                "GUIGlow",
+                Boolean.toString(current)
         );
         return itemStack;
     }
@@ -65,13 +57,10 @@ public class GUIItems {
      */
     public ItemStack glowColor(Color current) {
         ItemStack itemStack = new ItemStack(Material.RED_DYE);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Glow Color",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + Utilities.getColor(current),
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to set from RGB value"
-                ),
-                "GUIGlowColor"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("glow_color_name"),
+                DisplayEntityEditor.messageManager.getList("glow_color_lore"),
+                "GUIGlowColor",
+                Utilities.getColor(current)
         );
         return itemStack;
     }
@@ -83,15 +72,10 @@ public class GUIItems {
      */
     public ItemStack leftRotNormalize(boolean current) {
         ItemStack itemStack = new ItemStack(Material.COMPASS);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Left Rotation Normalization",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        ChatColor.GRAY + "Will stop the shape of the display entity from",
-                        ChatColor.GRAY + "deforming when rotated. Can usually be left on true",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to toggle"
-                ),
-                "GUILRNormalize"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("left_rotation_normalize_name"),
+                DisplayEntityEditor.messageManager.getList("rotation_normalize_lore"),
+                "GUILRNormalize",
+                Boolean.toString(current)
         );
         return itemStack;
     }
@@ -103,15 +87,10 @@ public class GUIItems {
      */
     public ItemStack rightRotNormalize(boolean current) {
         ItemStack itemStack = new ItemStack(Material.COMPASS);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Right Rotation Normalization",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        ChatColor.GRAY + "Will stop the shape of the display entity from",
-                        ChatColor.GRAY + "deforming when rotated. Can usually be left on true",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to toggle"
-                ),
-                "GUIRRNormalize"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("right_rotation_normalize_name"),
+                DisplayEntityEditor.messageManager.getList("rotation_normalize_lore"),
+                "GUIRRNormalize",
+                Boolean.toString(current)
         );
         return itemStack;
     }
@@ -123,16 +102,10 @@ public class GUIItems {
      */
     public ItemStack viewRange(float current) {
         ItemStack itemStack = new ItemStack(Material.SPYGLASS);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set View Range",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        ChatColor.GRAY + "Defines from how far the entity will be visible.",
-                        ChatColor.GRAY + "The value counts in steps of 64 blocks and also factors",
-                        ChatColor.GRAY + "in the scale of the entity. Can usually be left at 1.0",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value"
-                ),
-                "GUIViewRange"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("view_range_name"),
+                DisplayEntityEditor.messageManager.getList("view_range_name"),
+                "GUIViewRange",
+                Float.toString(current)
         );
         return itemStack;
     }
@@ -144,16 +117,10 @@ public class GUIItems {
      */
     public ItemStack width(float current) {
         ItemStack itemStack = new ItemStack(Material.ARROW);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Display Width",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        ChatColor.GRAY + "Defines the maximum render width of the entity.",
-                        ChatColor.GRAY + "If set to 0, there will be not render limit.",
-                        ChatColor.GRAY + "Can usually be left at 0",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value"
-                ),
-                "GUIWidth"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("width_name"),
+                DisplayEntityEditor.messageManager.getList("width_lore"),
+                "GUIWidth",
+                Float.toString(current)
         );
         return itemStack;
     }
@@ -165,16 +132,10 @@ public class GUIItems {
      */
     public ItemStack height(float current) {
         ItemStack itemStack = new ItemStack(Material.ARROW);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Display Height",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        ChatColor.GRAY + "Defines the maximum render height of the entity.",
-                        ChatColor.GRAY + "If set to 0, there will be not render limit.",
-                        ChatColor.GRAY + "Can usually be left at 0",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value"
-                ),
-                "GUIHeight"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("height_name"),
+                DisplayEntityEditor.messageManager.getList("height_lore"),
+                "GUIHeight",
+                Float.toString(current)
         );
         return itemStack;
     }
@@ -186,15 +147,10 @@ public class GUIItems {
      */
     public ItemStack billboard(Display.Billboard current) {
         ItemStack itemStack = new ItemStack(Material.PAINTING);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Billboard Type",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current.toString(),
-                        ChatColor.GRAY + "Defines on what axis, if any, the display entity should",
-                        ChatColor.GRAY + "visually rotate in the players direction",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change"
-                ),
-                "GUIBillboard"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("billboard_name"),
+                DisplayEntityEditor.messageManager.getList("billboard_lore"),
+                "GUIBillboard",
+                current.toString()
         );
         return itemStack;
     }
@@ -206,16 +162,10 @@ public class GUIItems {
      */
     public ItemStack shadowRadius(float current) {
         ItemStack itemStack = new ItemStack(Material.COAL);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Shadow Radius",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        ChatColor.GRAY + "Changes the size of the shadow. Values larger",
-                        ChatColor.GRAY + "than 64 are treated as 64. Values smaller than",
-                        ChatColor.GRAY + "1 mean that the entity has no shadow",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value"
-                ),
-                "GUIShadowRadius"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("shadow_radius_name"),
+                DisplayEntityEditor.messageManager.getList("shadow_radius_lore"),
+                "GUIShadowRadius",
+                Float.toString(current)
         );
         return itemStack;
     }
@@ -227,15 +177,10 @@ public class GUIItems {
      */
     public ItemStack shadowStrength(float current) {
         ItemStack itemStack = new ItemStack(Material.FLINT);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Shadow Strength",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        ChatColor.GRAY + "Changes how strong the shadow should be.",
-                        ChatColor.GRAY + "Value must be between 0 and 1 (inclusive)",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value"
-                ),
-                "GUIShadowStrength"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("shadow_strength_name"),
+                DisplayEntityEditor.messageManager.getList("shadow_strength_lore"),
+                "GUIShadowStrength",
+                Float.toString(current)
         );
         return itemStack;
     }
@@ -246,15 +191,8 @@ public class GUIItems {
      */
     public ItemStack lock() {
         ItemStack itemStack = new ItemStack(Material.STRUCTURE_VOID);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Lock Entity",
-                List.of(
-                        ChatColor.GRAY + "Makes the entity uneditable until unlocked",
-                        ChatColor.GRAY + "with the unlock item. This is useful when you",
-                        ChatColor.GRAY + "have lots of entities in a small space and don't",
-                        ChatColor.GRAY + "want to accidentally edit the wrong one",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to lock"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("lock_name"),
+                DisplayEntityEditor.messageManager.getList("lock_lore"),
                 "GUILock"
         );
         return itemStack;
@@ -268,16 +206,10 @@ public class GUIItems {
     public ItemStack skyLight(int current) {
         ItemStack itemStack = new ItemStack(Material.LIGHT);
         setBrightnessLevel(itemStack, current == -1 ? 0 : current);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Sky Brightness",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + (current == -1 ? "Default" : current),
-                        ChatColor.GRAY + "Used to override the default lighting level",
-                        ChatColor.GRAY + "used to illuminate the display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to reset"
-                ),
-                "GUISkyLight"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("sky_light_name"),
+                DisplayEntityEditor.messageManager.getList("light_lore"),
+                "GUISkyLight",
+                (current == -1 ? "Default" : String.valueOf(current))
         );
         return itemStack;
     }
@@ -290,16 +222,10 @@ public class GUIItems {
     public ItemStack blockLight(int current) {
         ItemStack itemStack = new ItemStack(Material.LIGHT);
         setBrightnessLevel(itemStack, current == -1 ? 0 : current);
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Block Brightness",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + (current == -1 ? "Default" : current),
-                        ChatColor.GRAY + "Used to override the default lighting level",
-                        ChatColor.GRAY + "used to illuminate the display entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to reset"
-                ),
-                "GUIBlockLight"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("block_light_name"),
+                DisplayEntityEditor.messageManager.getList("light_lore"),
+                "GUIBlockLight",
+                (current == -1 ? "Default" : String.valueOf(current))
         );
         return itemStack;
     }
@@ -311,12 +237,8 @@ public class GUIItems {
     public ItemStack delete() {
         ItemStack itemStack = new ItemStack(Material.BARRIER);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Delete Entity",
-                List.of(
-                        ChatColor.GRAY + "Permanently deletes this entity",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to delete"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("delete_name"),
+                DisplayEntityEditor.messageManager.getList("delete_lore"),
                 "GUIDelete"
         );
         return itemStack;
@@ -340,15 +262,10 @@ public class GUIItems {
     public ItemStack itemDisplayTransform(ItemDisplay.ItemDisplayTransform current) {
         ItemStack itemStack = new ItemStack(Material.ARMOR_STAND);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Item Render Type",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current.toString(),
-                        ChatColor.GRAY + "Defines how the item should be rendered",
-                        ChatColor.GRAY + "(as if it was on a player head, hand, inventory etc.)",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change"
-                ),
-                "GUIItemDisplayTransform"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("item_display_transform_name"),
+                DisplayEntityEditor.messageManager.getList("item_display_transform_lore"),
+                "GUIItemDisplayTransform",
+                current.toString()
         );
         return itemStack;
     }
@@ -362,14 +279,10 @@ public class GUIItems {
         ItemStack itemStack = new ItemStack(Material.DRAGON_BREATH);
         if (current < 0) current = 0;
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Text Opacity",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        ChatColor.GRAY + "Opacity value between 1 and 255 (inclusive) or 0 for default",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value"
-                ),
-                "GUITextOpacity"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_opacity_name"),
+                DisplayEntityEditor.messageManager.getList("text_opacity_lore"),
+                "GUITextOpacity",
+                current
         );
         return itemStack;
     }
@@ -382,15 +295,10 @@ public class GUIItems {
     public ItemStack textLineWidth(int current) {
         ItemStack itemStack = new ItemStack(Material.REPEATER);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Line Width",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        ChatColor.GRAY + "Defines the maximum line width.",
-                        ChatColor.GRAY + "Note that \\n can also be used to split lines",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value"
-                ),
-                "GUITextLineWidth"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_line_width_name"),
+                DisplayEntityEditor.messageManager.getList("text_line_width_lore"),
+                "GUITextLineWidth",
+                current
         );
         return itemStack;
     }
@@ -403,15 +311,10 @@ public class GUIItems {
     public ItemStack textDefaultBackground(boolean current) {
         ItemStack itemStack = new ItemStack(Material.WHITE_STAINED_GLASS);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Default Background",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        ChatColor.GRAY + "Defines whether the default background or the",
-                        ChatColor.GRAY + "chosen background color should be used",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to toggle"
-                ),
-                "GUITextDefaultBackground"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_default_background_name"),
+                DisplayEntityEditor.messageManager.getList("text_default_background_lore"),
+                "GUITextDefaultBackground",
+                Boolean.toString(current)
         );
         return itemStack;
     }
@@ -424,15 +327,10 @@ public class GUIItems {
     public ItemStack textSeeThrough(boolean current) {
         ItemStack itemStack = new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Visibility Through Blocks",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        ChatColor.GRAY + "Defines whether the text should be visible",
-                        ChatColor.GRAY + "through blocks",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to toggle"
-                ),
-                "GUITextSeeThrough"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_see_through_name"),
+                DisplayEntityEditor.messageManager.getList("text_see_through_lore"),
+                "GUITextSeeThrough",
+                Boolean.toString(current)
         );
         return itemStack;
     }
@@ -445,15 +343,10 @@ public class GUIItems {
     public ItemStack textShadow(boolean current) {
         ItemStack itemStack = new ItemStack(Material.BLACK_STAINED_GLASS);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Toggle Text Shadow",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current,
-                        ChatColor.GRAY + "Defines whether the text should should",
-                        ChatColor.GRAY + "have a shadow",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to toggle"
-                ),
-                "GUITextShadow"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_shadow_name"),
+                DisplayEntityEditor.messageManager.getList("text_shadow_lore"),
+                "GUITextShadow",
+                Boolean.toString(current)
         );
         return itemStack;
     }
@@ -466,13 +359,10 @@ public class GUIItems {
     public ItemStack textBackgroundColor(Color current) {
         ItemStack itemStack = new ItemStack(Material.RED_BANNER);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Background Color",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + Utilities.getColor(current),
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to set from RBG value"
-                ),
-                "GUITextBackgroundColor"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_background_color_name"),
+                DisplayEntityEditor.messageManager.getList("text_background_color_name"),
+                "GUITextBackgroundColor",
+                Utilities.getColor(current)
         );
         return itemStack;
     }
@@ -485,15 +375,10 @@ public class GUIItems {
     public ItemStack textBackgroundOpacity(Color current) {
         ItemStack itemStack = new ItemStack(Material.END_CRYSTAL);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Background Opacity",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + (current != null ? current.getAlpha() : "Default"),
-                        ChatColor.GRAY + "Used to change the opacity of the background color.",
-                        ChatColor.GRAY + "Should be able value between 0 and 255 (inclusive)",
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value"
-                ),
-                "GUITextBackgroundOpacity"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_background_opacity_name"),
+                DisplayEntityEditor.messageManager.getList("text_background_opacity_lore"),
+                "GUITextBackgroundOpacity",
+                Utilities.getColor(current)
         );
         return itemStack;
     }
@@ -506,13 +391,10 @@ public class GUIItems {
     public ItemStack textAlignment(TextDisplay.TextAlignment current) {
         ItemStack itemStack = new ItemStack(Material.FILLED_MAP);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Text Alignment",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + current.toString(),
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change"
-                ),
-                "GUITextAlignment"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_alignment_name"),
+                DisplayEntityEditor.messageManager.getList("text_alignment_lore"),
+                "GUITextAlignment",
+                current.toString()
         );
         return itemStack;
     }
@@ -525,12 +407,8 @@ public class GUIItems {
     public ItemStack text() {
         ItemStack itemStack = new ItemStack(Material.OAK_SIGN);
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Text",
-                List.of(
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to change",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to append"
-                ),
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_name"),
+                DisplayEntityEditor.messageManager.getList("text_lore"),
                 "GUIText"
         );
         return itemStack;
@@ -546,14 +424,10 @@ public class GUIItems {
 
         String currentState = current.contains("[") ? current.substring(current.indexOf('['), current.indexOf(']') + 1) : "[]";
 
-        Utilities.setMeta(itemStack, ChatColor.YELLOW + "Set Block State",
-                List.of(
-                        ChatColor.GRAY + "Currently: " + ChatColor.DARK_AQUA + currentState,
-                        " ",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "LEFT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to enter new value",
-                        ChatColor.YELLOW + String.valueOf(ChatColor.BOLD) + "RIGHT-CLICK " + ChatColor.RESET + ChatColor.YELLOW + "to reset"
-                ),
-                "GUIBlockState"
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("block_state_name"),
+                DisplayEntityEditor.messageManager.getList("block_state_lore"),
+                "GUIBlockState",
+                currentState
         );
         return itemStack;
     }

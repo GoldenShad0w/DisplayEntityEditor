@@ -1,5 +1,6 @@
 package goldenshadow.displayentityeditor.conversation;
 
+import goldenshadow.displayentityeditor.DisplayEntityEditor;
 import goldenshadow.displayentityeditor.Utilities;
 import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.NumericPrompt;
@@ -72,7 +73,7 @@ public class BytePrompt extends NumericPrompt {
     @Nullable
     @Override
     protected String getFailedValidationText(@NotNull ConversationContext context, @NotNull Number invalidInput) {
-        return Utilities.getErrorMessageFormat("The value needs to be an integer (whole number)!");
+        return Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("integer_fail"));
     }
 
     /**
@@ -84,6 +85,6 @@ public class BytePrompt extends NumericPrompt {
     @Nullable
     @Override
     protected String getFailedValidationText(@NotNull ConversationContext context, @NotNull String invalidInput) {
-        return Utilities.getErrorMessageFormat("The value needs to be an integer (whole number)!");
+        return Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("integer_fail"));
     }
 }
