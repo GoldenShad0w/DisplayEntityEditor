@@ -29,8 +29,8 @@ public class InputManager {
      * @param data The data about the input
      */
     public static void createTextInput(Player player, String message, InputData data) {
-        message = Utilities.getInfoMessageFormat(message + " (enter \"cancel\" to abort)");
-        Conversation c = DisplayEntityEditor.conversationFactory.withFirstPrompt(new TextPrompt(message)).thatExcludesNonPlayersWithMessage("This must be done by a player!").withLocalEcho(false).withEscapeSequence("cancel").buildConversation(player);
+        message = Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("generic_prompt").formatted(message, DisplayEntityEditor.messageManager.getString("prompt_escape_word")));
+        Conversation c = DisplayEntityEditor.conversationFactory.withFirstPrompt(new TextPrompt(message)).thatExcludesNonPlayersWithMessage("This must be done by a player!").withLocalEcho(false).withEscapeSequence(DisplayEntityEditor.messageManager.getString("prompt_escape_word")).buildConversation(player);
         c.getContext().setSessionData("data", data);
         c.begin();
     }
@@ -42,8 +42,8 @@ public class InputManager {
      * @param data The data about the input
      */
     public static void createIntegerInput(Player player, String message, InputData data) {
-        message = Utilities.getInfoMessageFormat(message + " (enter \"cancel\" to abort)");
-        Conversation c = DisplayEntityEditor.conversationFactory.withFirstPrompt(new IntegerPrompt(message)).thatExcludesNonPlayersWithMessage("This must be done by a player!").withLocalEcho(false).withEscapeSequence("cancel").buildConversation(player);
+        message = Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("generic_prompt").formatted(message, DisplayEntityEditor.messageManager.getString("prompt_escape_word")));
+        Conversation c = DisplayEntityEditor.conversationFactory.withFirstPrompt(new IntegerPrompt(message)).thatExcludesNonPlayersWithMessage("This must be done by a player!").withLocalEcho(false).withEscapeSequence(DisplayEntityEditor.messageManager.getString("prompt_escape_word")).buildConversation(player);
         c.getContext().setSessionData("data", data);
         c.begin();
     }
@@ -55,8 +55,8 @@ public class InputManager {
      * @param data The data about the input
      */
     public static void createFloatInput(Player player, String message, InputData data) {
-        message = Utilities.getInfoMessageFormat(message + " (enter \"cancel\" to abort)");
-        Conversation c = DisplayEntityEditor.conversationFactory.withFirstPrompt(new FloatPrompt(message)).thatExcludesNonPlayersWithMessage("This must be done by a player!").withLocalEcho(false).withEscapeSequence("cancel").buildConversation(player);
+        message = Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("generic_prompt").formatted(message, DisplayEntityEditor.messageManager.getString("prompt_escape_word")));
+        Conversation c = DisplayEntityEditor.conversationFactory.withFirstPrompt(new FloatPrompt(message)).thatExcludesNonPlayersWithMessage("This must be done by a player!").withLocalEcho(false).withEscapeSequence(DisplayEntityEditor.messageManager.getString("prompt_escape_word")).buildConversation(player);
         c.getContext().setSessionData("data", data);
         c.begin();
     }
@@ -68,8 +68,8 @@ public class InputManager {
      * @param data The data about the input
      */
     public static void createByteInput(Player player, String message, InputData data) {
-        message = Utilities.getInfoMessageFormat(message + " (enter \"cancel\" to abort)");
-        Conversation c = DisplayEntityEditor.conversationFactory.withFirstPrompt(new BytePrompt(message)).thatExcludesNonPlayersWithMessage("This must be done by a player!").withLocalEcho(false).withEscapeSequence("cancel").buildConversation(player);
+        message = Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("generic_prompt").formatted(message, DisplayEntityEditor.messageManager.getString("prompt_escape_word")));
+        Conversation c = DisplayEntityEditor.conversationFactory.withFirstPrompt(new BytePrompt(message)).thatExcludesNonPlayersWithMessage("This must be done by a player!").withLocalEcho(false).withEscapeSequence(DisplayEntityEditor.messageManager.getString("prompt_escape_word")).buildConversation(player);
         c.getContext().setSessionData("data", data);
         c.begin();
     }
@@ -104,7 +104,7 @@ public class InputManager {
     public static void successfulIntegerInput(InputData inputData, int i, Player player) {
         if (inputData.inputType() == InputType.LINE_WIDTH) {
             ((TextDisplay) inputData.entity()).setLineWidth(i);
-            player.sendRawMessage(Utilities.getInfoMessageFormat("Line width set!"));
+            player.sendRawMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("line_width_success")));
         }
     }
 
@@ -114,7 +114,7 @@ public class InputManager {
             case TEXT_OPACITY -> {
                 byte b = (byte) integer;
                 ((TextDisplay) inputData.entity()).setTextOpacity(b);
-                player.sendRawMessage(Utilities.getInfoMessageFormat("Text opacity set!"));
+                player.sendRawMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("opacity_success")));
             }
             case BACKGROUND_OPACITY -> {
 
@@ -124,7 +124,7 @@ public class InputManager {
                 } else {
                     t.setBackgroundColor(Color.fromARGB(integer,0,0,0));
                 }
-                player.sendRawMessage(Utilities.getInfoMessageFormat("Background opacity set!"));
+                player.sendRawMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("opacity_success")));
             }
         }
     }
@@ -133,26 +133,26 @@ public class InputManager {
         switch (inputData.inputType()) {
             case VIEW_RANGE -> {
                 inputData.entity().setViewRange(f);
-                player.sendRawMessage(Utilities.getInfoMessageFormat("View range set!"));
+                player.sendRawMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("view_range_success")));
             }
             case DISPLAY_WIDTH -> {
                 inputData.entity().setDisplayWidth(f);
-                player.sendRawMessage(Utilities.getInfoMessageFormat("Display width set!"));
+                player.sendRawMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("display_width_success")));
             }
             case DISPLAY_HEIGHT -> {
                 inputData.entity().setDisplayHeight(f);
-                player.sendRawMessage(Utilities.getInfoMessageFormat("Display height set!"));
+                player.sendRawMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("display_height_success")));
             }
             case SHADOW_RADIUS -> {
                 inputData.entity().setShadowRadius(f);
-                player.sendRawMessage(Utilities.getInfoMessageFormat("Shadow radius set!"));
+                player.sendRawMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("shadow_radius_success")));
             }
             case SHADOW_STRENGTH -> {
                 if (0 <= f && f <= 1) {
                     inputData.entity().setShadowStrength(f);
-                    player.sendRawMessage(Utilities.getInfoMessageFormat("Shadow strength set!"));
+                    player.sendRawMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("shadow_strength_success")));
                 } else {
-                    player.sendRawMessage(Utilities.getErrorMessageFormat("The value needs to be between 0 and 1!"));
+                    player.sendRawMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("shadow_strength_fail")));
                 }
             }
         }
@@ -172,7 +172,7 @@ public class InputManager {
                 } else {
                     inputData.entity().setCustomName(ChatColor.translateAlternateColorCodes('&', s));
                 }
-                player.sendRawMessage(Utilities.getInfoMessageFormat("Name set!"));
+                player.sendRawMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("name_success")));
             }
             case TEXT -> {
                 String message = s;
@@ -186,7 +186,7 @@ public class InputManager {
                     ((TextDisplay) inputData.entity()).setText(ChatColor.translateAlternateColorCodes('&', message));
                 }
 
-                player.sendRawMessage(Utilities.getInfoMessageFormat("Set text!"));
+                player.sendRawMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("text_success")));
             }
             case TEXT_APPEND -> {
                 String message = s;
@@ -198,7 +198,7 @@ public class InputManager {
                     message = message.replace("\\n", "\n");
                     ((TextDisplay) inputData.entity()).setText(ChatColor.translateAlternateColorCodes('&', ((TextDisplay) inputData.entity()).getText() + message));
                 }
-                player.sendRawMessage(Utilities.getInfoMessageFormat("Appended text!"));
+                player.sendRawMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("text_append_success")));
             }
             case BACKGROUND_COLOR -> {
                 int[] array = parseStringToRGB(s);
@@ -209,9 +209,9 @@ public class InputManager {
                     } else {
                         t.setBackgroundColor(Color.fromARGB(255,array[0],array[1],array[2]));
                     }
-                    player.sendRawMessage(Utilities.getInfoMessageFormat("Background color set!"));
+                    player.sendRawMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("background_color_success")));
                 } else {
-                    player.sendRawMessage(Utilities.getErrorMessageFormat("The value needs follow the format: R, G, B"));
+                    player.sendRawMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("generic_color_fail")));
                 }
             }
             case GLOW_COLOR -> {
@@ -230,9 +230,9 @@ public class InputManager {
                         Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> ((BlockDisplay) inputData.entity()).setBlock(blockData), 1L);
                     }
 
-                    player.sendRawMessage(Utilities.getInfoMessageFormat("Glow color set!"));
+                    player.sendRawMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("glow_color_success")));
                 } else {
-                    player.sendRawMessage(Utilities.getErrorMessageFormat("The value needs follow the format: R, G, B"));
+                    player.sendRawMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("generic_color_fail")));
                 }
             }
             case BLOCK_STATE -> {
@@ -240,9 +240,9 @@ public class InputManager {
                     try {
                         BlockData blockData = Bukkit.createBlockData(inputData.blockMaterial(), s);
                         ((BlockDisplay) inputData.entity()).setBlock(blockData);
-                        player.sendRawMessage(Utilities.getInfoMessageFormat("Block state set!"));
+                        player.sendRawMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("block_state_success")));
                     } catch (IllegalArgumentException e) {
-                        player.sendRawMessage(Utilities.getErrorMessageFormat("The value given was not a valid block state! Try looking at a block with the block state you want with f3 on to see its block states or use an online tool!"));
+                        player.sendRawMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("block_state_fail")));
                     }
                 }
             }

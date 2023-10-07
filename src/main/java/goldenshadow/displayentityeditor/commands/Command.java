@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -39,7 +40,7 @@ public class Command implements CommandExecutor {
             if (args.length == 0) {
                 if (savedInventories.containsKey(p.getUniqueId())) {
                     returnInventory(p);
-                    p.sendMessage(Utilities.getInfoMessageFormat("Your inventory has been returned to you!"));
+                    p.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("inventory_returned")));
                     savedInventories.remove(p.getUniqueId());
                     return true;
                 }
@@ -51,8 +52,8 @@ public class Command implements CommandExecutor {
                 if (!p.getPersistentDataContainer().has(DisplayEntityEditor.toolPrecisionKey, PersistentDataType.DOUBLE)) {
                     p.getPersistentDataContainer().set(DisplayEntityEditor.toolPrecisionKey, PersistentDataType.DOUBLE, 1d);
                 }
-                p.sendMessage(Utilities.getInfoMessageFormat("Given display entity tools. Left click to cycle through the tools."));
-                p.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.BLUE + "Run this command again to have your inventory returned!");
+                p.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("tools_received_1")));
+                p.sendMessage(ChatColor.translateAlternateColorCodes('&', DisplayEntityEditor.messageManager.getString("tools_received_2")));
                 return true;
             }
             if (args.length == 1) {
@@ -60,7 +61,12 @@ public class Command implements CommandExecutor {
                     DisplayEntityEditor.getPlugin().reloadConfig();
                     DisplayEntityEditor.alternateTextInput = DisplayEntityEditor.getPlugin().getConfig().getBoolean("alternate-text-input");
                     DisplayEntityEditor.useMiniMessageFormat = DisplayEntityEditor.getPlugin().getConfig().getBoolean("use-minimessage-format");
-                    p.sendMessage(Utilities.getInfoMessageFormat("Config reloaded!"));
+                    try {
+                        DisplayEntityEditor.checkForMessageFile();
+                    } catch (IOException e) {
+                        p.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("messages_reload_fail")));
+                    }
+                    p.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("config_reload")));
                     return true;
                 }
             }
@@ -71,7 +77,7 @@ public class Command implements CommandExecutor {
                         String input = collectArgsToString(args);
                         Display display = Utilities.getNearestDisplayEntity(p.getLocation(), true);
                         if (display == null) {
-                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked display entity within 5 blocks!"));
+                            p.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("generic_fail")));
                             return true;
                         }
                         if (args[1].equalsIgnoreCase("name")) {
@@ -83,7 +89,7 @@ public class Command implements CommandExecutor {
                                 InputManager.successfulTextInput(new InputData(display, InputType.BACKGROUND_COLOR, null), input, p);
                                 return true;
                             }
-                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked text display entity within 5 blocks!"));
+                            p.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("generic_fail")));
                             return true;
                         }
                         if (args[1].equalsIgnoreCase("text")) {
@@ -91,7 +97,7 @@ public class Command implements CommandExecutor {
                                 InputManager.successfulTextInput(new InputData(display, InputType.TEXT, null), input, p);
                                 return true;
                             }
-                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked text display entity within 5 blocks!"));
+                            p.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("generic_fail")));
                             return true;
                         }
                         if (args[1].equalsIgnoreCase("text_append")) {
@@ -99,7 +105,7 @@ public class Command implements CommandExecutor {
                                 InputManager.successfulTextInput(new InputData(display, InputType.TEXT_APPEND, null), input, p);
                                 return true;
                             }
-                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked text display entity within 5 blocks!"));
+                            p.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("generic_fail")));
                             return true;
                         }
                         if (args[1].equalsIgnoreCase("glow_color")) {
@@ -107,7 +113,7 @@ public class Command implements CommandExecutor {
                                 InputManager.successfulTextInput(new InputData(display, InputType.GLOW_COLOR, null), input, p);
                                 return true;
                             }
-                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked block/item display entity within 5 blocks!"));
+                            p.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("generic_fail")));
                             return true;
                         }
                         if (args[1].equalsIgnoreCase("block_state")) {
@@ -115,7 +121,7 @@ public class Command implements CommandExecutor {
                                 InputManager.successfulTextInput(new InputData(display, InputType.BLOCK_STATE, ((BlockDisplay) display).getBlock().getMaterial()), input, p);
                                 return true;
                             }
-                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked block display entity within 5 blocks!"));
+                            p.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("generic_fail")));
                             return true;
                         }
                         if (args[1].equalsIgnoreCase("view_range")) {
@@ -149,7 +155,7 @@ public class Command implements CommandExecutor {
                                     InputManager.successfulFloatInput(new InputData(display, InputType.SHADOW_STRENGTH, null), Float.parseFloat(input), p);
                                     return true;
                                 }
-                                p.sendMessage(Utilities.getErrorMessageFormat("Value should be between 0 and 1!"));
+                                p.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("shadow_strength_fail")));
                                 return true;
                             }
                         }
@@ -160,7 +166,7 @@ public class Command implements CommandExecutor {
                                     return true;
                                 }
                             }
-                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked text display entity within 5 blocks!"));
+                            p.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("generic_fail")));
                             return true;
                         }
                         if (args[1].equalsIgnoreCase("background_opacity")) {
@@ -170,7 +176,7 @@ public class Command implements CommandExecutor {
                                     return true;
                                 }
                             }
-                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked text display entity within 5 blocks!"));
+                            p.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("generic_fail")));
                             return true;
                         }
                         if (args[1].equalsIgnoreCase("line_width")) {
@@ -180,17 +186,17 @@ public class Command implements CommandExecutor {
                                     return true;
                                 }
                             }
-                            p.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked text display entity within 5 blocks!"));
+                            p.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("generic_fail")));
                             return true;
                         }
                     }
                 }
                 return true;
             }
-            p.sendMessage(Utilities.getErrorMessageFormat("Invalid arguments!"));
+            p.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("generic_command_fail")));
             return true;
         }
-        sender.sendMessage("This command must be run by a player!");
+        sender.sendMessage(DisplayEntityEditor.messageManager.getString("none_player_fail"));
         return true;
     }
 

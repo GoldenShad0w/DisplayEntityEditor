@@ -39,15 +39,15 @@ public class InventoryClick implements Listener {
                                     player.closeInventory();
                                     if (DisplayEntityEditor.alternateTextInput) {
                                         if (DisplayEntityEditor.useMiniMessageFormat) {
-                                            player.spigot().sendMessage(Utilities.getCommandMessage("name <new_name>", "Use MiniMessage formatting to stylize your input."));
+                                            player.spigot().sendMessage(Utilities.getCommandMessage("name <new_name>", DisplayEntityEditor.messageManager.getString("name_command_hint_mm")));
                                         } else {
-                                            player.spigot().sendMessage(Utilities.getCommandMessage("name <new_name>", "You can use '&' for color codes."));
+                                            player.spigot().sendMessage(Utilities.getCommandMessage("name <new_name>", DisplayEntityEditor.messageManager.getString("name_command_hint")));
                                         }
                                     } else {
                                         if (DisplayEntityEditor.useMiniMessageFormat) {
-                                            InputManager.createTextInput(player, "Please enter the new name it chat! Use MiniMessage formatting to stylize your input.", new InputData(entity, InputType.NAME, null));
+                                            InputManager.createTextInput(player, DisplayEntityEditor.messageManager.getString("name_hint_mm"), new InputData(entity, InputType.NAME, null));
                                         } else {
-                                            InputManager.createTextInput(player, "Please enter the new name it chat! You can use '&' for color codes.", new InputData(entity, InputType.NAME, null));
+                                            InputManager.createTextInput(player, DisplayEntityEditor.messageManager.getString("name_hint"), new InputData(entity, InputType.NAME, null));
                                         }
                                     }
                                 } else {
@@ -79,9 +79,9 @@ public class InventoryClick implements Listener {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
                                     if (DisplayEntityEditor.alternateTextInput) {
-                                        player.spigot().sendMessage(Utilities.getCommandMessage("glow_color <R, G, B>", "Use the format R, G, B"));
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("glow_color <R, G, B>", DisplayEntityEditor.messageManager.getString("generic_color_command_hint")));
                                     } else {
-                                        InputManager.createTextInput(player, "Please enter the new rgb values it chat! Use the format: R, G, B", new InputData(entity, InputType.GLOW_COLOR, null));
+                                        InputManager.createTextInput(player, DisplayEntityEditor.messageManager.getString("generic_color_hint"), new InputData(entity, InputType.GLOW_COLOR, null));
                                     }
                                 }
                             }
@@ -106,7 +106,7 @@ public class InventoryClick implements Listener {
                                     if (DisplayEntityEditor.alternateTextInput) {
                                         player.spigot().sendMessage(Utilities.getCommandMessage("view_range <value>", ""));
                                     } else {
-                                        InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.VIEW_RANGE, null));
+                                        InputManager.createFloatInput(player, DisplayEntityEditor.messageManager.getString("generic_hint"), new InputData(entity, InputType.VIEW_RANGE, null));
                                     }
                                 }
                             }
@@ -117,7 +117,7 @@ public class InventoryClick implements Listener {
                                     if (DisplayEntityEditor.alternateTextInput) {
                                         player.spigot().sendMessage(Utilities.getCommandMessage("display_width <value>",""));
                                     } else {
-                                        InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.DISPLAY_WIDTH, null));
+                                        InputManager.createFloatInput(player, DisplayEntityEditor.messageManager.getString("generic_hint"), new InputData(entity, InputType.DISPLAY_WIDTH, null));
                                     }
                                 }
                             }
@@ -128,7 +128,7 @@ public class InventoryClick implements Listener {
                                     if (DisplayEntityEditor.alternateTextInput) {
                                         player.spigot().sendMessage(Utilities.getCommandMessage("display_height <value>", ""));
                                     } else {
-                                        InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.DISPLAY_HEIGHT, null));
+                                        InputManager.createFloatInput(player, DisplayEntityEditor.messageManager.getString("generic_hint"), new InputData(entity, InputType.DISPLAY_HEIGHT, null));
                                     }
                                 }
                             }
@@ -159,7 +159,7 @@ public class InventoryClick implements Listener {
                                     if (DisplayEntityEditor.alternateTextInput) {
                                         player.spigot().sendMessage(Utilities.getCommandMessage("shadow_radius <value>", ""));
                                     } else {
-                                        InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.SHADOW_RADIUS, null));
+                                        InputManager.createFloatInput(player, DisplayEntityEditor.messageManager.getString("generic_hint"), new InputData(entity, InputType.SHADOW_RADIUS, null));
                                     }
                                 }
                             }
@@ -168,16 +168,16 @@ public class InventoryClick implements Listener {
                                     player.closeInventory();
 
                                     if (DisplayEntityEditor.alternateTextInput) {
-                                        player.spigot().sendMessage(Utilities.getCommandMessage("shadow_strength <value>", "The value should be between 0 and 1 (inclusive)."));
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("shadow_strength <value>", DisplayEntityEditor.messageManager.getString("shadow_strength_command_hint")));
                                     } else {
-                                        InputManager.createFloatInput(player, "Please enter the value in chat!", new InputData(entity, InputType.SHADOW_STRENGTH, null));
+                                        InputManager.createFloatInput(player, DisplayEntityEditor.messageManager.getString("shadow_strength_hint"), new InputData(entity, InputType.SHADOW_STRENGTH, null));
                                     }
                                 }
                             }
                             case "GUILock" -> {
                                 if (event.isLeftClick()) {
                                     entity.addScoreboardTag("dee:locked");
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Display entity locked! Use the unlock item to unlock it again!"));
+                                    player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("lock_hint")));
                                     player.closeInventory();
                                 }
                             }
@@ -269,7 +269,7 @@ public class InventoryClick implements Listener {
                                 if (event.isLeftClick()) {
                                     entity.remove();
                                     player.closeInventory();
-                                    player.sendMessage(Utilities.getInfoMessageFormat("Display entity deleted!"));
+                                    player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("delete_hint")));
                                 }
                             }
                             case "GUIItemDisplayTransform" -> {
@@ -287,9 +287,9 @@ public class InventoryClick implements Listener {
                                     player.closeInventory();
 
                                     if (DisplayEntityEditor.alternateTextInput) {
-                                        player.spigot().sendMessage(Utilities.getCommandMessage("block_state <new_blockstate>", "You can either use f3 or an online tool to help generate it."));
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("block_state <new_blockstate>", DisplayEntityEditor.messageManager.getString("block_state_command_hint")));
                                     } else {
-                                        InputManager.createTextInput(player, "Please enter the new block state! You can either use f3 or an online tool to help generate it.", new InputData(entity, InputType.BLOCK_STATE, ((BlockDisplay) entity).getBlock().getMaterial()));
+                                        InputManager.createTextInput(player, DisplayEntityEditor.messageManager.getString("block_state_hint"), new InputData(entity, InputType.BLOCK_STATE, ((BlockDisplay) entity).getBlock().getMaterial()));
                                     }
 
                                     player.closeInventory();
@@ -305,9 +305,9 @@ public class InventoryClick implements Listener {
                                     player.closeInventory();
 
                                     if (DisplayEntityEditor.alternateTextInput) {
-                                        player.spigot().sendMessage(Utilities.getCommandMessage("text_opacity <value>", "Value should be between 0 and 255."));
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("text_opacity <value>", DisplayEntityEditor.messageManager.getString("opacity_command_hint")));
                                     } else {
-                                        InputManager.createByteInput(player, "Please enter the value in chat!", new InputData(entity, InputType.TEXT_OPACITY, null));
+                                        InputManager.createByteInput(player, DisplayEntityEditor.messageManager.getString("opacity_hint"), new InputData(entity, InputType.TEXT_OPACITY, null));
                                     }
                                 }
                             }
@@ -318,7 +318,7 @@ public class InventoryClick implements Listener {
                                     if (DisplayEntityEditor.alternateTextInput) {
                                         player.spigot().sendMessage(Utilities.getCommandMessage("line_width <value>", ""));
                                     } else {
-                                        InputManager.createIntegerInput(player, "Please enter the value in chat!", new InputData(entity, InputType.LINE_WIDTH, null));
+                                        InputManager.createIntegerInput(player, DisplayEntityEditor.messageManager.getString("generic_hint"), new InputData(entity, InputType.LINE_WIDTH, null));
                                     }
                                 }
                             }
@@ -351,9 +351,9 @@ public class InventoryClick implements Listener {
                                     player.closeInventory();
 
                                     if (DisplayEntityEditor.alternateTextInput) {
-                                        player.spigot().sendMessage(Utilities.getCommandMessage("background_color <R, B, G>", "Use the format: R, G, B"));
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("background_color <R, B, G>", DisplayEntityEditor.messageManager.getString("generic_color_command_hint")));
                                     } else {
-                                        InputManager.createTextInput(player, "Please enter the new rgb values it chat! Use the format: R, G, B", new InputData(entity, InputType.BACKGROUND_COLOR, null));
+                                        InputManager.createTextInput(player, DisplayEntityEditor.messageManager.getString("generic_color_hint"), new InputData(entity, InputType.BACKGROUND_COLOR, null));
                                     }
                                 }
                             }
@@ -362,9 +362,9 @@ public class InventoryClick implements Listener {
                                     player.closeInventory();
 
                                     if (DisplayEntityEditor.alternateTextInput) {
-                                        player.spigot().sendMessage(Utilities.getCommandMessage("background_opacity <value>", "Value should be between 0 and 255."));
+                                        player.spigot().sendMessage(Utilities.getCommandMessage("background_opacity <value>", DisplayEntityEditor.messageManager.getString("opacity_command_hint")));
                                     } else {
-                                        InputManager.createByteInput(player, "Please enter the value in chat!", new InputData(entity, InputType.BACKGROUND_OPACITY, null));
+                                        InputManager.createByteInput(player, DisplayEntityEditor.messageManager.getString("opacity_hint"), new InputData(entity, InputType.BACKGROUND_OPACITY, null));
                                     }
                                 }
                             }
@@ -383,15 +383,15 @@ public class InventoryClick implements Listener {
 
                                     if (DisplayEntityEditor.alternateTextInput) {
                                         if (DisplayEntityEditor.useMiniMessageFormat) {
-                                            player.spigot().sendMessage(Utilities.getCommandMessage("text <new_text>", "Use MiniMessage formatting to stylize your input."));
+                                            player.spigot().sendMessage(Utilities.getCommandMessage("text <new_text>", DisplayEntityEditor.messageManager.getString("text_command_hint_mm")));
                                         } else {
-                                            player.spigot().sendMessage(Utilities.getCommandMessage("text <new_text>", "You can use '&' for color codes and \\n to create line breaks."));
+                                            player.spigot().sendMessage(Utilities.getCommandMessage("text <new_text>", DisplayEntityEditor.messageManager.getString("text_command_hint")));
                                         }
                                     } else {
                                         if (DisplayEntityEditor.useMiniMessageFormat) {
-                                            InputManager.createTextInput(player, "Please enter the new text in chat! Use MiniMessage formatting to stylize your input.", new InputData(entity, InputType.TEXT, null));
+                                            InputManager.createTextInput(player, DisplayEntityEditor.messageManager.getString("text_hint_mm"), new InputData(entity, InputType.TEXT, null));
                                         } else {
-                                            InputManager.createTextInput(player, "Please enter the new text in chat! You can use '&' for color codes and \\n to create line breaks.", new InputData(entity, InputType.TEXT, null));
+                                            InputManager.createTextInput(player, DisplayEntityEditor.messageManager.getString("text_hint"), new InputData(entity, InputType.TEXT, null));
                                         }
                                     }
                                 }
@@ -400,15 +400,15 @@ public class InventoryClick implements Listener {
 
                                     if (DisplayEntityEditor.alternateTextInput) {
                                         if (DisplayEntityEditor.useMiniMessageFormat) {
-                                            player.spigot().sendMessage(Utilities.getCommandMessage("text_append <text_to_append>", "Use MiniMessage formatting to stylize your input."));
+                                            player.spigot().sendMessage(Utilities.getCommandMessage("text_append <text_to_append>", DisplayEntityEditor.messageManager.getString("text_command_hint_mm")));
                                         } else {
-                                            player.spigot().sendMessage(Utilities.getCommandMessage("text_append <text_to_append>", "You can use '&' for color codes and \\n to create line breaks."));
+                                            player.spigot().sendMessage(Utilities.getCommandMessage("text_append <text_to_append>", DisplayEntityEditor.messageManager.getString("text_command_hint")));
                                         }
                                     } else {
                                         if (DisplayEntityEditor.useMiniMessageFormat) {
-                                            InputManager.createTextInput(player, "Please enter the text in chat that should be appended! Use MiniMessage formatting to stylize your input.", new InputData(entity, InputType.TEXT_APPEND, null));
+                                            InputManager.createTextInput(player, DisplayEntityEditor.messageManager.getString("text_append_hint_mm"), new InputData(entity, InputType.TEXT_APPEND, null));
                                         } else {
-                                            InputManager.createTextInput(player, "Please enter the text in chat that should be appended! You can use '&' for color codes and \\n to create line breaks.", new InputData(entity, InputType.TEXT_APPEND, null));
+                                            InputManager.createTextInput(player, DisplayEntityEditor.messageManager.getString("text_append_hint"), new InputData(entity, InputType.TEXT_APPEND, null));
                                         }
                                     }
                                 }
@@ -430,7 +430,7 @@ public class InventoryClick implements Listener {
                         } else {
                             BlockData data = Bukkit.createBlockData(Material.AIR);
                             blockDisplay.setBlock(data);
-                            player.sendMessage(Utilities.getErrorMessageFormat("Invalid block! The item must be a block item!"));
+                            player.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("block_invalid_hint")));
                             player.getOpenInventory().setItem(10, null);
                         }
                     } else {

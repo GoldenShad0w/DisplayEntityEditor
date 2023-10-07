@@ -48,28 +48,28 @@ public class Interact implements Listener {
                     if (toolValue != null) {
                         if (toolValue.equals("InventorySpawnItem")) {
                             spawnDisplayEntity(player.getLocation(), EntityType.ITEM_DISPLAY);
-                            player.sendMessage(Utilities.getInfoMessageFormat("Spawned new item display entity!"));
+                            player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("item_display_spawned")));
                             return;
                         }
                         if (toolValue.equals("InventorySpawnBlock")) {
                             spawnDisplayEntity(player.getLocation(), EntityType.BLOCK_DISPLAY);
-                            player.sendMessage(Utilities.getInfoMessageFormat("Spawned new block display entity!"));
+                            player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("block_display_spawned")));
                             return;
                         }
                         if (toolValue.equals("InventorySpawnText")) {
                             spawnDisplayEntity(player.getLocation(), EntityType.TEXT_DISPLAY);
-                            player.sendMessage(Utilities.getInfoMessageFormat("Spawned new text display entity!"));
+                            player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("text_display_spawned")));
                             return;
                         }
                         if (toolValue.equals("InventoryUnlock")) {
                             Display display = Utilities.getNearestDisplayEntity(player.getLocation(), false);
                             if (display == null) {
-                                player.sendMessage(Utilities.getErrorMessageFormat("There is no locked display entity within 5 blocks!"));
+                                player.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("unlock_fail")));
                                 return;
                             }
                             display.getScoreboardTags().remove("dee:locked");
                             highlightEntity(display);
-                            player.sendMessage(Utilities.getInfoMessageFormat("Display entity unlocked!"));
+                            player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("unlock_success")));
                             return;
                         }
                         if (toolValue.equals("InventoryToolPrecision")) {
@@ -89,20 +89,20 @@ public class Interact implements Listener {
                             }
                             d = (double) Math.round(d * 1000) / 1000;
                             player.getPersistentDataContainer().set(DisplayEntityEditor.toolPrecisionKey, PersistentDataType.DOUBLE, d);
-                            sendActionbarMessage(player, "Tool Precision: " + df.format(d));
+                            sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("tool_precision").formatted(df.format(d)));
                             return;
                         }
 
                         Display display = Utilities.getNearestDisplayEntity(player.getLocation(), true);
                         if (display == null) {
-                            player.sendMessage(Utilities.getErrorMessageFormat("There is no unlocked display entity within 5 blocks!"));
+                            player.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("generic_fail")));
                             return;
                         }
                         switch (toolValue) {
                             case "InventoryGUI" -> {
 
                                 if (DisplayEntityEditor.currentEditMap.containsValue(display)) {
-                                    player.sendMessage(Utilities.getErrorMessageFormat("Someone else is editing this entity at the moment!"));
+                                    player.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("gui_open_fail")));
                                     return;
                                 }
                                 DisplayEntityEditor.currentEditMap.put(player.getUniqueId(), display);
@@ -118,47 +118,48 @@ public class Interact implements Listener {
                             case "InventoryRotateYaw" -> {
                                 if (player.isSneaking()) {
                                     display.setRotation((float) (display.getLocation().getYaw()-1 * getToolPrecision(player)), display.getLocation().getPitch());
-                                    sendActionbarMessage(player, "Yaw: " + df.format(display.getLocation().getYaw()));
+                                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("yaw").formatted(df.format(display.getLocation().getYaw())));
                                     return;
                                 }
                                 display.setRotation((float) (display.getLocation().getYaw()+1  * getToolPrecision(player)), display.getLocation().getPitch());
-                                sendActionbarMessage(player, "Yaw: " + df.format(display.getLocation().getYaw()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("yaw").formatted(df.format(display.getLocation().getYaw())));
                             }
                             case "InventoryRotatePitch" -> {
                                 if (player.isSneaking()) {
                                     display.setRotation(display.getLocation().getYaw(), (float) (display.getLocation().getPitch()-1  * getToolPrecision(player)));
-                                    sendActionbarMessage(player, "Pitch: " + df.format(display.getLocation().getPitch()));
+                                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("pitch").formatted(df.format(display.getLocation().getPitch())));
                                     return;
                                 }
                                 display.setRotation(display.getLocation().getYaw(), (float) (display.getLocation().getPitch()+1 * getToolPrecision(player)));
-                                sendActionbarMessage(player, "Pitch: " + df.format(display.getLocation().getPitch()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("pitch").formatted(df.format(display.getLocation().getPitch())));
                             }
                             case "InventoryMoveX" -> {
                                 if (player.isSneaking()) {
                                     display.teleport(display.getLocation().add(-0.1 * getToolPrecision(player),0,0));
                                     sendActionbarMessage(player, "X: " + df.format(display.getLocation().getX()));
+                                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_x").formatted(df.format(display.getLocation().getX())));
                                     return;
                                 }
                                 display.teleport(display.getLocation().add(0.1 * getToolPrecision(player),0,0));
-                                sendActionbarMessage(player, "X: " + df.format(display.getLocation().getX()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_x").formatted(df.format(display.getLocation().getX())));
                             }
                             case "InventoryMoveY" -> {
                                 if (player.isSneaking()) {
                                     display.teleport(display.getLocation().add(0,-0.1 * getToolPrecision(player),0));
-                                    sendActionbarMessage(player, "Y: " + df.format(display.getLocation().getY()));
+                                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_y").formatted(df.format(display.getLocation().getY())));
                                     return;
                                 }
                                 display.teleport(display.getLocation().add(0,0.1 * getToolPrecision(player),0));
-                                sendActionbarMessage(player, "Y: " + df.format(display.getLocation().getY()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_y").formatted(df.format(display.getLocation().getY())));
                             }
                             case "InventoryMoveZ" -> {
                                 if (player.isSneaking()) {
                                     display.teleport(display.getLocation().add(0,0,-0.1 * getToolPrecision(player)));
-                                    sendActionbarMessage(player, "Z: " + df.format(display.getLocation().getZ()));
+                                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_z").formatted(df.format(display.getLocation().getZ())));
                                     return;
                                 }
                                 display.teleport(display.getLocation().add(0,0,0.1 * getToolPrecision(player)));
-                                sendActionbarMessage(player, "Z: " + df.format(display.getLocation().getZ()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_z").formatted(df.format(display.getLocation().getZ())));
                             }
                             case "InventoryHighlight" -> highlightEntity(display);
                             case "InventoryCenterPivot" -> {
@@ -169,7 +170,7 @@ public class Interact implements Listener {
                                     t.getTranslation().set(0,0,0);
                                 }
                                 display.setTransformation(t);
-                                player.sendMessage(ChatColor.DARK_AQUA + "[DEE] " + ChatColor.AQUA + "Centered pivot!");
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("center_pivot"));
                             }
                             case "InventoryTX" -> {
                                 Transformation t = display.getTransformation();
@@ -178,7 +179,7 @@ public class Interact implements Listener {
                                 } else {
                                     t.getTranslation().add((float) (0.1f * getToolPrecision(player)),0,0);
                                 }
-                                sendActionbarMessage(player, "Translation X: " + df.format(t.getTranslation().x()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("translation_x").formatted(df.format(t.getTranslation().x())));
                                 display.setTransformation(t);
                             }
                             case "InventoryTY" -> {
@@ -188,7 +189,7 @@ public class Interact implements Listener {
                                 } else {
                                     t.getTranslation().add(0,(float) (0.1f * getToolPrecision(player)),0);
                                 }
-                                sendActionbarMessage(player, "Translation Y: " + df.format(t.getTranslation().y()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("translation_y").formatted(df.format(t.getTranslation().y())));
                                 display.setTransformation(t);
                             }
                             case "InventoryTZ" -> {
@@ -198,7 +199,7 @@ public class Interact implements Listener {
                                 } else {
                                     t.getTranslation().add(0,0,(float) (0.1f * getToolPrecision(player)));
                                 }
-                                sendActionbarMessage(player, "Translation Z: " + df.format(t.getTranslation().z()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("translation_z").formatted(df.format(t.getTranslation().z())));
                                 display.setTransformation(t);
                             }
                             case "InventorySX" -> {
@@ -208,7 +209,7 @@ public class Interact implements Listener {
                                 } else {
                                     t.getScale().add((float) (0.1f * getToolPrecision(player)),0,0);
                                 }
-                                sendActionbarMessage(player, "Scale X: " + df.format(t.getScale().x()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("scale_x").formatted(df.format(t.getScale().x())));
                                 display.setTransformation(t);
                             }
                             case "InventorySY" -> {
@@ -218,7 +219,7 @@ public class Interact implements Listener {
                                 } else {
                                     t.getScale().add(0,(float) (0.1f * getToolPrecision(player)),0);
                                 }
-                                sendActionbarMessage(player, "Scale Y: " + df.format(t.getScale().y()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("scale_y").formatted(df.format(t.getScale().y())));
                                 display.setTransformation(t);
                             }
                             case "InventorySZ" -> {
@@ -228,7 +229,7 @@ public class Interact implements Listener {
                                 } else {
                                     t.getScale().add(0,0,(float) (0.1f * getToolPrecision(player)));
                                 }
-                                sendActionbarMessage(player, "Scale Z: " + df.format(t.getScale().z()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("scale_z").formatted(df.format(t.getScale().z())));
                                 display.setTransformation(t);
                             }
                             case "InventoryLRX" -> {
@@ -240,7 +241,7 @@ public class Interact implements Listener {
                                     t.getLeftRotation().add((float) (0.1f * getToolPrecision(player)),0,0,0);
                                 }
                                 if (b) t.getLeftRotation().normalize();
-                                sendActionbarMessage(player, "Left Rotation X" + (b ? " (normalized)" : "") + ": " + df.format(t.getLeftRotation().x()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("left_rot_x").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : "") ,df.format(t.getLeftRotation().x())));
                                 display.setTransformation(t);
                             }
                             case "InventoryLRY" -> {
@@ -252,7 +253,7 @@ public class Interact implements Listener {
                                     t.getLeftRotation().add(0,(float) (0.1f * getToolPrecision(player)),0,0);
                                 }
                                 if (b) t.getLeftRotation().normalize();
-                                sendActionbarMessage(player, "Left Rotation Y" + (b ? " (normalized)" : "") + ": " + df.format(t.getLeftRotation().y()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("left_rot_y").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : "") ,df.format(t.getLeftRotation().y())));
                                 display.setTransformation(t);
                             }
                             case "InventoryLRZ" -> {
@@ -264,7 +265,7 @@ public class Interact implements Listener {
                                     t.getLeftRotation().add(0,0,(float) (0.1f * getToolPrecision(player)),0);
                                 }
                                 if (b) t.getLeftRotation().normalize();
-                                sendActionbarMessage(player, "Left Rotation Z" + (b ? " (normalized)" : "") + ": " + df.format(t.getLeftRotation().z()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("left_rot_z").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : "") ,df.format(t.getLeftRotation().z())));
                                 display.setTransformation(t);
                             }
                             case "InventoryRRX" -> {
@@ -276,7 +277,7 @@ public class Interact implements Listener {
                                     t.getRightRotation().add((float) (0.1f * getToolPrecision(player)),0,0,0);
                                 }
                                 if (b) t.getRightRotation().normalize();
-                                sendActionbarMessage(player, "Right Rotation X" + (b ? " (normalized)" : "") + ": " + df.format(t.getRightRotation().x()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("right_rot_x").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : "") ,df.format(t.getRightRotation().x())));
                                 display.setTransformation(t);
                             }
                             case "InventoryRRY" -> {
@@ -288,7 +289,7 @@ public class Interact implements Listener {
                                     t.getRightRotation().add(0,(float) (0.1f * getToolPrecision(player)),0,0);
                                 }
                                 if (b) t.getRightRotation().normalize();
-                                sendActionbarMessage(player, "Right Rotation Y" + (b ? " (normalized)" : "") + ": " + df.format(t.getRightRotation().y()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("right_rot_y").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : "") ,df.format(t.getRightRotation().y())));
                                 display.setTransformation(t);
                             }
                             case "InventoryRRZ" -> {
@@ -300,7 +301,7 @@ public class Interact implements Listener {
                                     t.getRightRotation().add(0,0,(float) (0.1f * getToolPrecision(player)),0);
                                 }
                                 if (b) t.getRightRotation().normalize();
-                                sendActionbarMessage(player, "Right Rotation Z" + (b ? " (normalized)" : "") + ": " + df.format(t.getRightRotation().z()));
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("right_rot_z").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : "") ,df.format(t.getRightRotation().z())));
                                 display.setTransformation(t);
                             }
                             case "InventoryCenterBlock" -> {
@@ -318,12 +319,12 @@ public class Interact implements Listener {
                                     loc.setY((int) loc.getY() + (((loc.getY()) < 0 ? -1 : 1) * 0.5));
                                 }
                                 display.teleport(loc);
-                                sendActionbarMessage(player, "Centered at: " + loc.getX() + " " + loc.getY() + " " + loc.getZ());
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("center_block").formatted(loc.getX(), loc.getY(), loc.getZ()));
                             }
                             case "InventoryClone" -> {
                                 Display clone = (Display) display.getWorld().spawnEntity(display.getLocation(), display.getType(), false);
                                 cloneEntity(clone, display);
-                                sendActionbarMessage(player, "Display entity cloned!");
+                                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("clone"));
                             }
                         }
                     }

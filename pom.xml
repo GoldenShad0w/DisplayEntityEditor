@@ -6,7 +6,7 @@
 
     <groupId>goldenshadow</groupId>
     <artifactId>DisplayEntityEditor</artifactId>
-    <version>1.0.11</version>
+    <version>1.0.12</version>
     <packaging>jar</packaging>
 
     <name>DisplayEntityEditor</name>
@@ -91,6 +91,11 @@
             <artifactId>spigot-api</artifactId>
             <version>1.19.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.1</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
