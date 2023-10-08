@@ -1,5 +1,6 @@
 package goldenshadow.displayentityeditor.inventories;
 
+import goldenshadow.displayentityeditor.DisplayEntityEditor;
 import goldenshadow.displayentityeditor.Utilities;
 import goldenshadow.displayentityeditor.items.GUIItems;
 import goldenshadow.displayentityeditor.items.InventoryItems;
@@ -7,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.ItemDisplay;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.TextDisplay;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -34,6 +36,10 @@ public class InventoryFactory {
         return guiItems;
     }
 
+    public InventoryItems getInventoryItems() {
+        return inventoryItems;
+    }
+
 
     /**
      * Used to create the gui for item displays
@@ -41,7 +47,7 @@ public class InventoryFactory {
      * @return The gui
      */
     public Inventory createItemDisplayGUI(ItemDisplay entity) {
-        Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.BOLD + "Item Display GUI");
+        Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&' ,DisplayEntityEditor.messageManager.getString("item_display_gui_name")));
         for (int i = 0; i < inventory.getSize(); i++) {
             switch (i) {
                 case 4 -> inventory.setItem(i, guiItems.name(entity.getCustomName()));
@@ -75,7 +81,7 @@ public class InventoryFactory {
      * @return The gui
      */
     public Inventory createBlockDisplayGUI(BlockDisplay entity) {
-        Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.BOLD + "Block Display GUI");
+        Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&' ,DisplayEntityEditor.messageManager.getString("block_display_gui_name")));
         for (int i = 0; i < inventory.getSize(); i++) {
             switch (i) {
                 case 4 -> inventory.setItem(i, guiItems.name(entity.getCustomName()));
@@ -111,7 +117,7 @@ public class InventoryFactory {
      */
     @SuppressWarnings("deprecation")
     public Inventory createTextDisplayGUI(TextDisplay entity) {
-        Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.BOLD + "Text Display GUI");
+        Inventory inventory = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&' ,DisplayEntityEditor.messageManager.getString("text_display_gui_name")));
         for (int i = 0; i < inventory.getSize(); i++) {
             switch (i) {
                 case 2 -> inventory.setItem(i, guiItems.textBackgroundColor(entity.getBackgroundColor()));
@@ -148,15 +154,15 @@ public class InventoryFactory {
      * Used to generate an array of tools to be easily added to a players inventory
      * @return An array of tools
      */
-    public ItemStack[] getInventoryArray() {
+    public ItemStack[] getInventoryArray(Player p) {
         ItemStack[] array = new ItemStack[36];
 
         array[0] = inventoryItems.gui();
-        array[1] = inventoryItems.rotateYaw();
-        array[2] = inventoryItems.rotatePitch();
-        array[3] = inventoryItems.moveX();
-        array[4] = inventoryItems.moveY();
-        array[5] = inventoryItems.moveZ();
+        array[1] = inventoryItems.rotateYaw(p);
+        array[2] = inventoryItems.rotatePitch(p);
+        array[3] = inventoryItems.moveX(p);
+        array[4] = inventoryItems.moveY(p);
+        array[5] = inventoryItems.moveZ(p);
         array[6] = inventoryItems.toolPrecision();
 
         array[27] = inventoryItems.spawnItemDisplay();
@@ -167,20 +173,20 @@ public class InventoryFactory {
         array[32] = inventoryItems.unlock();
         array[33] = inventoryItems.centerOnBlock();
 
-        array[18] = inventoryItems.translationX();
-        array[19] = inventoryItems.translationY();
-        array[20] = inventoryItems.translationZ();
-        array[21] = inventoryItems.scaleX();
-        array[22] = inventoryItems.scaleY();
-        array[23] = inventoryItems.scaleZ();
+        array[18] = inventoryItems.translationX(p);
+        array[19] = inventoryItems.translationY(p);
+        array[20] = inventoryItems.translationZ(p);
+        array[21] = inventoryItems.scaleX(p);
+        array[22] = inventoryItems.scaleY(p);
+        array[23] = inventoryItems.scaleZ(p);
         array[24] = inventoryItems.cloneTool();
 
-        array[9] = inventoryItems.leftRotationX();
-        array[10] = inventoryItems.leftRotationY();
-        array[11] = inventoryItems.leftRotationZ();
-        array[12] = inventoryItems.rightRotationX();
-        array[13] = inventoryItems.rightRotationY();
-        array[14] = inventoryItems.rightRotationZ();
+        array[9] = inventoryItems.leftRotationX(p);
+        array[10] = inventoryItems.leftRotationY(p);
+        array[11] = inventoryItems.leftRotationZ(p);
+        array[12] = inventoryItems.rightRotationX(p);
+        array[13] = inventoryItems.rightRotationY(p);
+        array[14] = inventoryItems.rightRotationZ(p);
 
         return array;
     }

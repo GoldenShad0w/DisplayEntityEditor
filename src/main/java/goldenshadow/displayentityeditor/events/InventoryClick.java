@@ -26,7 +26,7 @@ public class InventoryClick implements Listener {
     @EventHandler
     public void inventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        if (player.getOpenInventory().getTitle().equals(ChatColor.BOLD + "Block Display GUI") || player.getOpenInventory().getTitle().equals(ChatColor.BOLD + "Item Display GUI") || player.getOpenInventory().getTitle().equals(ChatColor.BOLD + "Text Display GUI")) {
+        if (player.getOpenInventory().getTitle().equals(ChatColor.translateAlternateColorCodes('&' ,DisplayEntityEditor.messageManager.getString("item_display_gui_name"))) || player.getOpenInventory().getTitle().equals(ChatColor.translateAlternateColorCodes('&' ,DisplayEntityEditor.messageManager.getString("block_display_gui_name"))) || player.getOpenInventory().getTitle().equals(ChatColor.translateAlternateColorCodes('&' ,DisplayEntityEditor.messageManager.getString("text_display_gui_name")))) {
             Display entity = DisplayEntityEditor.currentEditMap.get(player.getUniqueId());
             if (event.getClickedInventory() != null && !event.getClickedInventory().equals(player.getInventory())) {
                 if (event.getCurrentItem() != null && Utilities.hasDataKey(event.getCurrentItem())) {

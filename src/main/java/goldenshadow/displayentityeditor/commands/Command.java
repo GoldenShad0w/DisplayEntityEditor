@@ -45,7 +45,7 @@ public class Command implements CommandExecutor {
                     return true;
                 }
                 saveInventory(p);
-                ItemStack[] array = DisplayEntityEditor.inventoryFactory.getInventoryArray();
+                ItemStack[] array = DisplayEntityEditor.inventoryFactory.getInventoryArray(p);
                 for (int i = 0; i < array.length; i++) {
                     p.getInventory().setItem(i, array[i]);
                 }

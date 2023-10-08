@@ -25,7 +25,7 @@ public class GUIItems {
      * @return The item
      */
     public ItemStack name(String name) {
-        if (name == null) name = "None";
+        if (name == null) name = DisplayEntityEditor.messageManager.getString("none");
         ItemStack itemStack = new ItemStack(Material.NAME_TAG);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("name_name"),
                 DisplayEntityEditor.messageManager.getList("name_lore"),
@@ -45,7 +45,7 @@ public class GUIItems {
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("glowing_name"),
                 DisplayEntityEditor.messageManager.getList("glowing_lore"),
                 "GUIGlow",
-                Boolean.toString(current)
+                Utilities.getObjectNameMessage(current)
         );
         return itemStack;
     }
@@ -75,7 +75,7 @@ public class GUIItems {
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("left_rotation_normalize_name"),
                 DisplayEntityEditor.messageManager.getList("rotation_normalize_lore"),
                 "GUILRNormalize",
-                Boolean.toString(current)
+                Utilities.getObjectNameMessage(current)
         );
         return itemStack;
     }
@@ -103,7 +103,7 @@ public class GUIItems {
     public ItemStack viewRange(float current) {
         ItemStack itemStack = new ItemStack(Material.SPYGLASS);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("view_range_name"),
-                DisplayEntityEditor.messageManager.getList("view_range_name"),
+                DisplayEntityEditor.messageManager.getList("view_range_lore"),
                 "GUIViewRange",
                 Float.toString(current)
         );
@@ -150,7 +150,7 @@ public class GUIItems {
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("billboard_name"),
                 DisplayEntityEditor.messageManager.getList("billboard_lore"),
                 "GUIBillboard",
-                current.toString()
+                Utilities.getObjectNameMessage(current)
         );
         return itemStack;
     }
@@ -209,7 +209,7 @@ public class GUIItems {
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("sky_light_name"),
                 DisplayEntityEditor.messageManager.getList("light_lore"),
                 "GUISkyLight",
-                (current == -1 ? "Default" : String.valueOf(current))
+                (current == -1 ? DisplayEntityEditor.messageManager.getString("default") : String.valueOf(current))
         );
         return itemStack;
     }
@@ -225,7 +225,7 @@ public class GUIItems {
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("block_light_name"),
                 DisplayEntityEditor.messageManager.getList("light_lore"),
                 "GUIBlockLight",
-                (current == -1 ? "Default" : String.valueOf(current))
+                (current == -1 ? DisplayEntityEditor.messageManager.getString("default") : String.valueOf(current))
         );
         return itemStack;
     }
@@ -265,7 +265,7 @@ public class GUIItems {
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("item_display_transform_name"),
                 DisplayEntityEditor.messageManager.getList("item_display_transform_lore"),
                 "GUIItemDisplayTransform",
-                current.toString()
+                Utilities.getObjectNameMessage(current)
         );
         return itemStack;
     }
@@ -314,7 +314,7 @@ public class GUIItems {
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_default_background_name"),
                 DisplayEntityEditor.messageManager.getList("text_default_background_lore"),
                 "GUITextDefaultBackground",
-                Boolean.toString(current)
+                Utilities.getObjectNameMessage(current)
         );
         return itemStack;
     }
@@ -330,7 +330,7 @@ public class GUIItems {
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_see_through_name"),
                 DisplayEntityEditor.messageManager.getList("text_see_through_lore"),
                 "GUITextSeeThrough",
-                Boolean.toString(current)
+                Utilities.getObjectNameMessage(current)
         );
         return itemStack;
     }
@@ -346,7 +346,7 @@ public class GUIItems {
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_shadow_name"),
                 DisplayEntityEditor.messageManager.getList("text_shadow_lore"),
                 "GUITextShadow",
-                Boolean.toString(current)
+                Utilities.getObjectNameMessage(current)
         );
         return itemStack;
     }
@@ -394,7 +394,7 @@ public class GUIItems {
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_alignment_name"),
                 DisplayEntityEditor.messageManager.getList("text_alignment_lore"),
                 "GUITextAlignment",
-                current.toString()
+                Utilities.getObjectNameMessage(current)
         );
         return itemStack;
     }
