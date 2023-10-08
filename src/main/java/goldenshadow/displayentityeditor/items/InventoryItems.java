@@ -3,6 +3,7 @@ package goldenshadow.displayentityeditor.items;
 import goldenshadow.displayentityeditor.DisplayEntityEditor;
 import goldenshadow.displayentityeditor.Utilities;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -27,11 +28,12 @@ public class InventoryItems {
      * Creates the rotate yaw item
      * @return The item
      */
-    public ItemStack rotateYaw() {
+    public ItemStack rotateYaw(Player p) {
         ItemStack itemStack = new ItemStack(Material.MAGMA_CREAM);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("rotate_yaw_name"),
                 DisplayEntityEditor.messageManager.getList("rotate_lore"),
-                "InventoryRotateYaw"
+                "InventoryRotateYaw",
+                Utilities.reduceFloatLength(Double.toString(Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -40,11 +42,12 @@ public class InventoryItems {
      * Creates the rotate pitch item
      * @return The item
      */
-    public ItemStack rotatePitch() {
+    public ItemStack rotatePitch(Player p) {
         ItemStack itemStack = new ItemStack(Material.SLIME_BALL);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("rotate_pitch_name"),
                 DisplayEntityEditor.messageManager.getList("rotate_lore"),
-                "InventoryRotatePitch"
+                "InventoryRotatePitch",
+                Utilities.reduceFloatLength(Double.toString(Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -53,11 +56,12 @@ public class InventoryItems {
      * Creates the move x item
      * @return The item
      */
-    public ItemStack moveX() {
+    public ItemStack moveX(Player p) {
         ItemStack itemStack = new ItemStack(Material.SHEARS);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("move_x_name"),
                 DisplayEntityEditor.messageManager.getList("move_lore"),
-                "InventoryMoveX"
+                "InventoryMoveX",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -66,11 +70,12 @@ public class InventoryItems {
      * Creates the move y item
      * @return The item
      */
-    public ItemStack moveY() {
+    public ItemStack moveY(Player p) {
         ItemStack itemStack = new ItemStack(Material.SHEARS);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("move_y_name"),
                 DisplayEntityEditor.messageManager.getList("move_lore"),
-                "InventoryMoveY"
+                "InventoryMoveY",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -79,11 +84,12 @@ public class InventoryItems {
      * Creates the move z item
      * @return The item
      */
-    public ItemStack moveZ() {
+    public ItemStack moveZ(Player p) {
         ItemStack itemStack = new ItemStack(Material.SHEARS);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("move_z_name"),
                 DisplayEntityEditor.messageManager.getList("move_lore"),
-                "InventoryMoveZ"
+                "InventoryMoveZ",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -157,11 +163,12 @@ public class InventoryItems {
      * Creates the left rotation x item
      * @return The item
      */
-    public ItemStack leftRotationX() {
+    public ItemStack leftRotationX(Player p) {
         ItemStack itemStack = new ItemStack(Material.STICK);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("left_rotation_x_name"),
                 DisplayEntityEditor.messageManager.getList("left_rotation_lore"),
-                "InventoryLRX"
+                "InventoryLRX",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -170,11 +177,12 @@ public class InventoryItems {
      * Creates the left rotation y item
      * @return The item
      */
-    public ItemStack leftRotationY() {
+    public ItemStack leftRotationY(Player p) {
         ItemStack itemStack = new ItemStack(Material.STICK);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("left_rotation_y_name"),
                 DisplayEntityEditor.messageManager.getList("left_rotation_lore"),
-                "InventoryLRY"
+                "InventoryLRY",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -183,11 +191,12 @@ public class InventoryItems {
      * Creates the left rotation z item
      * @return The item
      */
-    public ItemStack leftRotationZ() {
+    public ItemStack leftRotationZ(Player p) {
         ItemStack itemStack = new ItemStack(Material.STICK);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("left_rotation_z_name"),
                 DisplayEntityEditor.messageManager.getList("left_rotation_lore"),
-                "InventoryLRZ"
+                "InventoryLRZ",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -196,11 +205,12 @@ public class InventoryItems {
      * Creates the right rotation x item
      * @return The item
      */
-    public ItemStack rightRotationX() {
+    public ItemStack rightRotationX(Player p) {
         ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("right_rotation_x_name"),
                 DisplayEntityEditor.messageManager.getList("right_rotation_lore"),
-                "InventoryRRX"
+                "InventoryRRX",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -209,11 +219,12 @@ public class InventoryItems {
      * Creates the right rotation y item
      * @return The item
      */
-    public ItemStack rightRotationY() {
+    public ItemStack rightRotationY(Player p) {
         ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("right_rotation_y_name"),
                 DisplayEntityEditor.messageManager.getList("right_rotation_lore"),
-                "InventoryRRY"
+                "InventoryRRY",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -222,11 +233,12 @@ public class InventoryItems {
      * Creates the right rotation z item
      * @return The item
      */
-    public ItemStack rightRotationZ() {
+    public ItemStack rightRotationZ(Player p) {
         ItemStack itemStack = new ItemStack(Material.BLAZE_ROD);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("right_rotation_z_name"),
                 DisplayEntityEditor.messageManager.getList("right_rotation_lore"),
-                "InventoryRRZ"
+                "InventoryRRZ",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -248,11 +260,12 @@ public class InventoryItems {
      * Creates the translation x item
      * @return The item
      */
-    public ItemStack translationX() {
+    public ItemStack translationX(Player p) {
         ItemStack itemStack = new ItemStack(Material.NETHERITE_SCRAP);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("translation_x_name"),
                 DisplayEntityEditor.messageManager.getList("translation_lore"),
-                "InventoryTX"
+                "InventoryTX",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -261,11 +274,12 @@ public class InventoryItems {
      * Creates the translation y item
      * @return The item
      */
-    public ItemStack translationY() {
+    public ItemStack translationY(Player p) {
         ItemStack itemStack = new ItemStack(Material.NETHERITE_SCRAP);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("translation_y_name"),
                 DisplayEntityEditor.messageManager.getList("translation_lore"),
-                "InventoryTY"
+                "InventoryTY",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -274,11 +288,12 @@ public class InventoryItems {
      * Creates the translation z item
      * @return The item
      */
-    public ItemStack translationZ() {
+    public ItemStack translationZ(Player p) {
         ItemStack itemStack = new ItemStack(Material.NETHERITE_SCRAP);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("translation_z_name"),
                 DisplayEntityEditor.messageManager.getList("translation_lore"),
-                "InventoryTZ"
+                "InventoryTZ",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -287,11 +302,12 @@ public class InventoryItems {
      * Creates the scale x item
      * @return The item
      */
-    public ItemStack scaleX() {
+    public ItemStack scaleX(Player p) {
         ItemStack itemStack = new ItemStack(Material.SHULKER_SHELL);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("scale_x_name"),
                 DisplayEntityEditor.messageManager.getList("scale_lore"),
-                "InventorySX"
+                "InventorySX",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -300,11 +316,12 @@ public class InventoryItems {
      * Creates the scale y item
      * @return The item
      */
-    public ItemStack scaleY() {
+    public ItemStack scaleY(Player p) {
         ItemStack itemStack = new ItemStack(Material.SHULKER_SHELL);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("scale_y_name"),
                 DisplayEntityEditor.messageManager.getList("scale_lore"),
-                "InventorySY"
+                "InventorySY",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }
@@ -313,11 +330,12 @@ public class InventoryItems {
      * Creates the scale z item
      * @return The item
      */
-    public ItemStack scaleZ() {
+    public ItemStack scaleZ(Player p) {
         ItemStack itemStack = new ItemStack(Material.SHULKER_SHELL);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("scale_z_name"),
                 DisplayEntityEditor.messageManager.getList("scale_lore"),
-                "InventorySZ"
+                "InventorySZ",
+                Utilities.reduceFloatLength(Double.toString(0.1 * Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }

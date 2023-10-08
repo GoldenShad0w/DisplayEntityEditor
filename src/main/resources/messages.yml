@@ -22,11 +22,11 @@ open_gui_name: "&eOpen GUI"
 open_gui_lore: ["&7Click to open the GUI of the", "&7nearest unlocked display entity", " ", "&e&lRIGHT-CLICK&r&e to open"]
 rotate_yaw_name: "&eRotate Horizontally (yaw)"
 rotate_pitch_name: "&eRotate Vertically (pitch)"
-rotate_lore: ["&7Click to rotate the nearest", "&7unlocked display entity", " ", "&e&lRIGHT-CLICK&r&e to rotate by +1", "&e&lSHIFT RIGHT-CLICK &r&eto rotate by -1"]
+rotate_lore: ["&7Click to rotate the nearest", "&7unlocked display entity", " ", "&e&lRIGHT-CLICK&r&e to rotate by +%s", "&e&lSHIFT RIGHT-CLICK &r&eto rotate by -%s"]
 move_x_name: "&eMove X (Teleport)"
 move_y_name: "&eMove Y (Teleport)"
 move_z_name: "&eMove Z (Teleport)"
-move_lore: ["&7Click to move the nearest", "&7unlocked display entity", " ", "&e&lRIGHT-CLICK&r&e to move +0.1", "&e&lSHIFT RIGHT-CLICK&r&e to move -0.1"]
+move_lore: ["&7Click to move the nearest", "&7unlocked display entity", " ", "&e&lRIGHT-CLICK&r&e to move +%s", "&e&lSHIFT RIGHT-CLICK&r&e to move -%s"]
 spawn_item_display_name: "&eSpawn item_display"
 spawn_item_display_lore: ["&7Click to spawn a new item display", "&7entity at your position", " ", "&e&lRIGHT-CLICK&r&e to spawn"]
 spawn_block_display_name: "&eSpawn block_display"
@@ -40,21 +40,21 @@ highlight_target_lore: ["&7Click to highlight the display entity", "&7that will 
 left_rotation_x_name: "&eLeft Rotation X"
 left_rotation_y_name: "&eLeft Rotation Y"
 left_rotation_z_name: "&eLeft Rotation Z"
-left_rotation_lore: ["&7Click to change the left rotation", "&7of the nearest unlocked display entity", " ", "&e&lRIGHT-CLICK&r&e to change by +0.1", "&e&lSHIFT RIGHT-CLICK&r&e to change by -0.1"]
+left_rotation_lore: ["&7Click to change the left rotation", "&7of the nearest unlocked display entity", " ", "&e&lRIGHT-CLICK&r&e to change by +%s", "&e&lSHIFT RIGHT-CLICK&r&e to change by -%s"]
 right_rotation_x_name: "&eRight Rotation X"
 right_rotation_y_name: "&eRight Rotation Y"
 right_rotation_z_name: "&eRight Rotation Z"
-right_rotation_lore: ["&7Click to change the right rotation", "&7of the nearest unlocked display entity", " ", "&e&lRIGHT-CLICK&r&e to change by +0.1", "&e&lSHIFT RIGHT-CLICK&r&e to change by -0.1"]
+right_rotation_lore: ["&7Click to change the right rotation", "&7of the nearest unlocked display entity", " ", "&e&lRIGHT-CLICK&r&e to change by +%s", "&e&lSHIFT RIGHT-CLICK&r&e to change by -%s"]
 center_pivot_name: "&eCenter Pivot Point"
 center_pivot_lore: ["&7Click to auto adjust the translation so that", "&7the pivot is centered relative to the scale.", "&7This will make it easier to rotate the entity", "&7around itself", " ", "&e&lRIGHT-CLICK&r&e to center"]
 translation_x_name: "&eTranslation X"
 translation_y_name: "&eTranslation Y"
 translation_z_name: "&eTranslation Z"
-translation_lore: ["&7Click to change the translation of", "&7the nearest unlocked display entity.", "&7Changing the translation will move the", "&7visual part of the entity but not its", "&7hitbox or pivot point", " ", "&e&lRIGHT-CLICK&r&e to change by +0.1", "&e&lSHIFT RIGHT-CLICK&r&e to change by -0.1"]
+translation_lore: ["&7Click to change the translation of", "&7the nearest unlocked display entity.", "&7Changing the translation will move the", "&7visual part of the entity but not its", "&7hitbox or pivot point", " ", "&e&lRIGHT-CLICK&r&e to change by +%s", "&e&lSHIFT RIGHT-CLICK&r&e to change by -%s"]
 scale_x_name: "&eScale X"
 scale_y_name: "&eScale Y"
 scale_z_name: "&eScale Z"
-scale_lore: ["&7Click to change the scale of the", "&7nearest unlocked display entity.", " ", "&e&lRIGHT-CLICK&r&e to change by +0.1", "&e&lSHIFT RIGHT-CLICK&r&e to change by -0.1"]
+scale_lore: ["&7Click to change the scale of the", "&7nearest unlocked display entity.", " ", "&e&lRIGHT-CLICK&r&e to change by +%s", "&e&lSHIFT RIGHT-CLICK&r&e to change by -%s"]
 center_on_block_name: "&eCenter On Block"
 center_on_block_lore: ["&7Click to position the nearest display entity", "&7so that it is centered on the block.", " ", "&e&lRIGHT-CLICK&r&e to center xyz", "&e&lSHIFT RIGHT-CLICK&r&e to center xz"]
 tool_precision_name: "&eChange Tool Precision"
@@ -200,3 +200,18 @@ config_reload: "Config reloaded!"
 generic_command_fail: "Invalid arguments!"
 none_player_fail: "This command must be run by a player!"
 messages_reload_fail: "Failed to load messages.yml"
+
+# Current state names
+# (These lists need to stay ordered the way they are and with the amount of entries they currently have)
+boolean: ["true", "false"]
+default: "Default"
+none: "None"
+text_alignment: ["CENTER", "LEFT", "RIGHT"]
+billboard: ["CENTER", "FIXED", "HORIZONTAL", "VERTICAL"]
+rgb: "RGB: %d, %d, %d"
+item_display_transform: ["FIRSTPERSON_LEFTHAND", "FIRSTPERSON_RIGHTHAND", "FIXED", "GROUND", "GUI", "HEAD", "NONE", "THIRDPERSON_LEFTHAND", "THIRDPERSON_RIGHTHAND"]
+
+#GUI names
+block_display_gui_name: "&lBlock Display GUI"
+item_display_gui_name: "&lItem Display GUI"
+text_display_gui_name: "&lText Display GUI"

@@ -8,8 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Display;
-import org.bukkit.entity.Entity;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -113,8 +112,8 @@ public class Utilities {
      * @return The string representation
      */
     public static String getColor(Color color) {
-        if (color == null) return "None";
-        return "RBG: " + color.getRed() + ", " + color.getBlue() + ", " + color.getGreen();
+        if (color == null) return DisplayEntityEditor.messageManager.getString("none");
+        return DisplayEntityEditor.messageManager.getString("rgb").formatted(color.getRed(), color.getBlue(), color.getGreen());
     }
 
     /**
@@ -176,6 +175,31 @@ public class Utilities {
         click.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/deeditor edit " + commandMessage));
 
         return new ComponentBuilder(click).create();
+    }
+
+    public static String getObjectNameMessage(Object object) {
+        if (object instanceof Boolean b) {
+            return DisplayEntityEditor.messageManager.getList("boolean").get(b ? 0 : 1);
+        }
+        else if (object instanceof Display.Billboard b) {
+            return DisplayEntityEditor.messageManager.getList("billboard").get(b.ordinal());
+        }
+        else if (object instanceof TextDisplay.TextAlignment t) {
+            return DisplayEntityEditor.messageManager.getList("text_alignment").get(t.ordinal());
+        }
+        else if (object instanceof ItemDisplay.ItemDisplayTransform t) {
+            return DisplayEntityEditor.messageManager.getList("item_display_transform").get(t.ordinal());
+        }
+        else return "";
+    }
+
+    public static double getToolPrecision(Player p) {
+        Double i = p.getPersistentDataContainer().get(DisplayEntityEditor.toolPrecisionKey,  PersistentDataType.DOUBLE);
+        return i != null ? i : 1;
+    }
+
+    public static String reduceFloatLength(String s) {
+        return s.substring(0, Math.min(s.length(), 4));
     }
 
 }
