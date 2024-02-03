@@ -1,23 +1,19 @@
 package goldenshadow.displayentityeditor;
 
-import com.google.common.collect.Maps;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.Player;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class EditingHandler {
 
     /**
      * The map of player UUIDs to the displays they are currently editing.
      */
-    private final Map<UUID, Collection<Display>> editingDisplaysMap = Maps.newHashMap();
+    private final Map<UUID, Collection<Display>> editingDisplaysMap = new HashMap<>();
 
     /**
-     * @param player   The player that should be editing the displays.
+     * @param player The player that should be editing the displays.
      * @param displays The collection of displays the player should be editing.
      */
     public void setEditingDisplays(Player player, Collection<Display> displays) {
@@ -32,7 +28,7 @@ public class EditingHandler {
     }
 
     /**
-     * @param player           The player that is editing display(s).
+     * @param player The player that is editing display(s).
      * @param lockSearchToggle Whether the searched entities should be locked/unlocked.
      * @return The collection of displays the player is currently editing.
      * If the player is not editing any displays, the nearest display entity to the player's location is returned

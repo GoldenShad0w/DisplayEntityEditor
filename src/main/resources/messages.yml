@@ -61,6 +61,8 @@ tool_precision_name: "&eChange Tool Precision"
 tool_precision_lore: ["&7Click to change the multiplier for", "&7your tools precision.", " ", "&e&lRIGHT-CLICK&r&e to increase by 1", "&e&lSHIFT RIGHT-CLICK&r&e to decrease by 1"]
 clone_tool_name: "&eClone Display Entity"
 clone_tool_lore: ["&7Click to duplicate the nearest", "&7display entity", " ", "&e&lRIGHT-CLICK&r&e to clone"]
+group_select_name: "&eGroup Select"
+group_select_lore: ["&7Click to add a display entities within", "&7the current range to a group, where", "&7all entities will be edited simultaneously", " ", "&e&lRIGHT-CLICK&r&e to select all within %s blocks", "&e&lSHIFT RIGHT-CLICK&r&e to clear group"]
 
 # GUI Items
 name_name: "&eSet Name"
@@ -169,6 +171,9 @@ right_rot_y: "Right Rotation Y %s: %s"
 right_rot_z: "Right Rotation Z %s: %s"
 center_block: "Centered at: %f %f %f"
 clone: "Display entity cloned!"
+group_select_fail: "There are no unlocked display entities within the specified range!"
+group_select_success: "Created group containing %s display entities!"
+group_select_clear: "Cleared current editing group!"
 
 # Input prompts
 prompt_escape_word: "cancel"

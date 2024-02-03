@@ -19,6 +19,7 @@ import org.bukkit.util.Transformation;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class Interact implements Listener {
 
@@ -33,7 +34,6 @@ public class Interact implements Listener {
 
     /**
      * Used to cycle the players inventory to make it easy to switch tools
-     *
      * @param p The player whose inventory should get cycled through
      */
     public static void cycleInventory(Player p) {
@@ -53,9 +53,8 @@ public class Interact implements Listener {
 
     /**
      * Used to spawn a new display entity
-     *
      * @param location The location of where it should be spawned
-     * @param type     The specific type of display entity
+     * @param type The specific type of display entity
      */
     private static void spawnDisplayEntity(Location location, EntityType type) {
         assert location.getWorld() != null;
@@ -85,7 +84,6 @@ public class Interact implements Listener {
 
     /**
      * Used to highlight a specific display entity by making it glow and showing particles at its pivot point
-     *
      * @param display The entity that should be highlighted
      */
     private static void highlightEntity(Display display) {
@@ -100,8 +98,7 @@ public class Interact implements Listener {
 
     /**
      * Used to clone a display entity
-     *
-     * @param clone    The clone
+     * @param clone The clone
      * @param template The template
      */
     @SuppressWarnings("deprecation")
@@ -182,6 +179,8 @@ public class Interact implements Listener {
                                     p.getInventory().setItem(i, DisplayEntityEditor.inventoryFactory.getInventoryItems().scaleY(p));
                             case "InventorySZ" ->
                                     p.getInventory().setItem(i, DisplayEntityEditor.inventoryFactory.getInventoryItems().scaleZ(p));
+                            case "InventoryGroupSelect" ->
+                                    p.getInventory().setItem(i, DisplayEntityEditor.inventoryFactory.getInventoryItems().groupSelectTool(p));
                         }
                     }
                 }
@@ -191,7 +190,6 @@ public class Interact implements Listener {
 
     /**
      * Used to listener for when a player uses a tool
-     *
      * @param event The event
      */
     @EventHandler
@@ -599,6 +597,29 @@ public class Interact implements Listener {
                     cloneEntity(clone, display);
                 });
                 sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("clone"));
+            }
+            case "InventoryGroupSelect" -> {
+                if (!player.isSneaking()) {
+                    Collection<Display> group = new HashSet<>();
+                    double distance = Utilities.getToolPrecision(player);
+                    for (Entity e : player.getNearbyEntities(distance,distance,distance)) {
+                        if (e instanceof Display d) {
+                            if (!d.getScoreboardTags().contains("dee:locked")) {
+                                group.add(d);
+                                highlightEntity(d);
+                            }
+                        }
+                    }
+                    if (!group.isEmpty()) {
+                        editingHandler.setEditingDisplays(player, group);
+                        player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("group_select_success").formatted(group.size())));
+                    } else {
+                        player.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("group_select_fail")));
+                    }
+                } else {
+                    editingHandler.removeEditingDisplays(player);
+                    player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("group_select_clear")));
+                }
             }
         }
     }
