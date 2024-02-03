@@ -52,6 +52,8 @@ public final class DisplayEntityEditor extends JavaPlugin {
             .build();
     public static MessageManager messageManager;
 
+    private EditingHandler editingHandler;
+
     /**
      * Used for when the plugin starts up
      */
@@ -70,11 +72,13 @@ public final class DisplayEntityEditor extends JavaPlugin {
             plugin.getLogger().severe("Failed to load messages.yml!");
         }
 
+        this.editingHandler = new EditingHandler();
+
         conversationFactory = new ConversationFactory(plugin);
         inventoryFactory = new InventoryFactory(new GUIItems(), new InventoryItems());
         Objects.requireNonNull(getCommand("displayentityeditor")).setExecutor(new Command());
         Objects.requireNonNull(getCommand("displayentityeditor")).setTabCompleter(new TabComplete());
-        Bukkit.getPluginManager().registerEvents(new Interact(), plugin);
+        Bukkit.getPluginManager().registerEvents(new Interact(editingHandler), plugin);
         Bukkit.getPluginManager().registerEvents(new InventoryClick(), plugin);
         Bukkit.getPluginManager().registerEvents(new InventoryClose(), plugin);
         Bukkit.getPluginManager().registerEvents(new PlayerJoin(), plugin);
@@ -124,5 +128,9 @@ public final class DisplayEntityEditor extends JavaPlugin {
             Files.copy(ip, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
         }
         messageManager = new MessageManager();
+    }
+
+    public EditingHandler getEditingHandler() {
+        return editingHandler;
     }
 }
