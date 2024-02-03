@@ -366,11 +366,29 @@ public class InventoryItems {
         return itemStack;
     }
 
+    /**
+     * Creates the clone item
+     * @return The item
+     */
     public ItemStack cloneTool() {
         ItemStack itemStack = new ItemStack(Material.FLOWER_BANNER_PATTERN);
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("clone_tool_name"),
                 DisplayEntityEditor.messageManager.getList("clone_tool_lore"),
                 "InventoryClone"
+        );
+        return itemStack;
+    }
+
+    /**
+     * Creates the group select item
+     * @return The item
+     */
+    public ItemStack groupSelectTool(Player p) {
+        ItemStack itemStack = new ItemStack(Material.MINECART);
+        Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("group_select_name"),
+                DisplayEntityEditor.messageManager.getList("group_select_lore"),
+                "InventoryGroupSelect",
+                Utilities.reduceFloatLength(Double.toString(Utilities.getToolPrecision(p)))
         );
         return itemStack;
     }

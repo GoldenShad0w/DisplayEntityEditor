@@ -187,6 +187,7 @@ public class InventoryFactory {
         array[12] = inventoryItems.rightRotationX(p);
         array[13] = inventoryItems.rightRotationY(p);
         array[14] = inventoryItems.rightRotationZ(p);
+        array[15] = inventoryItems.groupSelectTool(p);
 
         return array;
     }
