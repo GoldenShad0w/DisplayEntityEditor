@@ -3,6 +3,7 @@ package goldenshadow.displayentityeditor;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class EditingHandler {
@@ -35,11 +36,16 @@ public class EditingHandler {
      * as a singleton collection.
      * @see Utilities#getNearestDisplayEntity(org.bukkit.Location, boolean)
      */
+    @Nullable
     public Collection<Display> getEditingDisplays(Player player, boolean lockSearchToggle) {
         Collection<Display> displays = editingDisplaysMap.get(player.getUniqueId());
 
         if (displays == null) {
-            return Collections.singleton(Utilities.getNearestDisplayEntity(player.getLocation(), lockSearchToggle));
+            Display d = Utilities.getNearestDisplayEntity(player.getLocation(), lockSearchToggle);
+            if (d != null) {
+                return Collections.singleton(d);
+            }
+            return null;
         }
 
         return displays;

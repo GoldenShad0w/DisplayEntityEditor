@@ -244,13 +244,14 @@ public class Interact implements Listener {
         if (toolValue.equals("InventoryUnlock")) {
             Collection<Display> displays = editingHandler.getEditingDisplays(player, false);
 
-            if (displays.isEmpty()) {
+            if (displays == null) {
                 player.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("unlock_fail")));
                 return;
             }
 
             displays.forEach(display -> {
-                display.getPersistentDataContainer().remove(new NamespacedKey(DisplayEntityEditor.getPlugin(), "dee:locked"));
+                //Please do not replace these scoreboard tag locks with persistent data storage! This is an intentional design choice so that you can use vanilla commands to target locked displays
+                display.getScoreboardTags().remove("dee:locked");
                 highlightEntity(display);
             });
 
@@ -282,7 +283,7 @@ public class Interact implements Listener {
 
         Collection<Display> displays = editingHandler.getEditingDisplays(player, true);
 
-        if (displays.isEmpty()) {
+        if (displays == null) {
             player.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("generic_fail")));
             return;
         }
