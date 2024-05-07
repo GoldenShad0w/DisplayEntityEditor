@@ -360,7 +360,7 @@ public class GUIItems {
         ItemStack itemStack = new ItemStack(Material.RED_BANNER);
 
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_background_color_name"),
-                DisplayEntityEditor.messageManager.getList("text_background_color_name"),
+                DisplayEntityEditor.messageManager.getList("text_background_color_lore"),
                 "GUITextBackgroundColor",
                 Utilities.getColor(current)
         );
