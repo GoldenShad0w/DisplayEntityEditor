@@ -41,7 +41,6 @@ public class Command implements CommandExecutor {
                 if (savedInventories.containsKey(p.getUniqueId())) {
                     returnInventory(p);
                     p.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("inventory_returned")));
-                    savedInventories.remove(p.getUniqueId());
                     return true;
                 }
                 saveInventory(p);
@@ -213,13 +212,14 @@ public class Command implements CommandExecutor {
      * A utility method used to return a players inventory
      * @param player The player whose inventory should be returned
      */
-    private static void returnInventory(Player player) {
-        if (!savedInventories.containsKey(player.getUniqueId())) throw new RuntimeException("Return inventory didn't exist!");
+    public static void returnInventory(Player player) {
+        if (!savedInventories.containsKey(player.getUniqueId())) return;
         player.getInventory().clear();
         ItemStack[] saved = savedInventories.get(player.getUniqueId());
         for (int i = 0; i < player.getInventory().getSize(); i++) {
             player.getInventory().setItem(i, saved[i]);
         }
+        savedInventories.remove(player.getUniqueId());
     }
 
     private static String collectArgsToString(String[] args) {

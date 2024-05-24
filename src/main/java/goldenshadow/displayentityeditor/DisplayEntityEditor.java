@@ -2,10 +2,7 @@ package goldenshadow.displayentityeditor;
 
 import goldenshadow.displayentityeditor.commands.Command;
 import goldenshadow.displayentityeditor.commands.TabComplete;
-import goldenshadow.displayentityeditor.events.Interact;
-import goldenshadow.displayentityeditor.events.InventoryClick;
-import goldenshadow.displayentityeditor.events.InventoryClose;
-import goldenshadow.displayentityeditor.events.PlayerJoin;
+import goldenshadow.displayentityeditor.events.*;
 import goldenshadow.displayentityeditor.inventories.InventoryFactory;
 import goldenshadow.displayentityeditor.items.GUIItems;
 import goldenshadow.displayentityeditor.items.InventoryItems;
@@ -79,9 +76,11 @@ public final class DisplayEntityEditor extends JavaPlugin {
         Objects.requireNonNull(getCommand("displayentityeditor")).setExecutor(new Command());
         Objects.requireNonNull(getCommand("displayentityeditor")).setTabCompleter(new TabComplete());
         Bukkit.getPluginManager().registerEvents(new Interact(editingHandler), plugin);
+        Bukkit.getPluginManager().registerEvents(new OffhandSwap(editingHandler), plugin);
         Bukkit.getPluginManager().registerEvents(new InventoryClick(), plugin);
         Bukkit.getPluginManager().registerEvents(new InventoryClose(), plugin);
         Bukkit.getPluginManager().registerEvents(new PlayerJoin(), plugin);
+        Bukkit.getPluginManager().registerEvents(new PlayerLeave(), plugin);
         toolPrecisionKey = new NamespacedKey(plugin, "toolPrecision");
 
         new Metrics(plugin, 18672);
@@ -93,6 +92,16 @@ public final class DisplayEntityEditor extends JavaPlugin {
                 getLogger().warning(messageManager.getString("version_check_fail"));
             }
         });
+
+        if (getConfig().getBoolean("use-messages-file")) {
+            if (!getDescription().getVersion().equals(messageManager.getString("file_version"))) {
+                getLogger().warning(messageManager.getString("messages_file_outdated_version"));
+            }
+            if (!messageManager.isMessageMapComplete()) {
+                getLogger().warning(messageManager.getString("messages_file_incomplete"));
+            }
+        }
+
     }
 
     /**
