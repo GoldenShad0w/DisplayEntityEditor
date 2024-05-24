@@ -2,6 +2,7 @@ package goldenshadow.displayentityeditor.events;
 
 import goldenshadow.displayentityeditor.DisplayEntityEditor;
 import goldenshadow.displayentityeditor.Utilities;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,6 +25,17 @@ public class PlayerJoin implements Listener {
                         event.getPlayer().sendMessage(ChatColor.GRAY + DisplayEntityEditor.messageManager.getString("version_check_disable_hint"));
                     }
                 });
+
+                Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> {
+                    if (DisplayEntityEditor.getPlugin().getConfig().getBoolean("use-messages-file")) {
+                        if (!DisplayEntityEditor.getPlugin().getDescription().getVersion().equals(DisplayEntityEditor.messageManager.getString("file_version"))) {
+                            event.getPlayer().sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("messages_file_outdated_version")));
+                        }
+                        if (!DisplayEntityEditor.messageManager.isMessageMapComplete()) {
+                            event.getPlayer().sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("messages_file_incomplete")));
+                        }
+                    }
+                }, 10L);
             }
         }
     }

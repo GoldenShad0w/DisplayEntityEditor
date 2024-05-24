@@ -29,13 +29,13 @@ public class MessageManager {
 
     public String getString(String key) {
         String s = "";
-        if (messageMap.containsKey(key)) {
+        if (messageMap.containsKey(key) && DisplayEntityEditor.getPlugin().getConfig().getBoolean("use-messages-file")) {
             Object o = messageMap.get(key);
             if (o instanceof String) {
                 s = (String) o;
             }
         } else {
-            if (fallbackMap.containsKey(key)) {
+            if (fallbackMap.containsKey(key) && !key.equals("file_version")) { //file version should never be gotten from fallback
                 Object o = fallbackMap.get(key);
                 if (o instanceof String) {
                     s = (String) o;
@@ -47,7 +47,7 @@ public class MessageManager {
 
     public List<String> getList(String key) {
         Object o = null;
-        if (messageMap.containsKey(key)) {
+        if (messageMap.containsKey(key) && DisplayEntityEditor.getPlugin().getConfig().getBoolean("use-messages-file")) {
             o = messageMap.get(key);
         } else if (fallbackMap.containsKey(key)) {
             o = fallbackMap.get(key);
@@ -62,6 +62,17 @@ public class MessageManager {
             }
         }
         return returnList;
+    }
+
+    /**
+     * Used to check if all messages are in the messages.yml being used
+     * @return True if everything is fine, false if the file should be updated
+     */
+    public boolean isMessageMapComplete() {
+        for (String key : fallbackMap.keySet()) {
+            if (!messageMap.containsKey(key)) return false;
+        }
+        return true;
     }
 
 }

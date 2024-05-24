@@ -378,7 +378,7 @@ public class GUIItems {
         Utilities.setMeta(itemStack, DisplayEntityEditor.messageManager.getString("text_background_opacity_name"),
                 DisplayEntityEditor.messageManager.getList("text_background_opacity_lore"),
                 "GUITextBackgroundOpacity",
-                Utilities.getColor(current)
+                current.getAlpha()
         );
         return itemStack;
     }

@@ -380,18 +380,23 @@ public class InventoryClick implements Listener {
                             case "GUIText" -> {
                                 if (event.isLeftClick()) {
                                     player.closeInventory();
+                                    TextDisplay textDisplay = (TextDisplay) entity;
 
                                     if (DisplayEntityEditor.alternateTextInput) {
                                         if (DisplayEntityEditor.useMiniMessageFormat) {
                                             player.spigot().sendMessage(Utilities.getCommandMessage("text <new_text>", DisplayEntityEditor.messageManager.getString("text_command_hint_mm")));
+                                            player.spigot().sendMessage(Utilities.getClipboardMessage("text_clipboard_hint", textDisplay.getText()));
                                         } else {
                                             player.spigot().sendMessage(Utilities.getCommandMessage("text <new_text>", DisplayEntityEditor.messageManager.getString("text_command_hint")));
+                                            player.spigot().sendMessage(Utilities.getClipboardMessage("text_clipboard_hint", textDisplay.getText()));
                                         }
                                     } else {
                                         if (DisplayEntityEditor.useMiniMessageFormat) {
                                             InputManager.createTextInput(player, DisplayEntityEditor.messageManager.getString("text_hint_mm"), new InputData(entity, InputType.TEXT, null));
+                                            player.spigot().sendMessage(Utilities.getClipboardMessage("text_clipboard_hint", textDisplay.getText()));
                                         } else {
                                             InputManager.createTextInput(player, DisplayEntityEditor.messageManager.getString("text_hint"), new InputData(entity, InputType.TEXT, null));
+                                            player.spigot().sendMessage(Utilities.getClipboardMessage("text_clipboard_hint", textDisplay.getText()));
                                         }
                                     }
                                 }
@@ -417,7 +422,7 @@ public class InventoryClick implements Listener {
                     }
                 }
             }
-            if (player.getOpenInventory().getTitle().equals(ChatColor.BOLD + "Block Display GUI")) {
+            if (player.getOpenInventory().getTitle().equals(ChatColor.translateAlternateColorCodes('&' ,DisplayEntityEditor.messageManager.getString("block_display_gui_name")))) {
 
                 assert entity instanceof BlockDisplay;
                 BlockDisplay blockDisplay = (BlockDisplay) entity;
@@ -439,7 +444,7 @@ public class InventoryClick implements Listener {
                 });
 
 
-            } else if (player.getOpenInventory().getTitle().equals(ChatColor.BOLD + "Item Display GUI")) {
+            } else if (player.getOpenInventory().getTitle().equals(ChatColor.translateAlternateColorCodes('&' ,DisplayEntityEditor.messageManager.getString("item_display_gui_name")))) {
                 ItemDisplay itemDisplay = (ItemDisplay) entity;
                 Bukkit.getScheduler().scheduleSyncDelayedTask(DisplayEntityEditor.getPlugin(), () -> itemDisplay.setItemStack(player.getOpenInventory().getItem(10)),1L);
             }

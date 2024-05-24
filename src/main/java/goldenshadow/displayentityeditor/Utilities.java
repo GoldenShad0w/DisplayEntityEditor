@@ -1,9 +1,9 @@
 package goldenshadow.displayentityeditor;
 
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.*;
+import net.md_5.bungee.api.chat.hover.content.Content;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -171,10 +171,21 @@ public class Utilities {
 
     public static BaseComponent[] getCommandMessage(String commandMessage, String hint) {
         TextComponent click = new TextComponent(net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', DisplayEntityEditor.messageManager.getString("command_message").formatted(commandMessage, hint)));
-
         click.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/deeditor edit " + commandMessage));
 
         return new ComponentBuilder(click).create();
+    }
+
+    public static void sendActionbarMessage(Player p, String message) {
+        p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(net.md_5.bungee.api.ChatColor.DARK_AQUA + message));
+    }
+
+    public static BaseComponent[] getClipboardMessage(String messageKey, String clipboardContent) {
+        TextComponent text = new TextComponent(net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', DisplayEntityEditor.messageManager.getString(messageKey)));
+
+        text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(clipboardContent)));
+        text.setClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, clipboardContent));
+        return new ComponentBuilder(text).create();
     }
 
     public static String getObjectNameMessage(Object object) {
@@ -193,9 +204,9 @@ public class Utilities {
         else return "";
     }
 
-    public static double getToolPrecision(Player p) {
+    public static float getToolPrecision(Player p) {
         Double i = p.getPersistentDataContainer().get(DisplayEntityEditor.toolPrecisionKey,  PersistentDataType.DOUBLE);
-        return i != null ? i : 1;
+        return i != null ? i.floatValue() : 1;
     }
 
     public static String reduceFloatLength(String s) {

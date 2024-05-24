@@ -76,6 +76,7 @@ public final class DisplayEntityEditor extends JavaPlugin {
         Objects.requireNonNull(getCommand("displayentityeditor")).setExecutor(new Command());
         Objects.requireNonNull(getCommand("displayentityeditor")).setTabCompleter(new TabComplete());
         Bukkit.getPluginManager().registerEvents(new Interact(editingHandler), plugin);
+        Bukkit.getPluginManager().registerEvents(new OffhandSwap(editingHandler), plugin);
         Bukkit.getPluginManager().registerEvents(new InventoryClick(), plugin);
         Bukkit.getPluginManager().registerEvents(new InventoryClose(), plugin);
         Bukkit.getPluginManager().registerEvents(new PlayerJoin(), plugin);
@@ -91,6 +92,16 @@ public final class DisplayEntityEditor extends JavaPlugin {
                 getLogger().warning(messageManager.getString("version_check_fail"));
             }
         });
+
+        if (getConfig().getBoolean("use-messages-file")) {
+            if (!getDescription().getVersion().equals(messageManager.getString("file_version"))) {
+                getLogger().warning(messageManager.getString("messages_file_outdated_version"));
+            }
+            if (!messageManager.isMessageMapComplete()) {
+                getLogger().warning(messageManager.getString("messages_file_incomplete"));
+            }
+        }
+
     }
 
     /**

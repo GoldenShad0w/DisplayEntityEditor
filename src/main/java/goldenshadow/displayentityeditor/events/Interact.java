@@ -92,10 +92,6 @@ public class Interact implements Listener {
         display.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, display.getLocation(), 50, 0.2, 0.2, 0.2, 0);
     }
 
-    private static void sendActionbarMessage(Player p, String message) {
-        p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(net.md_5.bungee.api.ChatColor.DARK_AQUA + message));
-    }
-
     /**
      * Used to clone a display entity
      * @param clone The clone
@@ -223,62 +219,60 @@ public class Interact implements Listener {
             return;
         }
 
-        if (toolValue.equals("InventorySpawnItem")) {
-            spawnDisplayEntity(player.getLocation(), EntityType.ITEM_DISPLAY);
-            player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("item_display_spawned")));
-            return;
-        }
-
-        if (toolValue.equals("InventorySpawnBlock")) {
-            spawnDisplayEntity(player.getLocation(), EntityType.BLOCK_DISPLAY);
-            player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("block_display_spawned")));
-            return;
-        }
-
-        if (toolValue.equals("InventorySpawnText")) {
-            spawnDisplayEntity(player.getLocation(), EntityType.TEXT_DISPLAY);
-            player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("text_display_spawned")));
-            return;
-        }
-
-        if (toolValue.equals("InventoryUnlock")) {
-            Collection<Display> displays = editingHandler.getEditingDisplays(player, false);
-
-            if (displays == null) {
-                player.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("unlock_fail")));
+        switch (toolValue) {
+            case "InventorySpawnItem" -> {
+                spawnDisplayEntity(player.getLocation(), EntityType.ITEM_DISPLAY);
+                player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("item_display_spawned")));
                 return;
             }
-
-            displays.forEach(display -> {
-                //Please do not replace these scoreboard tag locks with persistent data storage! This is an intentional design choice so that you can use vanilla commands to target locked displays
-                display.getScoreboardTags().remove("dee:locked");
-                highlightEntity(display);
-            });
-
-            player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("unlock_success")));
-            return;
-        }
-
-        if (toolValue.equals("InventoryToolPrecision")) {
-            double d = Utilities.getToolPrecision(player);
-            if (player.isSneaking()) {
-                if (d > 1) {
-                    d = Math.max(0.1, d - 1);
-                } else {
-                    d = Math.max(0.1, d - 0.1);
-                }
-            } else {
-                if (d < 1) {
-                    d = Math.min(10, d + 0.1);
-                } else {
-                    d = Math.min(10, d + 1);
-                }
+            case "InventorySpawnBlock" -> {
+                spawnDisplayEntity(player.getLocation(), EntityType.BLOCK_DISPLAY);
+                player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("block_display_spawned")));
+                return;
             }
-            d = (double) Math.round(d * 1000) / 1000;
-            player.getPersistentDataContainer().set(DisplayEntityEditor.toolPrecisionKey, PersistentDataType.DOUBLE, d);
-            updateItems(player);
-            sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("tool_precision").formatted(df.format(d)));
-            return;
+            case "InventorySpawnText" -> {
+                spawnDisplayEntity(player.getLocation(), EntityType.TEXT_DISPLAY);
+                player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("text_display_spawned")));
+                return;
+            }
+            case "InventoryUnlock" -> {
+                Collection<Display> displays = editingHandler.getEditingDisplays(player, false);
+
+                if (displays == null) {
+                    player.sendMessage(Utilities.getErrorMessageFormat(DisplayEntityEditor.messageManager.getString("unlock_fail")));
+                    return;
+                }
+
+                displays.forEach(display -> {
+                    //Please do not replace these scoreboard tag locks with persistent data storage! This is an intentional design choice so that you can use vanilla commands to target locked displays
+                    display.getScoreboardTags().remove("dee:locked");
+                    highlightEntity(display);
+                });
+
+                player.sendMessage(Utilities.getInfoMessageFormat(DisplayEntityEditor.messageManager.getString("unlock_success")));
+                return;
+            }
+            case "InventoryToolPrecision" -> {
+                double d = Utilities.getToolPrecision(player);
+                if (player.isSneaking()) {
+                    if (d > 1) {
+                        d = Math.max(0.1, d - 1);
+                    } else {
+                        d = Math.max(0.1, d - 0.1);
+                    }
+                } else {
+                    if (d < 1) {
+                        d = Math.min(10, d + 0.1);
+                    } else {
+                        d = Math.min(10, d + 1);
+                    }
+                }
+                d = (double) Math.round(d * 1000) / 1000;
+                player.getPersistentDataContainer().set(DisplayEntityEditor.toolPrecisionKey, PersistentDataType.DOUBLE, d);
+                updateItems(player);
+                Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("tool_precision").formatted(df.format(d)));
+                return;
+            }
         }
 
         Collection<Display> displays = editingHandler.getEditingDisplays(player, true);
@@ -316,7 +310,7 @@ public class Interact implements Listener {
                 if (player.isSneaking()) {
                     displays.forEach(display -> {
                         display.setRotation((float) (display.getLocation().getYaw() - 1 * Utilities.getToolPrecision(player)), display.getLocation().getPitch());
-                        sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("yaw").formatted(df.format(display.getLocation().getYaw())));
+                        Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("yaw").formatted(df.format(display.getLocation().getYaw())));
                     });
 
                     return;
@@ -324,21 +318,21 @@ public class Interact implements Listener {
 
                 displays.forEach(display -> {
                     display.setRotation((float) (display.getLocation().getYaw() + 1 * Utilities.getToolPrecision(player)), display.getLocation().getPitch());
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("yaw").formatted(df.format(display.getLocation().getYaw())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("yaw").formatted(df.format(display.getLocation().getYaw())));
                 });
             }
             case "InventoryRotatePitch" -> {
                 if (player.isSneaking()) {
                     displays.forEach(display -> {
                         display.setRotation(display.getLocation().getYaw(), (float) (display.getLocation().getPitch() - 1 * Utilities.getToolPrecision(player)));
-                        sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("pitch").formatted(df.format(display.getLocation().getPitch())));
+                        Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("pitch").formatted(df.format(display.getLocation().getPitch())));
                     });
                     return;
                 }
 
                 displays.forEach(display -> {
                     display.setRotation(display.getLocation().getYaw(), (float) (display.getLocation().getPitch() + 1 * Utilities.getToolPrecision(player)));
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("pitch").formatted(df.format(display.getLocation().getPitch())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("pitch").formatted(df.format(display.getLocation().getPitch())));
                 });
             }
             case "InventoryMoveX" -> {
@@ -346,8 +340,8 @@ public class Interact implements Listener {
                     displays.forEach(display -> {
                         display.teleport(display.getLocation().add(-0.1 * Utilities.getToolPrecision(player), 0, 0));
 
-                        sendActionbarMessage(player, "X: " + df.format(display.getLocation().getX()));
-                        sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_x").formatted(df.format(display.getLocation().getX())));
+                        Utilities.sendActionbarMessage(player, "X: " + df.format(display.getLocation().getX()));
+                        Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_x").formatted(df.format(display.getLocation().getX())));
                     });
 
                     return;
@@ -355,7 +349,7 @@ public class Interact implements Listener {
 
                 displays.forEach(display -> {
                     display.teleport(display.getLocation().add(0.1 * Utilities.getToolPrecision(player), 0, 0));
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_x").formatted(df.format(display.getLocation().getX())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_x").formatted(df.format(display.getLocation().getX())));
                 });
 
 
@@ -364,14 +358,14 @@ public class Interact implements Listener {
                 if (player.isSneaking()) {
                     displays.forEach(display -> {
                         display.teleport(display.getLocation().add(0, -0.1 * Utilities.getToolPrecision(player), 0));
-                        sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_y").formatted(df.format(display.getLocation().getY())));
+                        Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_y").formatted(df.format(display.getLocation().getY())));
                     });
 
                     return;
                 }
                 displays.forEach(display -> {
                     display.teleport(display.getLocation().add(0, 0.1 * Utilities.getToolPrecision(player), 0));
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_y").formatted(df.format(display.getLocation().getY())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_y").formatted(df.format(display.getLocation().getY())));
                 });
 
             }
@@ -379,14 +373,14 @@ public class Interact implements Listener {
                 if (player.isSneaking()) {
                     displays.forEach(display -> {
                         display.teleport(display.getLocation().add(0, 0, -0.1 * Utilities.getToolPrecision(player)));
-                        sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_z").formatted(df.format(display.getLocation().getZ())));
+                        Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_z").formatted(df.format(display.getLocation().getZ())));
                     });
 
                     return;
                 }
                 displays.forEach(display -> {
                     display.teleport(display.getLocation().add(0, 0, 0.1 * Utilities.getToolPrecision(player)));
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_z").formatted(df.format(display.getLocation().getZ())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("move_z").formatted(df.format(display.getLocation().getZ())));
                 });
 
             }
@@ -403,7 +397,7 @@ public class Interact implements Listener {
                     }
                     display.setTransformation(t);
                 });
-                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("center_pivot"));
+                Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("center_pivot"));
             }
             case "InventoryTX" -> {
                 displays.forEach(display -> {
@@ -413,7 +407,7 @@ public class Interact implements Listener {
                     } else {
                         t.getTranslation().add((float) (0.1f * Utilities.getToolPrecision(player)), 0, 0);
                     }
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("translation_x").formatted(df.format(t.getTranslation().x())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("translation_x").formatted(df.format(t.getTranslation().x())));
                     display.setTransformation(t);
                 });
             }
@@ -425,7 +419,7 @@ public class Interact implements Listener {
                     } else {
                         t.getTranslation().add(0, (float) (0.1f * Utilities.getToolPrecision(player)), 0);
                     }
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("translation_y").formatted(df.format(t.getTranslation().y())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("translation_y").formatted(df.format(t.getTranslation().y())));
                     display.setTransformation(t);
                 });
             }
@@ -437,7 +431,7 @@ public class Interact implements Listener {
                     } else {
                         t.getTranslation().add(0, 0, (float) (0.1f * Utilities.getToolPrecision(player)));
                     }
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("translation_z").formatted(df.format(t.getTranslation().z())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("translation_z").formatted(df.format(t.getTranslation().z())));
                     display.setTransformation(t);
                 });
             }
@@ -449,7 +443,7 @@ public class Interact implements Listener {
                     } else {
                         t.getScale().add((float) (0.1f * Utilities.getToolPrecision(player)), 0, 0);
                     }
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("scale_x").formatted(df.format(t.getScale().x())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("scale_x").formatted(df.format(t.getScale().x())));
                     display.setTransformation(t);
                 });
             }
@@ -461,7 +455,7 @@ public class Interact implements Listener {
                     } else {
                         t.getScale().add(0, (float) (0.1f * Utilities.getToolPrecision(player)), 0);
                     }
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("scale_y").formatted(df.format(t.getScale().y())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("scale_y").formatted(df.format(t.getScale().y())));
                     display.setTransformation(t);
                 });
             }
@@ -473,7 +467,7 @@ public class Interact implements Listener {
                     } else {
                         t.getScale().add(0, 0, (float) (0.1f * Utilities.getToolPrecision(player)));
                     }
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("scale_z").formatted(df.format(t.getScale().z())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("scale_z").formatted(df.format(t.getScale().z())));
                     display.setTransformation(t);
                 });
             }
@@ -489,7 +483,7 @@ public class Interact implements Listener {
                     if (b) {
                         t.getLeftRotation().normalize();
                     }
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("left_rot_x").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : ""), df.format(t.getLeftRotation().x())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("left_rot_x").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : ""), df.format(t.getLeftRotation().x())));
                     display.setTransformation(t);
                 });
             }
@@ -505,7 +499,7 @@ public class Interact implements Listener {
                     if (b) {
                         t.getLeftRotation().normalize();
                     }
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("left_rot_y").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : ""), df.format(t.getLeftRotation().y())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("left_rot_y").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : ""), df.format(t.getLeftRotation().y())));
                     display.setTransformation(t);
                 });
             }
@@ -521,7 +515,7 @@ public class Interact implements Listener {
                     if (b) {
                         t.getLeftRotation().normalize();
                     }
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("left_rot_z").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : ""), df.format(t.getLeftRotation().z())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("left_rot_z").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : ""), df.format(t.getLeftRotation().z())));
                     display.setTransformation(t);
                 });
             }
@@ -537,7 +531,7 @@ public class Interact implements Listener {
                     if (b) {
                         t.getRightRotation().normalize();
                     }
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("right_rot_x").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : ""), df.format(t.getRightRotation().x())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("right_rot_x").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : ""), df.format(t.getRightRotation().x())));
                     display.setTransformation(t);
                 });
             }
@@ -553,7 +547,7 @@ public class Interact implements Listener {
                     if (b) {
                         t.getRightRotation().normalize();
                     }
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("right_rot_y").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : ""), df.format(t.getRightRotation().y())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("right_rot_y").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : ""), df.format(t.getRightRotation().y())));
                     display.setTransformation(t);
                 });
             }
@@ -569,7 +563,7 @@ public class Interact implements Listener {
                     if (b) {
                         t.getRightRotation().normalize();
                     }
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("right_rot_z").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : ""), df.format(t.getRightRotation().z())));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("right_rot_z").formatted((b ? DisplayEntityEditor.messageManager.getString("normalized") : ""), df.format(t.getRightRotation().z())));
                     display.setTransformation(t);
                 });
             }
@@ -588,7 +582,7 @@ public class Interact implements Listener {
                         loc.setY((int) loc.getY() + (((loc.getY()) < 0 ? -1 : 1) * 0.5));
                     }
                     display.teleport(loc);
-                    sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("center_block").formatted(loc.getX(), loc.getY(), loc.getZ()));
+                    Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("center_block").formatted(loc.getX(), loc.getY(), loc.getZ()));
                 });
 
             }
@@ -597,7 +591,7 @@ public class Interact implements Listener {
                     Display clone = (Display) display.getWorld().spawnEntity(display.getLocation(), display.getType(), false);
                     cloneEntity(clone, display);
                 });
-                sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("clone"));
+                Utilities.sendActionbarMessage(player, DisplayEntityEditor.messageManager.getString("clone"));
             }
             case "InventoryGroupSelect" -> {
                 if (!player.isSneaking()) {
